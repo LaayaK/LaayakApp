@@ -81,5 +81,4 @@ class _TodayClassesPageState extends State<TodayClassesPage> {
         }
     );
   }
-
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:timetable/screens/homePage.dart';
+import 'package:timetable/screens/indexPage.dart';
 import 'package:timetable/screens/loginPage.dart';
 import 'package:timetable/services/authentication.dart';
+import 'package:timetable/widgets/widgets.dart';
 
 enum AuthStatus {
   NOT_DETERMINED,
@@ -58,16 +60,6 @@ class _RootPageState extends State<RootPage> {
     });
   }
 
-  Widget buildWaitingScreen() {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Container(
-        alignment: Alignment.center,
-        child: Image.asset('assets/images/logoensvee.png'),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     switch (authStatus) {
@@ -75,14 +67,15 @@ class _RootPageState extends State<RootPage> {
         return buildWaitingScreen();
         break;
       case AuthStatus.NOT_LOGGED_IN:
-        return new LoginSignUpPage(
+        return new IndexPage(
           auth: widget.auth,
           loginCallback: loginCallback,
         );
         break;
       case AuthStatus.LOGGED_IN:
         if (_userId.length > 0 && _userId != null) {
-          return HomePage(
+          return
+            HomePage(
             userId: _userId,
             auth: widget.auth,
             logoutCallback: logoutCallback,
