@@ -13,6 +13,12 @@ class AddDataPage extends StatefulWidget {
 class _AddDataPageState extends State<AddDataPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: ListView(
+        children: <Widget>[
+
+        ],
+      ),
+    );
   }
 }
