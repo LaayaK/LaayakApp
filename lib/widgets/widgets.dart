@@ -18,7 +18,15 @@ return  Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(
                   Radius.circular(10),
-                ),
+                ), 
+                color: Colors.white,
+                boxShadow:[
+                  BoxShadow(
+                  offset: Offset(0.0,0.4),
+                  blurRadius: 3,
+                    color: Colors.grey.shade300,
+                  )
+                ],
                 border: Border.all(color: Colors.grey.shade300),
               ),
               child: Column(children: <Widget>[
