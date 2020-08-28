@@ -67,6 +67,7 @@ class _RootPageState extends State<RootPage> {
         return buildWaitingScreen();
         break;
       case AuthStatus.NOT_LOGGED_IN:
+        print('Sending to Index Page');
         return new IndexPage(
           auth: widget.auth,
           loginCallback: loginCallback,
@@ -74,8 +75,8 @@ class _RootPageState extends State<RootPage> {
         break;
       case AuthStatus.LOGGED_IN:
         if (_userId.length > 0 && _userId != null) {
-          return
-            HomePage(
+          print('Sending to HomePage');
+          return HomePage(
             userId: _userId,
             auth: widget.auth,
             logoutCallback: logoutCallback,

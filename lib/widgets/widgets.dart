@@ -5,7 +5,7 @@ Widget buildWaitingScreen() {
     backgroundColor: Colors.white,
     body: Container(
       alignment: Alignment.center,
-      child: Image.asset('assets/images/logo.png'),
+      child: Text('LINK AAYA KYA???'),
     ),
   );
 }

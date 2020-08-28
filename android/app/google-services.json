@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "931950425770",
+    "firebase_url": "https://time-table-27be3.firebaseio.com",
+    "project_id": "time-table-27be3",
+    "storage_bucket": "time-table-27be3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:931950425770:android:3fd9b2b4a1e7b1b4a442d3",
+        "android_client_info": {
+          "package_name": "com.hnbrothers.timetable"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "931950425770-d5js146hhqq99snbo8maoj89ssmfe17n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxkYrkDrV1OPPjoULRiWhd2OaHKzmIHnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "931950425770-d5js146hhqq99snbo8maoj89ssmfe17n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -30,28 +30,41 @@ class _IndexPageState extends State<IndexPage> {
 
   CodeStatus codeStatus = CodeStatus.NOT_DEFINED;
   String code = '';
-  bool wrongCode = false;
+  bool wrongCode = true;
   TextEditingController codeController = new TextEditingController();
 
   void getCode() async {
+    print('getting code from SP');
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    code = (prefs.getString('code') ?? '');
-    if (code.isNotEmpty)
-      codeStatus = CodeStatus.CODE_PRESENT;
-    else
-      codeStatus = CodeStatus.NO_CODE;
+    setState(() {
+      code = (prefs.getString('code') ?? '');
+      print('code got from SP : $code');
+      if (code.isNotEmpty)
+        codeStatus = CodeStatus.CODE_PRESENT;
+      else
+        codeStatus = CodeStatus.NO_CODE;
+    });
   }
 
-  bool verifyCode(String code) {
-    bool verified = false;
-    var docRef = Firestore.instance.collection('classes').document(code);
-    docRef.get().then((doc){
+  void verifyCode(String code) async {
+    print(code);
+    await Firestore.instance.collection('classes').document(code).get().then((doc){
       if (doc.exists)
-        verified = true;
+        wrongCode = false;
       else
-        verified = false;
+        wrongCode = true;
+      (wrongCode)
+          ? print('code matched document ID')
+          : print('code did not match any document ID');
+    }).catchError((error) {
+      print('Error in getting document');
+      print('error : $error');
     });
-    return verified;
+  }
+
+  void printData(String code) async{
+    var data = await Firestore.instance.collection('classes').document(code).get();
+    print(data['details']['branch']);
   }
 
   @override
@@ -71,20 +84,23 @@ class _IndexPageState extends State<IndexPage> {
                 children: <Widget>[
                   Text('LINK AAYA KYA?'),
                   TextField(
+                    controller: codeController,
                     decoration: InputDecoration(
                       suffix: IconButton(
                         icon: Icon(Icons.send),
                         onPressed: () {
-                          if (verifyCode(codeController.value.text)) {
+                          print('code entered is : ${codeController.value.text}');
+                          verifyCode(codeController.value.text);
+                          if (wrongCode) {
                             setState(() async {
                               code = codeController.value.text;
                               SharedPreferences prefs = await SharedPreferences.getInstance();
                               prefs.setString('code', code);
+                              codeStatus = CodeStatus.CODE_PRESENT;
                             });
                           }
                           else {
                             setState(() {
-                              wrongCode = true;
                               codeController.clear();
                             });
                           }
