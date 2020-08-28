@@ -30,7 +30,7 @@ class _IndexPageState extends State<IndexPage> {
 
   CodeStatus codeStatus = CodeStatus.NOT_DEFINED;
   String code = '';
-  bool wrongCode = true;
+  bool wrongCode = false;
   TextEditingController codeController = new TextEditingController();
 
   void getCode() async {
@@ -46,25 +46,32 @@ class _IndexPageState extends State<IndexPage> {
     });
   }
 
-  void verifyCode(String code) async {
-    print(code);
-    await Firestore.instance.collection('classes').document(code).get().then((doc){
-      if (doc.exists)
-        wrongCode = false;
-      else
-        wrongCode = true;
-      (wrongCode)
-          ? print('code matched document ID')
-          : print('code did not match any document ID');
+  void verifyCode(String codeGot) async {
+    print(codeGot);
+    await Firestore.instance.collection('classes').document(codeGot).get().then((doc){
+      setState(() {
+        if (doc.exists) {
+          code = codeGot;
+          codeStatus = CodeStatus.CODE_PRESENT;
+        }
+      });
     }).catchError((error) {
       print('Error in getting document');
       print('error : $error');
     });
-  }
-
-  void printData(String code) async{
-    var data = await Firestore.instance.collection('classes').document(code).get();
-    print(data['details']['branch']);
+    if(codeStatus == CodeStatus.CODE_PRESENT)
+    {
+      print('code matched document ID');
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('code', codeController.value.text);
+    } else {
+      print('code did not match any document ID');
+      setState(() {
+        codeStatus = CodeStatus.NO_CODE;
+        wrongCode = true;
+        codeController.clear();
+      });
+    }
   }
 
   @override
@@ -85,25 +92,21 @@ class _IndexPageState extends State<IndexPage> {
                   Text('LINK AAYA KYA?'),
                   TextField(
                     controller: codeController,
+                    onChanged: (value) {
+                      if (value.isNotEmpty) {
+                        setState(() {
+                          wrongCode = false;
+                        });
+                      }
+                    },
                     decoration: InputDecoration(
                       suffix: IconButton(
                         icon: Icon(Icons.send),
                         onPressed: () {
-                          print('code entered is : ${codeController.value.text}');
+                          setState(() {
+                            codeStatus = CodeStatus.NOT_DEFINED;
+                          });
                           verifyCode(codeController.value.text);
-                          if (wrongCode) {
-                            setState(() async {
-                              code = codeController.value.text;
-                              SharedPreferences prefs = await SharedPreferences.getInstance();
-                              prefs.setString('code', code);
-                              codeStatus = CodeStatus.CODE_PRESENT;
-                            });
-                          }
-                          else {
-                            setState(() {
-                              codeController.clear();
-                            });
-                          }
                         },
                       ),
                     ),

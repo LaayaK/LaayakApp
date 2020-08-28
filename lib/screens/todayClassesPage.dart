@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -70,7 +71,11 @@ class _TodayClassesPageState extends State<TodayClassesPage> {
                       child: Text('Join'),
                     ),
                     RaisedButton(
-                      onPressed: null,
+                      onPressed: () {
+                        Clipboard.setData(new ClipboardData(text: snapshot[index]['link']));
+                        Scaffold.of(context).showSnackBar(SnackBar
+                          (content: Text('Link Copied')));
+                      },
                       child: Text('Copy'),
                     ),
                   ],
