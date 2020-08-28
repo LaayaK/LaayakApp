@@ -20,6 +20,14 @@ Widget lectureCard(BuildContext context, dynamic data) {
       borderRadius: BorderRadius.all(
         Radius.circular(10),
       ),
+      boxShadow:[
+        BoxShadow(
+        offset: Offset(0.0,0.4),
+        blurRadius: 3,
+        color: Colors.grey.shade300,
+        )
+      ],
+      color: Colors.white,
       border: Border.all(color: Colors.grey.shade300),
     ),
     child: Column(children: <Widget>[
