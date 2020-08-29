@@ -1,261 +1,326 @@
 import 'package:flutter/material.dart';
 import 'package:timetable/widgets/functions.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
-// class AddLecture extends StatefulWidget {
-//   @override
-//   State<StatefulWidget> createState() => AddLectureState
+class AddLecture extends StatefulWidget {
 
-// ();
-// }
+  AddLecture({this.code, this.subjectCode, this.teacher, this.subject});
 
-// class AddLectureState extends State<AddLecture>
-//     with SingleTickerProviderStateMixin {
-//   AnimationController controller;
-//   Animation<double> scaleAnimation;
+  final String code, subjectCode, subject, teacher;
 
-//   @override
-//   void initState() {
-//     super.initState();
-
-//     controller =
-//         AnimationController(vsync: this, duration: Duration
-
-// (milliseconds: 450));
-//     scaleAnimation =
-//         CurvedAnimation(parent: controller, curve: 
-
-// Curves.elasticInOut);
-
-//     controller.addListener(() {
-//       setState(() {});
-//     });
-
-//     controller.forward();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center(
-//       child: Material(
-//         color: Colors.transparent,
-//         child: ScaleTransition(
-//           scale: scaleAnimation,
-//           child: Container(
-//               margin: EdgeInsets.all(20.0),
-//               padding: EdgeInsets.symmetric(vertical: 10.0, 
-
-// horizontal: 10),
-//               height: 450.0,
-//               decoration: ShapeDecoration(
-//                   color: Colors.white,
-//                   shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(15.0))),
-//               child: Container(
-//                   padding: EdgeInsets.symmetric(horizontal: 10, 
-
-// vertical: 10),
-//                   decoration: BoxDecoration(
-//                       color: Colors.grey.shade200,
-//                           borderRadius: BorderRadius.all
-
-// (Radius.circular(15.0)),
-//                   border: Border.all(width: 5, color: Colors.grey)), 
-
-// // dashed Border
-//                   child: Column(
-//                     children: <Widget>[
-//                       Text('Add Lecture',
-//                           style: TextStyle(
-//                             fontWeight: FontWeight.w600,
-//                             color: Colors.black,
-//                             fontSize: 18,
-//                           )),
-//                        SizedBox(height: 10),
-//                       Container(
-//                         padding: EdgeInsets.symmetric(horizontal: 
-
-// 10),
-//                         decoration: BoxDecoration(
-//                           borderRadius: BorderRadius.all
-
-// (Radius.circular(10)),
-//                           border: Border.all(color: Colors.grey),
-//                           color: Colors.white,
-//                         ),
-//                         child: TextField(
-//                             decoration: InputDecoration(
-//                                 border: InputBorder.none,
-//                                 hintText: 'meeting link')),
-//                       ),
-//                       SizedBox(height: 20),
-//                       Row(children: <Widget>[
-//                         Text('Start Time',
-//                           style: TextStyle(
-//                             fontWeight: FontWeight.w600,
-//                             color: Colors.black,
-//                             fontSize: 16,
-//                           )),
-//                         Spacer(),
-//                         Text('11:00',
-//                           style: TextStyle(
-//                             fontWeight: FontWeight.w500,
-//                             color: Colors.black,
-//                             fontSize: 16,
-//                           )),
-//                         SizedBox(
-//                           width: 50,
-//                           child:FlatButton(
-//                             padding: EdgeInsets.all(0),
-//                         onPressed:(){},
-//                           child: Icon(Icons.timer, color: Colors.blue)
-//                         ),),
-//                       ]),
-//                       Row(children: <Widget>[
-//                         Text('End Time',
-//                           style: TextStyle(
-//                             fontWeight: FontWeight.w600,
-//                             color: Colors.black,
-//                             fontSize: 16,
-//                           )),
-//                         Spacer(),
-//                         Text('12:00',
-//                           style: TextStyle(
-//                             fontWeight: FontWeight.w500,
-//                             color: Colors.black,
-//                             fontSize: 16,
-//                           )),
-//                         SizedBox(
-//                           width: 50,
-//                           child:FlatButton(
-//                             padding: EdgeInsets.all(0),
-//                         onPressed:(){},
-//                           child: Icon(Icons.timer, color: Colors.blue)
-//                         ),),
-//                       ]), 
-//                       SizedBox(height: 20),                      
-//                      Container(
-//                         padding: EdgeInsets.symmetric(horizontal: 
-
-// 10),
-//                         decoration: BoxDecoration(
-//                           borderRadius: BorderRadius.all
-
-// (Radius.circular(10)),
-//                           border: Border.all(color: Colors.grey),
-//                           color: Colors.white,
-//                         ),
-//                         child: TextField(
-//                           maxLines: 5,
-//                             decoration: InputDecoration(
-//                                 border: InputBorder.none,
-//                                 hintText: 'Additional Information')),
-//                       ),
-//                        Container(
-//                                   margin: EdgeInsets.all(10),
-//                                   height: 40,
-//                                   width: MediaQuery.of
-
-// (context).size.width,
-//                                   child: FloatingActionButton.extended(
-//                                 onPressed:(){},
-//                                 label: Text('Add Lecture'),
-//                                   icon: Icon(Icons.check_circle_outline),
-//                                     elevation: 1,
-//                                 ),),
-//                     ],
-//                   ))),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-Widget SubjectCR(){
-return Container(
-              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              padding: EdgeInsets.all(0),
-              height: 70,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(0.0, 0.4),
-                    blurRadius: 3,
-                    color: Colors.grey.shade300,
-                  )
-                ],
-                border: Border.all(color: Colors.grey.shade300),
-              ),
-              child: FlatButton(
-                padding: EdgeInsets.symmetric(horizontal: 10, 
-
-vertical: 10),
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (_) => AddLecture(),
-                  );
-                },
-                child: Column(children: <Widget>[
-                  Row(
-                      crossAxisAlignment: 
-
-CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 
-
-2),
-                          height: 25,
-                          width: 2,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            color: Colors.green,
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(right: 10),
-                          height: 45,
-                          width: 2,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            color: Colors.green,
-                          ),
-                        ),
-                        Container(
-                            child: Column(
-                                mainAxisAlignment: 
-
-MainAxisAlignment.start,
-                                crossAxisAlignment: 
-
-CrossAxisAlignment.start,
-                                children: <Widget>[
-                              Text('Digital Design',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                  )),
-                              SizedBox(height: 2),
-                              Text('by Prof. Rajesh Rohilla',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 15,
-                                  )),
-                            ])),
-                      ]),
-                ]),
-              ),
-            )
+  @override
+  State<StatefulWidget> createState() => AddLectureState();
 }
 
+class AddLectureState extends State<AddLecture>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> scaleAnimation;
+
+  final _formKey = new GlobalKey<FormState>();
+  String _errorMessage = '';
+  bool _isLoading = false;
+
+  String link, startTime = '00:00', endTime = '00:00', desc;
+
+  bool validateAndSave() {
+    final form = _formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      print('Form Validated');
+      return true;
+    } else
+      print('Form Not Validated');
+    return false;
+  }
+
+  // Send data
+  void validateAndSubmit() async {
+    setState(() {
+      _errorMessage = "";
+    });
+    if (validateAndSave()) {
+      _isLoading = true;
+      try {
+        //Add data to Database
+
+        Map<String, dynamic> lecture = {
+          'subject' : widget.subject,
+          'subjectCode' : widget.subjectCode,
+          'teacher' : widget.teacher,
+          'link' : link,
+          'startTime' : startTime,
+          'endTime' : endTime,
+          'desc' : desc,
+        };
+
+        print(lecture);
+        addLectureLinkFirestore(widget.code, lecture);
+
+        setState(() {
+          _isLoading = false;
+        });
+      } catch (e) {
+        print('Error: $e');
+        setState(() {
+          _isLoading = false;
+          _errorMessage = e.message;
+          _formKey.currentState.reset();
+        });
+      }
+    }
+  }
+
+  void resetForm() {
+    _formKey.currentState.reset();
+    _errorMessage = "";
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 450));
+    scaleAnimation =
+        CurvedAnimation(parent: controller, curve: Curves.elasticInOut);
+
+    controller.addListener(() {
+      setState(() {});
+    });
+
+    controller.forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: new Form(
+        key: _formKey,
+        child: Material(
+          color: Colors.transparent,
+          child: ScaleTransition(
+            scale: scaleAnimation,
+            child: Container(
+                margin: EdgeInsets.all(20.0),
+                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                height: 460.0,
+                decoration: ShapeDecoration(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0))),
+                child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade200,
+                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                        border: Border.all(width: 5, color: Colors.grey)),
+
+                    // dashed Border
+                    child: Column(
+                      children: <Widget>[
+                        Text('Add Lecture',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                              fontSize: 18,
+                            )),
+                        SizedBox(height: 10),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            border: Border.all(color: Colors.grey),
+                            color: Colors.white,
+                          ),
+                          child: TextFormField(
+                            keyboardType: TextInputType.url,
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Meeting Link'),
+                            validator: (value) => (value.isEmpty || !value.contains('https://'))
+                                ? 'Enter Link'
+                                : null,
+                            onSaved: (value) => link = value.trim(),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Row(children: <Widget>[
+                          Text('Start Time',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black,
+                                fontSize: 16,
+                              )),
+                          Spacer(),
+                          Text(startTime,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black,
+                                fontSize: 16,
+                              )),
+                          SizedBox(
+                            width: 50,
+                            child: FlatButton(
+                                padding: EdgeInsets.all(0),
+                                onPressed: () {
+                                  DatePicker.showTimePicker(context, showTitleActions: true, onChanged: (date) {
+                                  print('change $date in time zone ' + date.timeZoneOffset.inHours.toString());
+                                  }, onConfirm: (date) {
+                                  print('confirm $date');
+                                  setState(() {
+                                    startTime = '${date.hour.toString()}:${date.minute.toString()}';
+                                  });
+                                  }, currentTime: DateTime.now());
+                                },
+                                child: Icon(Icons.timer, color: Colors.blue)),
+                          ),
+                        ]),
+                        Row(children: <Widget>[
+                          Text('End Time',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black,
+                                fontSize: 16,
+                              )),
+                          Spacer(),
+                          Text(endTime,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black,
+                                fontSize: 16,
+                              )),
+                          SizedBox(
+                            width: 50,
+                            child: FlatButton(
+                                padding: EdgeInsets.all(0),
+                                onPressed: () {
+                                  DatePicker.showTimePicker(context, showTitleActions: true, onChanged: (date) {
+                                    print('change $date in time zone ' + date.timeZoneOffset.inHours.toString());
+                                  }, onConfirm: (date) {
+                                    print('confirm $date');
+                                    setState(() {
+                                      endTime = '${date.hour.toString()}:${date.minute.toString()}';
+                                    });
+                                  }, currentTime: DateTime.now());
+                                },
+                                child: Icon(Icons.timer, color: Colors.blue)),
+                          ),
+                        ]),
+                        SizedBox(height: 20),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            border: Border.all(color: Colors.grey),
+                            color: Colors.white,
+                          ),
+                          child: TextFormField(
+                            maxLines: 5,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Additional Information'),
+                            onSaved: (value) => (value.isNotEmpty)
+                              ? desc = value.trim()
+                              : desc = 'No information',
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.all(10),
+                          height: 40,
+                          width: MediaQuery.of(context).size.width,
+                          child: FloatingActionButton.extended(
+                            onPressed: () {
+                              validateAndSubmit();
+                            },
+                            label: Text('Add Lecture'),
+                            icon: Icon(Icons.check_circle_outline),
+                            elevation: 1,
+                          ),
+                        ),
+                      ],
+                    ))),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+Widget subjectCR(BuildContext context, dynamic data, String code) {
+  return Container(
+    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+    padding: EdgeInsets.all(0),
+    height: 70,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.all(
+        Radius.circular(10),
+      ),
+      color: Colors.white,
+      boxShadow: [
+        BoxShadow(
+          offset: Offset(0.0, 0.4),
+          blurRadius: 3,
+          color: Colors.grey.shade300,
+        )
+      ],
+      border: Border.all(color: Colors.grey.shade300),
+    ),
+    child: FlatButton(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (_) => AddLecture(code: code, subjectCode: data['subjectCode'],
+              subject: data['subject'], teacher: data['teacher']),
+        );
+      },
+      child: Column(children: <Widget>[
+        Row(crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 2),
+            height: 25,
+            width: 2,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              ),
+              color: Colors.green,
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(right: 10),
+            height: 45,
+            width: 2,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              ),
+              color: Colors.green,
+            ),
+          ),
+          Container(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                Text(data['subject'],
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                    )),
+                SizedBox(height: 2),
+                Text('by ${data['teacher']}',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 15,
+                    )),
+              ])),
+        ]),
+      ]),
+    ),
+  );
+}
 
 Widget buildWaitingScreen() {
   return Scaffold(
@@ -276,11 +341,11 @@ Widget lectureCard(BuildContext context, dynamic data) {
       borderRadius: BorderRadius.all(
         Radius.circular(10),
       ),
-      boxShadow:[
+      boxShadow: [
         BoxShadow(
-        offset: Offset(0.0,0.4),
-        blurRadius: 3,
-        color: Colors.grey.shade300,
+          offset: Offset(0.0, 0.4),
+          blurRadius: 3,
+          color: Colors.grey.shade300,
         )
       ],
       color: Colors.white,
@@ -477,7 +542,6 @@ Widget lectureDetails(BuildContext context, dynamic data) {
                           alignment: Alignment.topLeft,
                           child: Text(data['desc'],
                               style: TextStyle(
-                                fontFamily: 'Inter',
                                 color: Colors.black,
                                 fontSize: 14,
                               )))

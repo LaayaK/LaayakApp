@@ -15,6 +15,7 @@ dependencies:
   # Services
   url_launcher: ^5.5.0
   shared_preferences: ^0.5.10
+  flutter_datetime_picker: ^1.4.0
 
   # Firebase Services
   firebase_auth: ^0.16.1

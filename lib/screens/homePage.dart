@@ -33,7 +33,10 @@ class _HomePageState extends State<HomePage> {
         currentIndex: _page,
         onTap: (int index) {
           setState(() {
-            _page = index;
+            if (_page == 3)
+              widget.logoutCallback();
+            else
+              _page = index;
           });
         },
         items: [
@@ -52,6 +55,11 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.announcement, size: 27, color: Colors.grey),
             title: Container(),
           ),
+          BottomNavigationBarItem(
+            activeIcon: Icon(Icons.person, size: 27, color: Colors.blue),
+            icon: Icon(Icons.person, size: 27, color: Colors.grey),
+            title: Container(),
+          ),
         ],
       ),
       body:Container(
@@ -59,7 +67,9 @@ class _HomePageState extends State<HomePage> {
           ? AddDataPage(code:widget.code)
           : (_page == 1)
             ? TodayClassesPage(code:widget.code)
-            : AnnouncementsPage(code:widget.code)
+            : (_page == 2)
+              ? AnnouncementsPage(code:widget.code)
+              : TodayClassesPage(code:widget.code)
       ),
     );
   }

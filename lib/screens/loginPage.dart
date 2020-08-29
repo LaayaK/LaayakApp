@@ -73,32 +73,6 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
     });
   }
 
-  void createStudentData() {
-    Firestore.instance.collection('student').document(_email).setData({
-      'email': _email,
-      'hired': false,
-      'verified': false,
-      'blocked': false,
-      'verifiedBefore': false,
-    });
-    Firestore.instance
-        .collection('student')
-        .document(_email)
-        .collection('studentInformation')
-        .document('appliedJobProfiles')
-        .setData({
-      'init': true,
-    });
-    Firestore.instance
-        .collection('student')
-        .document(_email)
-        .collection('studentInformation')
-        .document('notifications')
-        .setData({
-      'init': true,
-    });
-  }
-
   @override
   void initState() {
     _errorMessage = "";
@@ -269,17 +243,17 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
                           if (_isLoginForm) {
                             userId = await widget.auth
                                 .signIn(_email, _password);
-                            checkFCMToken();
+//                            checkFCMToken();
                             print('Signed in: $userId');
                           } else {
-                            if (_password == _rePassword) {
-                              userId = await widget.auth
-                                  .signUp(_email, _password);
-                              createStudentData();
-                              storeFCMToken();
-                              widget.loginCallback();
-
-                              Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
+//                            if (_password == _rePassword) {
+//                              userId = await widget.auth
+//                                  .signUp(_email, _password);
+//                              createStudentData();
+//                              storeFCMToken();
+//                              widget.loginCallback();
+//
+//                              Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
 
 //                              Navigator.push(
 //                                  context,
@@ -289,13 +263,13 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
 //                                              text: 'Account Created',
 //                                              email: _email,
 //                                              details: 1)));
-                              print('Signed up user: $userId');
-                            } else {
-                              final snackBar = SnackBar(
-                                content: Text('Passwords do not match'),
-                              );
-                              Scaffold.of(context).showSnackBar(snackBar);
-                            }
+//                              print('Signed up user: $userId');
+//                            } else {
+//                              final snackBar = SnackBar(
+//                                content: Text('Passwords do not match'),
+//                              );
+//                              Scaffold.of(context).showSnackBar(snackBar);
+//                            }
                           }
                           setState(() {
                             _isLoading = false;
@@ -305,6 +279,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
                               userId != null &&
                               _isLoginForm) {
                             widget.loginCallback();
+                            Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
                           }
                         } catch (e) {
                           print('Error: $e');

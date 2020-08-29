@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:timetable/screens/addDataPage.dart';
 import 'package:timetable/screens/announcements.dart';
 import 'package:timetable/screens/todayClassesPage.dart';
 import 'package:timetable/screens/details.dart';
