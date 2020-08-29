@@ -138,3 +138,92 @@ class _IndexPageState extends State<IndexPage> {
     );
   }
 }
+
+// class IndexPage extends StatelessWidget{
+//   @override
+//   Widget build(BuildContext context){
+//    return Scaffold(
+//      backgroundColor: Colors.white,
+//    body: Container(
+//      child: Column(
+//        crossAxisAlignment: CrossAxisAlignment.start,
+//               mainAxisAlignment: MainAxisAlignment.end,
+//      children:<Widget>[
+//        Container(
+//               margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+//               padding: EdgeInsets.all(0),
+//                 color: Colors.transparent,
+//                 child: Column(children: <Widget>[
+//                   Row(
+//                       crossAxisAlignment: CrossAxisAlignment.center,
+//                       children: <Widget>[
+//                         Container(
+//                           margin: EdgeInsets.symmetric(horizontal: 2),
+//                           height: 45,
+//                           width: 4,
+//                           decoration: BoxDecoration(
+//                             borderRadius: BorderRadius.all(
+//                               Radius.circular(10),
+//                             ),
+//                             color: Colors.blue,
+//                           ),
+//                         ),
+//                         Container(
+//                           margin: EdgeInsets.only(right: 10),
+//                           height: 85,
+//                           width: 4,
+//                           decoration: BoxDecoration(
+//                             borderRadius: BorderRadius.all(
+//                               Radius.circular(10),
+//                             ),
+//                             color: Colors.green,
+//                           ),
+//                         ),
+//                         Container(                         
+//                             child: Column(
+//                                 mainAxisAlignment: MainAxisAlignment.start,
+//                                 crossAxisAlignment: CrossAxisAlignment.start,
+//                                 children: <Widget>[
+//                               Text('LINK AAYA',
+//                                   style: TextStyle(
+//                                     color: Colors.black,
+//                                     fontSize: 40,
+//                                     fontWeight: FontWeight.bold
+//                                   )),
+//                                   Text('KYA?',
+//                                   style: TextStyle(
+//                                     color: Colors.black,
+//                                     fontSize: 40,
+//                                     fontWeight: FontWeight.bold
+//                                   )),                                                            
+//                             ])),
+//                       ]),
+//                   SizedBox(height:240,
+//                           child: Image.network('https://github.com/HimeshNayak/TimeTable/blob/master/assets/index.jpg')),
+//               Container(
+// //                  margin: EdgeInsets.only(10),
+//                  width: 200,
+//                  height:50,                
+//                decoration: BoxDecoration(
+//                borderRadius: BorderRadius.all(Radius.circular(10)),
+//                  color: Colors.transparent,                 
+//               ),
+//                 child: TextField(
+//                  decoration: InputDecoration(
+//                  hintText: 'Enter Class Code',
+//                  ),),
+//               ),
+//                            SizedBox(height: 50),
+//                            Align(
+//                              alignment: Alignment.bottomCenter,
+//                              child: FlatButton(
+//                              onPressed:(){},
+//                            child: Text('Login as Class Representative', style: TextStyle(color: Colors.blue),),),)
+//                 ]),
+//               ), 
+//      ]),
+//    ),
+//    ); 
+//   }  
+// }
+
