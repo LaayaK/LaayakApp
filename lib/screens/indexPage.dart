@@ -10,11 +10,7 @@ import 'package:timetable/services/authentication.dart';
 import 'package:timetable/screens/loginPage.dart';
 import 'package:timetable/widgets/widgets.dart';
 
-enum CodeStatus{
-  NOT_DEFINED,
-  CODE_PRESENT,
-  NO_CODE
-}
+enum CodeStatus { NOT_DEFINED, CODE_PRESENT, NO_CODE }
 
 class IndexPage extends StatefulWidget {
   IndexPage({Key key, this.auth, this.loginCallback});
@@ -27,7 +23,6 @@ class IndexPage extends StatefulWidget {
 }
 
 class _IndexPageState extends State<IndexPage> {
-
   CodeStatus codeStatus = CodeStatus.NOT_DEFINED;
   String code = '';
   bool wrongCode = false;
@@ -48,7 +43,11 @@ class _IndexPageState extends State<IndexPage> {
 
   void verifyCode(String codeGot) async {
     print(codeGot);
-    await Firestore.instance.collection('classes').document(codeGot).get().then((doc){
+    await Firestore.instance
+        .collection('classes')
+        .document(codeGot)
+        .get()
+        .then((doc) {
       setState(() {
         if (doc.exists) {
           code = codeGot;
@@ -59,8 +58,7 @@ class _IndexPageState extends State<IndexPage> {
       print('Error in getting document');
       print('error : $error');
     });
-    if(codeStatus == CodeStatus.CODE_PRESENT)
-    {
+    if (codeStatus == CodeStatus.CODE_PRESENT) {
       print('code matched document ID');
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('code', codeController.value.text);
@@ -75,7 +73,7 @@ class _IndexPageState extends State<IndexPage> {
   }
 
   @override
-  initState(){
+  initState() {
     super.initState();
     getCode();
   }
@@ -83,67 +81,177 @@ class _IndexPageState extends State<IndexPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: (codeStatus == CodeStatus.NOT_DEFINED)
-        ? buildWaitingScreen()
-        : (codeStatus == CodeStatus.NO_CODE)
-          ? Container (
-              child: Column(
-                children: <Widget>[
-                  Text('LINK AAYA KYA?'),
-                  TextField(
-                    controller: codeController,
-                    onChanged: (value) {
-                      if (value.isNotEmpty) {
-                        setState(() {
-                          wrongCode = false;
-                        });
-                      }
-                    },
-                    decoration: InputDecoration(
-                      suffix: IconButton(
-                        icon: Icon(Icons.send),
-                        onPressed: () {
-                          setState(() {
-                            codeStatus = CodeStatus.NOT_DEFINED;
-                          });
-                          verifyCode(codeController.value.text);
-                        },
-                      ),
-                    ),
-                  ),
-                  Visibility(
-                    visible: wrongCode,
-                    child: Text('Wrong Code Entered')
-                  ),
-                  Spacer(),
-                  Row(
-                    children: <Widget>[
-                      Text('If you are a CR'),
-                      RaisedButton(
-                        child: Text('Login Here'),
-                        onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (BuildContext context) =>
-                                  LoginSignUpPage(auth:widget.auth, loginCallback: widget.loginCallback,)
+        backgroundColor: Colors.white,
+        body: (codeStatus == CodeStatus.NOT_DEFINED)
+            ? buildWaitingScreen()
+            : (codeStatus == CodeStatus.NO_CODE)
+                ? Container(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 5),
+                            padding: EdgeInsets.all(0),
+                            color: Colors.transparent,
+                            child: Column(children: <Widget>[
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(
+                                    margin: EdgeInsets.symmetric(horizontal: 2),
+                                    height: 45,
+                                    width: 4,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                      color: Colors.blue,
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(right: 10),
+                                    height: 85,
+                                    width: 4,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                      color: Colors.green,
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      'LINK AAYA\nKYA?',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 40,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                  height: 240,
+                                  child:
+                                      Image.asset('assets/images/index.jpg')),
+                              Container(
+                                width: 200,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                  color: Colors.transparent,
+                                ),
+                                child: TextField(
+                                  controller: codeController,
+                                  onChanged: (value) {
+                                    if (value.isNotEmpty) {
+                                      setState(() {
+                                        wrongCode = false;
+                                      });
+                                    }
+                                  },
+                                  decoration: InputDecoration(
+                                    suffix: IconButton(
+                                      icon: Icon(Icons.send),
+                                      onPressed: () {
+                                        setState(() {
+                                          codeStatus = CodeStatus.NOT_DEFINED;
+                                        });
+                                        verifyCode(codeController.value.text);
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Visibility(
+                                  visible: wrongCode,
+                                  child: Text('Wrong Code Entered')),
+                              SizedBox(height: 50),
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: FlatButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                                LoginSignUpPage(
+                                                  auth: widget.auth,
+                                                  loginCallback:
+                                                      widget.loginCallback,
+                                                )));
+                                  },
+                                  child: Text(
+                                    'Login as Class Representative',
+                                    style: TextStyle(color: Colors.blue),
+                                  ),
+                                ),
                               )
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            )
-          : StudentPage(code: code)
-    );
+                            ]),
+                          ),
+                        ]),
+                  )
+                : StudentPage(code: code));
   }
 }
+
+//Container (
+//child: Column(
+//children: <Widget>[
+//Text('LINK AAYA KYA?'),
+//TextField(
+//controller: codeController,
+//onChanged: (value) {
+//if (value.isNotEmpty) {
+//setState(() {
+//wrongCode = false;
+//});
+//}
+//},
+//decoration: InputDecoration(
+//suffix: IconButton(
+//icon: Icon(Icons.send),
+//onPressed: () {
+//setState(() {
+//codeStatus = CodeStatus.NOT_DEFINED;
+//});
+//verifyCode(codeController.value.text);
+//},
+//),
+//),
+//),
+//Visibility(
+//visible: wrongCode,
+//child: Text('Wrong Code Entered')
+//),
+//Spacer(),
+//Row(
+//children: <Widget>[
+//Text('If you are a CR'),
+//RaisedButton(
+//child: Text('Login Here'),
+//onPressed: () {
+//Navigator.push(context,
+//MaterialPageRoute(builder: (BuildContext context) =>
+//LoginSignUpPage(auth:widget.auth, loginCallback: widget.loginCallback,)
+//)
+//);
+//},
+//),
+//],
+//),
+//],
+//),
+//)
 
 // class IndexPage extends StatelessWidget{
 //   @override
 //   Widget build(BuildContext context){
 //    return Scaffold(
-//      backgroundColor: Colors.white,
+//
 //    body: Container(
 //      child: Column(
 //        crossAxisAlignment: CrossAxisAlignment.start,
@@ -179,51 +287,68 @@ class _IndexPageState extends State<IndexPage> {
 //                             color: Colors.green,
 //                           ),
 //                         ),
-//                         Container(                         
-//                             child: Column(
-//                                 mainAxisAlignment: MainAxisAlignment.start,
-//                                 crossAxisAlignment: CrossAxisAlignment.start,
-//                                 children: <Widget>[
-//                               Text('LINK AAYA',
+//                         Container(
+//                             child: Text('LINK AAYA\nKYA?',
 //                                   style: TextStyle(
 //                                     color: Colors.black,
 //                                     fontSize: 40,
 //                                     fontWeight: FontWeight.bold
 //                                   )),
-//                                   Text('KYA?',
-//                                   style: TextStyle(
-//                                     color: Colors.black,
-//                                     fontSize: 40,
-//                                     fontWeight: FontWeight.bold
-//                                   )),                                                            
-//                             ])),
+//
+//                            ),
 //                       ]),
 //                   SizedBox(height:240,
-//                           child: Image.network('https://github.com/HimeshNayak/TimeTable/blob/master/assets/index.jpg')),
+//                           child: Image.asset('assets/images/index.jpg')),
 //               Container(
 // //                  margin: EdgeInsets.only(10),
 //                  width: 200,
-//                  height:50,                
+//                  height:50,
 //                decoration: BoxDecoration(
 //                borderRadius: BorderRadius.all(Radius.circular(10)),
-//                  color: Colors.transparent,                 
+//                  color: Colors.transparent,
 //               ),
 //                 child: TextField(
-//                  decoration: InputDecoration(
-//                  hintText: 'Enter Class Code',
-//                  ),),
+//                    controller: codeController,
+//                    onChanged: (value) {
+//                      if (value.isNotEmpty) {
+//                        setState(() {
+//                          wrongCode = false;
+//                        });
+//                      }
+//                    },
+//                    decoration: InputDecoration(
+//                      suffix: IconButton(
+//                        icon: Icon(Icons.send),
+//                        onPressed: () {
+//                          setState(() {
+//                            codeStatus = CodeStatus.NOT_DEFINED;
+//                          });
+//                          verifyCode(codeController.value.text);
+//                        },
+//                      ),
+//                    ),
+//                  ),
 //               ),
+//               Visibility(
+//                    visible: wrongCode,
+//                    child: Text('Wrong Code Entered')
+//                  ),
 //                            SizedBox(height: 50),
 //                            Align(
 //                              alignment: Alignment.bottomCenter,
 //                              child: FlatButton(
-//                              onPressed:(){},
+//                              onPressed:(){
+//                                Navigator.push(context,
+//                              MaterialPageRoute(builder: (BuildContext context) =>
+//                                  LoginSignUpPage(auth:widget.auth, loginCallback: widget.loginCallback,)
+//                              )
+//                          );
+//                              },
 //                            child: Text('Login as Class Representative', style: TextStyle(color: Colors.blue),),),)
 //                 ]),
-//               ), 
+//               ),
 //      ]),
 //    ),
-//    ); 
-//   }  
+//    );
+//   }
 // }
-

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:timetable/screens/addDataPage.dart';
 import 'package:timetable/screens/announcements.dart';
 import 'package:timetable/screens/todayClassesPage.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timetable/services/authentication.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,13 +31,20 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         fixedColor: Colors.white,
         currentIndex: _page,
-        onTap: (int index) {
-          setState(() {
-            if (_page == 3)
-              widget.logoutCallback();
-            else
+        onTap: (int index) async {
+          if (_page == 3)
+          {
+            widget.logoutCallback();
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            prefs.setString('code', '');
+
+//            Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
+          }
+          else {
+            setState(() {
               _page = index;
-          });
+            });
+          }
         },
         items: [
           BottomNavigationBarItem(
@@ -69,7 +76,10 @@ class _HomePageState extends State<HomePage> {
             ? TodayClassesPage(code:widget.code)
             : (_page == 2)
               ? AnnouncementsPage(code:widget.code)
-              : TodayClassesPage(code:widget.code)
+              : Container(
+                  alignment: Alignment.center,
+                  child: Text('LINK AAYA KYA???'),
+                )
       ),
     );
   }

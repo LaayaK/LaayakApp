@@ -1,7 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:timetable/screens/homePage.dart';
 import 'package:timetable/screens/indexPage.dart';
-import 'package:timetable/screens/loginPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timetable/services/authentication.dart';
 import 'package:timetable/widgets/widgets.dart';
 
@@ -22,33 +23,49 @@ class RootPage extends StatefulWidget {
 
 class _RootPageState extends State<RootPage> {
   AuthStatus authStatus = AuthStatus.NOT_DETERMINED;
-  String _userId = '';
-  String _email = '';
+  String _userId = '', _email = '', _code = '';
 
   @override
   void initState() {
     super.initState();
-    widget.auth.getCurrentUser().then((user) {
-      setState(() {
-        if (user != null) {
-          _userId = user?.uid;
-          _email = user?.email;
-        }
-        authStatus =
-        user?.uid == null ? AuthStatus.NOT_LOGGED_IN : AuthStatus.LOGGED_IN;
+    widget.auth.getCurrentUser().then((user) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var listOfCRs = await Firestore.instance.collection('students').document(
+          'listOfCRs').get();
+      listOfCRs['listOfCRs'].forEach((key, value) {
+        print('key : $key');
+        print('value : $value');
+        setState(() {
+          if (user != null) {
+            _userId = user?.uid;
+            _email = user?.email;
+            _code = value;
+            prefs.setString('code', _code);
+            print('code : $_code');
+          }
+          authStatus =
+          user?.uid == null ? AuthStatus.NOT_LOGGED_IN : AuthStatus.LOGGED_IN;
+        });
       });
     });
   }
 
   void loginCallback() {
-    widget.auth.getCurrentUser().then((user) {
-      setState(() {
-        _userId = user.uid.toString();
-        _email = user.email.toString();
+    widget.auth.getCurrentUser().then((user) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+//      var listOfCRs = await Firestore.instance.collection('students').document('listOfCRs').get();
+//      listOfCRs['listOfCRs'].forEach((key, value){
+//        print('key : $key');
+//        print('value : $value');
+//        if (key == _email)
+          setState(() {
+            _code = (prefs.getString('code') ?? '');
+            _userId = user.uid.toString();
+            _email = user.email.toString();
+            print('code : $_code');
+            authStatus = AuthStatus.LOGGED_IN;
+//          });
       });
-    });
-    setState(() {
-      authStatus = AuthStatus.LOGGED_IN;
     });
   }
 
@@ -57,6 +74,7 @@ class _RootPageState extends State<RootPage> {
       authStatus = AuthStatus.NOT_LOGGED_IN;
       _userId = '';
       _email = '';
+      _code = '';
     });
   }
 
@@ -81,13 +99,8 @@ class _RootPageState extends State<RootPage> {
             auth: widget.auth,
             logoutCallback: logoutCallback,
             email: _email,
+            code: _code,
           );
-//            new GetVariables(
-//            userId: _userId,
-//            auth: widget.auth,
-//            logoutCallback: logoutCallback,
-//            email: _email,
-//          );
         } else
           return buildWaitingScreen();
         break;
