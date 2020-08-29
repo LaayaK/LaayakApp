@@ -15,7 +15,7 @@ Widget lectureCard(BuildContext context, dynamic data) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-    height: 110,
+//    height: 110,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.all(
         Radius.circular(10),
