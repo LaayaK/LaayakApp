@@ -799,3 +799,654 @@ Widget headingText(String text){
     ),
   );
 }
+
+
+
+// class AddAnnoun extends StatefulWidget {
+//   AddAnnoun({this.announ, this.subjectCode, this.teacher, this.subject});
+
+//   final String announ, subjectCode, subject, teacher;
+
+//   @override
+//   State<StatefulWidget> createState() => AddAnnounState();
+// }
+
+// class AddAnnounState extends State<AddAnnoun>
+//     with SingleTickerProviderStateMixin {
+//   AnimationController controller;
+//   Animation<double> scaleAnimation;
+
+//   final _formKey = new GlobalKey<FormState>();
+//   String _errorMessage = '';
+//   bool _isLoading = false;
+
+//   String link, startTime = '00:00', endTime = '00:00', desc;
+
+//   bool validateAndSave() {
+//     final form = _formKey.currentState;
+//     if (form.validate()) {
+//       form.save();
+//       print('Form Validated');
+//       return true;
+//     } else
+//       print('Form Not Validated');
+//     return false;
+//   }
+
+//   // Send data
+//   void validateAndSubmit() async {
+//     setState(() {
+//       _errorMessage = "";
+//     });
+//     if (validateAndSave()) {
+//       _isLoading = true;
+//       try {
+//         //Add data to Database
+
+//         Map<String, dynamic> lecture = {
+//           'subject': widget.subject,
+//           'subjectCode': widget.subjectCode,
+//           'teacher': widget.teacher,
+//           'link': link,
+//           'startTime': startTime,
+//           'endTime': endTime,
+//           'desc': desc,
+//         };
+
+//         print(lecture);
+//         //         addLectureLinkFirestore(widget.code, lecture);
+
+//         setState(() {
+//           _isLoading = false;
+//         });
+//       } catch (e) {
+//         print('Error: $e');
+//         setState(() {
+//           _isLoading = false;
+//           _errorMessage = e.message;
+//           _formKey.currentState.reset();
+//         });
+//       }
+//     }
+//   }
+
+//   void resetForm() {
+//     _formKey.currentState.reset();
+//     _errorMessage = "";
+//   }
+
+//   @override
+//   void initState() {
+//     super.initState();
+
+//     controller =
+//         AnimationController(vsync: this, duration: Duration(milliseconds: 450));
+//     scaleAnimation =
+//         CurvedAnimation(parent: controller, curve: Curves.bounceInOut);
+
+//     controller.addListener(() {
+//       setState(() {});
+//     });
+
+//     controller.forward();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//       child: new Form(
+//         key: _formKey,
+//         child: Material(
+//           color: Colors.transparent,
+//           child: ScaleTransition(
+//             scale: scaleAnimation,
+//             child: Container(
+//               margin: EdgeInsets.all(20.0),
+//               padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+//               height:  MediaQuery.of(context).size.height - 90,
+//               decoration: ShapeDecoration(
+//                 color: Colors.white,
+//                 shape: RoundedRectangleBorder(
+//                   borderRadius: BorderRadius.circular(15.0),
+//                 ),
+//               ),
+//               child: Container(
+//                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+//                 decoration: BoxDecoration(
+//                          color: Colors.grey.shade200,
+//                   borderRadius: BorderRadius.all(
+//                     Radius.circular(15.0),
+//                   ),
+//                   border: Border.all(width: 5,
+//                                      color: Colors.grey.shade400,
+//                                     ),
+//                 ),
+
+//                 // dashed Border
+//                 child: Column(
+//                   children: <Widget>[
+//                     Padding(
+//                       padding: EdgeInsets.only(bottom: 5),
+//                       child: Text(
+//                         'Add Announcement',
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w600,
+//                           color: Colors.black,
+//                           fontSize: 18,
+//                         ),
+//                       ),
+//                     ),
+//                     Container(
+//                       margin: EdgeInsets.symmetric(vertical: 4),
+//                       height: 2,
+//                       width: MediaQuery.of(context).size.width - 100,
+//                       decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.all(
+//                           Radius.circular(10),
+//                         ),
+//                         color: Colors.green,
+//                       ),
+//                     ),
+//                     Container(
+// //                         margin: EdgeInsets.only(right: 10),
+//                       height: 2,
+//                       width: MediaQuery.of(context).size.width - 150,
+//                       decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.all(
+//                           Radius.circular(10),
+//                         ),
+//                         color: Colors.green,
+//                       ),
+//                     ),
+//                     SizedBox(height: 20),
+//                     Container(
+//                       padding: EdgeInsets.symmetric(horizontal: 10),
+//                       decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.all(
+//                           Radius.circular(10),
+//                         ),
+//                         border: Border.all(color: Colors.grey),
+//                         color: Colors.white,
+//                       ),
+//                       child: TextFormField(
+//                         maxLines: 10,
+//                         decoration: InputDecoration(
+//                             border: InputBorder.none, hintText: 'Enter text'),
+//                         onSaved: (value) => (value.isNotEmpty)
+//                             ? desc = value.trim()
+//                             : desc = 'No information',
+//                       ),
+//                     ),
+//                     Container(
+//                       margin: EdgeInsets.fromLTRB(10, 20, 10, 10),
+//                       height: 40,
+//                       width: MediaQuery.of(context).size.width,
+//                       child: FloatingActionButton.extended(
+//                         onPressed: () {
+//                           validateAndSubmit();
+//                         },
+//                         label: Text('Send'),
+//                         icon: Icon(Icons.check_circle_outline),
+//                         elevation: 1,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class AddLink extends StatefulWidget {
+//   AddLink({this.announ, this.subjectCode, this.teacher, this.subject});
+
+//   final String announ, subjectCode, subject, teacher;
+
+//   @override
+//   State<StatefulWidget> createState() => AddLinkState();
+// }
+
+// class AddLinkState extends State<AddLink>
+//     with SingleTickerProviderStateMixin {
+//   AnimationController controller;
+//   Animation<double> scaleAnimation;
+
+//   final _formKey = new GlobalKey<FormState>();
+//   String _errorMessage = '';
+//   bool _isLoading = false;
+
+//   String link, startTime = '00:00', endTime = '00:00', desc;
+
+//   bool validateAndSave() {
+//     final form = _formKey.currentState;
+//     if (form.validate()) {
+//       form.save();
+//       print('Form Validated');
+//       return true;
+//     } else
+//       print('Form Not Validated');
+//     return false;
+//   }
+
+//   // Send data
+//   void validateAndSubmit() async {
+//     setState(() {
+//       _errorMessage = "";
+//     });
+//     if (validateAndSave()) {
+//       _isLoading = true;
+//       try {
+//         //Add data to Database
+
+//         Map<String, dynamic> lecture = {
+//           'subject': widget.subject,
+//           'subjectCode': widget.subjectCode,
+//           'teacher': widget.teacher,
+//           'link': link,
+//           'startTime': startTime,
+//           'endTime': endTime,
+//           'desc': desc,
+//         };
+
+//         print(lecture);
+//         //         addLectureLinkFirestore(widget.code, lecture);
+
+//         setState(() {
+//           _isLoading = false;
+//         });
+//       } catch (e) {
+//         print('Error: $e');
+//         setState(() {
+//           _isLoading = false;
+//           _errorMessage = e.message;
+//           _formKey.currentState.reset();
+//         });
+//       }
+//     }
+//   }
+
+//   void resetForm() {
+//     _formKey.currentState.reset();
+//     _errorMessage = "";
+//   }
+
+//   @override
+//   void initState() {
+//     super.initState();
+
+//     controller =
+//         AnimationController(vsync: this, duration: Duration(milliseconds: 450));
+//     scaleAnimation =
+//         CurvedAnimation(parent: controller, curve: Curves.decelerate);
+
+//     controller.addListener(() {
+//       setState(() {});
+//     });
+
+//     controller.forward();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//       child: new Form(
+//         key: _formKey,
+//         child: Material(
+//           color: Colors.transparent,
+//           child: ScaleTransition(
+//             scale: scaleAnimation,
+//             child: Container(
+//               margin: EdgeInsets.all(20.0),
+//               padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+//               height:  MediaQuery.of(context).size.height - 90,
+//               decoration: ShapeDecoration(
+//                 color: Colors.white,
+//                 shape: RoundedRectangleBorder(
+//                   borderRadius: BorderRadius.circular(15.0),
+//                 ),
+//               ),
+//               child: Container(
+//                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+//                 decoration: BoxDecoration(
+//                          color: Colors.grey.shade200,
+//                   borderRadius: BorderRadius.all(
+//                     Radius.circular(15.0),
+//                   ),
+//                   border: Border.all(width: 5,
+//                                      color: Colors.grey.shade400,
+//                                     ),
+//                 ),
+
+//                 // dashed Border
+//                 child: Column(
+//                   children: <Widget>[
+//                     Padding(
+//                       padding: EdgeInsets.only(bottom: 5),
+//                       child: Text(
+//                         'Send Link',
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w600,
+//                           color: Colors.black,
+//                           fontSize: 18,
+//                         ),
+//                       ),
+//                     ),
+//                     Container(
+//                       margin: EdgeInsets.symmetric(vertical: 4),
+//                       height: 2,
+//                       width: MediaQuery.of(context).size.width - 100,
+//                       decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.all(
+//                           Radius.circular(10),
+//                         ),
+//                         color: Colors.green,
+//                       ),
+//                     ),
+//                     Container(
+// //                         margin: EdgeInsets.only(right: 10),
+//                       height: 2,
+//                       width: MediaQuery.of(context).size.width - 150,
+//                       decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.all(
+//                           Radius.circular(10),
+//                         ),
+//                         color: Colors.green,
+//                       ),
+//                     ),
+//                     SizedBox(height: 20),
+//                     Container(
+//                       padding: EdgeInsets.symmetric(horizontal: 10),
+//                       decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.all(
+//                           Radius.circular(10),
+//                         ),
+//                         border: Border.all(color: Colors.grey),
+//                         color: Colors.white,
+//                       ),
+//                       child: TextFormField(
+//                         maxLines: 1,
+//                         decoration: InputDecoration(
+//                             border: InputBorder.none, hintText: 'Enter Link'),
+//                         onSaved: (value) => (value.isNotEmpty)
+//                             ? desc = value.trim()
+//                             : desc = 'No information',
+//                       ),
+//                     ),
+//                     SizedBox(height: 20),
+//                     Container(
+//                       padding: EdgeInsets.symmetric(horizontal: 10),
+//                       decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.all(
+//                           Radius.circular(10),
+//                         ),
+//                         border: Border.all(color: Colors.grey),
+//                         color: Colors.white,
+//                       ),
+//                       child: TextFormField(
+//                         maxLines: 5,
+//                         decoration: InputDecoration(
+//                             border: InputBorder.none, hintText: 'Add description'),
+//                         onSaved: (value) => (value.isNotEmpty)
+//                             ? desc = value.trim()
+//                             : desc = 'No information',
+//                       ),
+//                     ),
+//                     Container(
+//                       margin: EdgeInsets.fromLTRB(10, 20, 10, 10),
+//                       height: 40,
+//                       width: MediaQuery.of(context).size.width,
+//                       child: FloatingActionButton.extended(
+//                         onPressed: () {
+//                           validateAndSubmit();
+//                         },
+//                         label: Text('Send'),
+//                         icon: Icon(Icons.check_circle_outline),
+//                         elevation: 1,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class AddPoll extends StatefulWidget {
+//   AddPoll({this.announ, this.subjectCode, this.teacher, this.subject});
+
+//   final String announ, subjectCode, subject, teacher;
+
+//   @override
+//   State<StatefulWidget> createState() => AddPollState();
+// }
+
+// class AddPollState extends State<AddPoll>
+//     with SingleTickerProviderStateMixin {
+//   AnimationController controller;
+//   Animation<double> scaleAnimation;
+
+//   final _formKey = new GlobalKey<FormState>();
+//   String _errorMessage = '';
+//   bool _isLoading = false;
+
+//   String link, startTime = '00:00', endTime = '00:00', desc;
+
+//   bool validateAndSave() {
+//     final form = _formKey.currentState;
+//     if (form.validate()) {
+//       form.save();
+//       print('Form Validated');
+//       return true;
+//     } else
+//       print('Form Not Validated');
+//     return false;
+//   }
+
+//   // Send data
+//   void validateAndSubmit() async {
+//     setState(() {
+//       _errorMessage = "";
+//     });
+//     if (validateAndSave()) {
+//       _isLoading = true;
+//       try {
+//         //Add data to Database
+
+//         Map<String, dynamic> lecture = {
+//           'subject': widget.subject,
+//           'subjectCode': widget.subjectCode,
+//           'teacher': widget.teacher,
+//           'link': link,
+//           'startTime': startTime,
+//           'endTime': endTime,
+//           'desc': desc,
+//         };
+
+//         print(lecture);
+//         //         addLectureLinkFirestore(widget.code, lecture);
+
+//         setState(() {
+//           _isLoading = false;
+//         });
+//       } catch (e) {
+//         print('Error: $e');
+//         setState(() {
+//           _isLoading = false;
+//           _errorMessage = e.message;
+//           _formKey.currentState.reset();
+//         });
+//       }
+//     }
+//   }
+
+//   void resetForm() {
+//     _formKey.currentState.reset();
+//     _errorMessage = "";
+//   }
+
+//   @override
+//   void initState() {
+//     super.initState();
+
+//     controller =
+//         AnimationController(vsync: this, duration: Duration(milliseconds: 450));
+//     scaleAnimation =
+//         CurvedAnimation(parent: controller, curve: Curves.decelerate);
+
+//     controller.addListener(() {
+//       setState(() {});
+//     });
+
+//     controller.forward();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//       child: new Form(
+//         key: _formKey,
+//         child: Material(
+//           color: Colors.transparent,
+//           child: ScaleTransition(
+//             scale: scaleAnimation,
+//             child: Container(
+//               margin: EdgeInsets.all(20.0),
+//               padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+//               height:  MediaQuery.of(context).size.height - 90,
+//               decoration: ShapeDecoration(
+//                 color: Colors.white,
+//                 shape: RoundedRectangleBorder(
+//                   borderRadius: BorderRadius.circular(15.0),
+//                 ),
+//               ),
+//               child: Container(
+//                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+//                 decoration: BoxDecoration(
+//                          color: Colors.grey.shade200,
+//                   borderRadius: BorderRadius.all(
+//                     Radius.circular(15.0),
+//                   ),
+//                   border: Border.all(width: 5,
+//                                      color: Colors.grey.shade400,
+//                                     ),
+//                 ),
+
+//                 // dashed Border
+//                 child: Column(
+//                   children: <Widget>[
+//                     Padding(
+//                       padding: EdgeInsets.only(bottom: 5),
+//                       child: Text(
+//                         'Generate Poll ',
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w600,
+//                           color: Colors.black,
+//                           fontSize: 18,
+//                         ),
+//                       ),
+//                     ),
+//                     Container(
+//                       margin: EdgeInsets.symmetric(vertical: 4),
+//                       height: 2,
+//                       width: MediaQuery.of(context).size.width - 100,
+//                       decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.all(
+//                           Radius.circular(10),
+//                         ),
+//                         color: Colors.green,
+//                       ),
+//                     ),
+//                     Container(
+// //                         margin: EdgeInsets.only(right: 10),
+//                       height: 2,
+//                       width: MediaQuery.of(context).size.width - 150,
+//                       decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.all(
+//                           Radius.circular(10),
+//                         ),
+//                         color: Colors.green,
+//                       ),
+//                     ),
+//                     SizedBox(height: 20),                
+//                     Container(
+//                       padding: EdgeInsets.symmetric(horizontal: 10),
+//                       decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.all(
+//                           Radius.circular(10),
+//                         ),
+//                         border: Border.all(color: Colors.grey),
+//                         color: Colors.white,
+//                       ),
+//                       child: TextFormField(
+//                         maxLines: 5,
+//                         decoration: InputDecoration(
+//                             border: InputBorder.none, hintText: 'Add description'),
+//                         onSaved: (value) => (value.isNotEmpty)
+//                             ? desc = value.trim()
+//                             : desc = 'No information',
+//                       ),
+//                     ),
+//                     SizedBox(height: 20),                    
+//                     Row(children:<Widget>[
+//                      Container(
+// //                        margin: EdgeInsets.all(10),
+//                        padding: EdgeInsets.symmetric(horizontal: 10),
+//                        width: (MediaQuery.of(context).size.width - 90)* 0.5,
+//                        height: 40,
+//                        child : Container(
+//                       padding: EdgeInsets.symmetric(horizontal: 10),
+//                       decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.all(
+//                           Radius.circular(10),
+//                         ),
+//                         border: Border.all(color: Colors.grey),
+//                         color: Colors.white,
+//                       ),child:  TextField(decoration: InputDecoration(border: InputBorder.none,
+//                                                                       hintText: 'Option 1'),),),),
+//                        Container(
+// //                        margin: EdgeInsets.all(10),
+//                        padding: EdgeInsets.symmetric(horizontal: 10),
+//                        width: (MediaQuery.of(context).size.width - 90)* 0.5,
+//                          height: 40,
+//                        child : Container(
+//                       padding: EdgeInsets.symmetric(horizontal: 10),
+//                       decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.all(
+//                           Radius.circular(10),
+//                         ),
+//                         border: Border.all(color: Colors.grey),
+//                         color: Colors.white,
+//                       ),child:  TextField(decoration: InputDecoration(border: InputBorder.none,
+//                                                                      hintText: 'Option 2'),),),),
+//                     ]),
+//                     Container(
+//                       margin: EdgeInsets.fromLTRB(10, 20, 10, 10),
+//                       height: 40,
+//                       width: MediaQuery.of(context).size.width,
+//                       child: FloatingActionButton.extended(
+//                         onPressed: () {
+//                           validateAndSubmit();
+//                         },
+//                         label: Text('Send'),
+//                         icon: Icon(Icons.check_circle_outline),
+//                         elevation: 1,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
