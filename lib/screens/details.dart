@@ -2,15 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timetable/main.dart';
 
-void main() {
-  runApp(MaterialApp(
-      debugShowCheckedModeBanner: false, home: Scaffold(body: DetailsPage())));
-}
-
 class DetailsPage extends StatefulWidget {
-  DetailsPage({this.code});
+  DetailsPage({this.code, this.user, this.logoutCallback, this.auth});
 
-  final String code;
+  final String code, user;
+  final logoutCallback, auth;
 
   @override
   _DetailsPageState createState() => _DetailsPageState();
@@ -116,17 +112,18 @@ class _DetailsPageState extends State<DetailsPage> {
                                   'Logout',
                                   style: TextStyle(color: Colors.white),
                                 ),
-                                onPressed: ()
-                                  async{
+                                onPressed: () async {
+                                  if (widget.user != null)
+                                  {
+                                    print('logging out');
+                                    await widget.auth.signOut();
+                                    widget.logoutCallback();
+                                  }
+                                  print('clearing SP');
                                   SharedPreferences prefs =
-                                      await SharedPreferences.getInstance();
+                                  await SharedPreferences.getInstance();
                                   prefs.setString('code', '');
-                                  Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              MyApp()),
-                                      (route) => false);
+                                  Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
                                 },
                               ),
                             ),

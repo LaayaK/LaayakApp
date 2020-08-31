@@ -19,6 +19,7 @@ class _StudentPageState extends State<StudentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
@@ -31,8 +32,8 @@ class _StudentPageState extends State<StudentPage> {
         },
         items: [
           BottomNavigationBarItem(
-            activeIcon: Icon(Icons.add, size: 27, color: Colors.blue),
-            icon: Icon(Icons.add, size: 27, color: Colors.grey),
+            activeIcon: Icon(Icons.person, size: 27, color: Colors.blue),
+            icon: Icon(Icons.person, size: 27, color: Colors.grey),
             title: Container(),
           ),
           BottomNavigationBarItem(

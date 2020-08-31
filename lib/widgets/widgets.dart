@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:timetable/widgets/functions.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class AddLecture extends StatefulWidget {
@@ -906,7 +905,7 @@ class AddLinkState extends State<AddLink> with SingleTickerProviderStateMixin {
 
         Map<String, dynamic> linkData = {
           'link': link,
-          'time': DateTime.now(),
+          'dateAndtime': DateTime.now(),
           'desc': desc,
         };
 
@@ -1123,8 +1122,8 @@ class AddPollState extends State<AddPoll> with SingleTickerProviderStateMixin {
         //Add data to Database
 
         Map<String, dynamic> poll = {
-          'option1': option1,
-          'option2': option2,
+          option1 : 0,
+          option2 : 0,
           'desc': desc,
           'dateAndTime' : DateTime.now()
         };
