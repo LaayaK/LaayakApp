@@ -54,8 +54,8 @@ class AddLectureState extends State<AddLecture>
           'desc' : desc,
         };
 
-        print(lecture);
         addLectureLinkFirestore(widget.code, lecture);
+        Navigator.pop(context);
 
         setState(() {
           _isLoading = false;
@@ -234,6 +234,163 @@ class AddLectureState extends State<AddLecture>
                               validateAndSubmit();
                             },
                             label: Text('Add Lecture'),
+                            icon: Icon(Icons.check_circle_outline),
+                            elevation: 1,
+                          ),
+                        ),
+                      ],
+                    ))),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AddAnnoun extends StatefulWidget {
+  AddAnnoun({this.code});
+
+  final String code;
+
+  @override
+  State<StatefulWidget> createState() => AddAnnounState();
+}
+
+class AddAnnounState extends State<AddAnnoun>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> scaleAnimation;
+
+  final _formKey = new GlobalKey<FormState>();
+  String _errorMessage = '';
+  bool _isLoading = false;
+
+  String text;
+
+  bool validateAndSave() {
+    final form = _formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      print('Form Validated');
+      return true;
+    } else
+      print('Form Not Validated');
+    return false;
+  }
+
+  // Send data
+  void validateAndSubmit() async {
+    setState(() {
+      _errorMessage = "";
+    });
+    if (validateAndSave()) {
+      _isLoading = true;
+      try {
+        //Add data to Database
+
+        Map<String, dynamic> announcement = {
+          'text': text,
+          'dateAndTime': DateTime.now(),
+        };
+
+       addAnnouncementFirestore(widget.code, announcement);
+       Navigator.pop(context);
+
+        setState(() {
+          _isLoading = false;
+        });
+      } catch (e) {
+        print('Error: $e');
+        setState(() {
+          _isLoading = false;
+          _errorMessage = e.message;
+          _formKey.currentState.reset();
+        });
+      }
+    }
+  }
+
+  void resetForm() {
+    _formKey.currentState.reset();
+    _errorMessage = "";
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 450));
+    scaleAnimation =
+        CurvedAnimation(parent: controller, curve: Curves.elasticInOut);
+
+    controller.addListener(() {
+      setState(() {});
+    });
+
+    controller.forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: new Form(
+        key: _formKey,
+        child: Material(
+          color: Colors.transparent,
+          child: ScaleTransition(
+            scale: scaleAnimation,
+            child: Container(
+                margin: EdgeInsets.all(20.0),
+                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                height: 400,
+                decoration: ShapeDecoration(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0))),
+                child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade200,
+                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                        border: Border.all(width: 5, color: Colors.grey)),
+
+                    // dashed Border
+                    child: Column(
+                      children: <Widget>[
+                        Text('Add Announcement',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                              fontSize: 18,
+                            )),
+                        SizedBox(height: 20),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            border: Border.all(color: Colors.grey),
+                            color: Colors.white,
+                          ),
+                          child: TextFormField(
+                            maxLines: 10,
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Additional Information'),
+                            onSaved: (value) => (value.isNotEmpty)
+                                ? text = value.trim()
+                                : text = 'No information',
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.all(10),
+                          height: 40,
+                          width: MediaQuery.of(context).size.width,
+                          child: FloatingActionButton.extended(
+                            onPressed: () {
+                              validateAndSubmit();
+                            },
+                            label: Text('Send'),
                             icon: Icon(Icons.check_circle_outline),
                             elevation: 1,
                           ),
@@ -566,70 +723,66 @@ Widget announcementCard(BuildContext context, dynamic data) {
           bottom:
               BorderSide(width: 1, color: Colors.grey.shade200)),
     ),
-    child: Column(
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 2),
-              height: 35,
-              width: 2,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                color: Colors.green,
-              ),
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 2),
+          height: 35,
+          width: 2,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
             ),
-            Container(
-              margin: EdgeInsets.only(right: 10),
-              height: 55,
-              width: 2,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                color: Colors.green,
-              ),
+            color: Colors.green,
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(right: 10),
+          height: 55,
+          width: 2,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
             ),
-            Container(
-              width: widthC,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+            color: Colors.green,
+          ),
+        ),
+        Container(
+          width: widthC,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
                 children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Text(
-                        getTime(data['dateAndTime']),
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 15,
-                        ),
-                      ),
-                      Spacer(),
-                      Text(
-                        getDate(data['dateAndTime']),
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 15,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 5),
                   Text(
-                    data['text'],
+                    getTime(data['dateAndTime']),
                     style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
+                      color: Colors.grey,
+                      fontSize: 15,
+                    ),
+                  ),
+                  Spacer(),
+                  Text(
+                    getDate(data['dateAndTime']),
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 15,
                     ),
                   ),
                 ],
               ),
-            ),
-          ],
+              SizedBox(height: 5),
+              Text(
+                data['text'],
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     ),

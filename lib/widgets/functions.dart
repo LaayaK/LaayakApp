@@ -31,6 +31,15 @@ void addLectureLinkFirestore(String code, Map<String, dynamic> lecture)
     }, merge: true);
 }
 
+void addAnnouncementFirestore(String code, Map<String, dynamic> announcement){
+  Firestore.instance
+      .collection('classes')
+      .document('$code/updates/announcements')
+      .setData({
+    'announcements': FieldValue.arrayUnion([announcement])
+  }, merge: true);
+}
+
 String getTime(Timestamp timestamp)
 {
   String time = '';
