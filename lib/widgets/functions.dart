@@ -40,33 +40,52 @@ void addAnnouncementFirestore(String code, Map<String, dynamic> announcement){
   }, merge: true);
 }
 
-String getTime(Timestamp timestamp)
+void addLinkFirestore(String code, Map<String, dynamic> link)
+{
+  Firestore.instance
+      .collection('classes')
+      .document('$code/updates/links')
+      .setData({
+    'links': FieldValue.arrayUnion([link])
+  }, merge: true);
+}
+
+void addPollFirestore(String code, Map<String, dynamic> poll){
+  Firestore.instance
+      .collection('classes')
+      .document('$code/updates/polls')
+      .setData({
+    'polls': FieldValue.arrayUnion([poll])
+  }, merge: true);
+}
+
+String getTime(DateTime dateTime)
 {
   String time = '';
-  if (timestamp.toDate().hour < 10)
-    time += '0${timestamp.toDate().hour.toString()}';
+  if (dateTime.hour < 10)
+    time += '0${dateTime.hour.toString()}';
   else
-    time += timestamp.toDate().hour.toString();
+    time += dateTime.hour.toString();
   time += ' : ';
-  if (timestamp.toDate().minute < 10)
-    time += '0${timestamp.toDate().minute.toString()}';
+  if (dateTime.minute < 10)
+    time += '0${dateTime.minute.toString()}';
   else
-    time += timestamp.toDate().minute.toString();
+    time += dateTime.minute.toString();
   return time;
 }
 
-String getDate(Timestamp timestamp)
+String getDate(DateTime dateTime)
 {
   String date = '';
-  if (timestamp.toDate().day < 10)
-    date += '0${timestamp.toDate().day.toString()}';
+  if (dateTime.day < 10)
+    date += '0${dateTime.day.toString()}';
   else
-    date += timestamp.toDate().day.toString();
+    date += dateTime.day.toString();
   date += ' / ';
-  if (timestamp.toDate().month < 10)
-    date += '0${timestamp.toDate().month.toString()}';
+  if (dateTime.month < 10)
+    date += '0${dateTime.month.toString()}';
   else
-    date += timestamp.toDate().month.toString();
-  date += ' / ${timestamp.toDate().year.toString()}';
+    date += dateTime.month.toString();
+  date += ' / ${dateTime.year.toString()}';
   return date;
 }
