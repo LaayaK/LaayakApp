@@ -25,8 +25,39 @@ void addLectureLinkFirestore(String code, Map<String, dynamic> lecture)
 {
   Firestore.instance
     .collection('classes')
-    .document(code)
+    .document('$code/lectures/lecturesToday')
     .setData({
-      'lecturesToday': FieldValue.arrayUnion([lecture])
+      'lectures': FieldValue.arrayUnion([lecture])
     }, merge: true);
+}
+
+String getTime(Timestamp timestamp)
+{
+  String time = '';
+  if (timestamp.toDate().hour < 10)
+    time += '0${timestamp.toDate().hour.toString()}';
+  else
+    time += timestamp.toDate().hour.toString();
+  time += ' : ';
+  if (timestamp.toDate().minute < 10)
+    time += '0${timestamp.toDate().minute.toString()}';
+  else
+    time += timestamp.toDate().minute.toString();
+  return time;
+}
+
+String getDate(Timestamp timestamp)
+{
+  String date = '';
+  if (timestamp.toDate().day < 10)
+    date += '0${timestamp.toDate().day.toString()}';
+  else
+    date += timestamp.toDate().day.toString();
+  date += ' / ';
+  if (timestamp.toDate().month < 10)
+    date += '0${timestamp.toDate().month.toString()}';
+  else
+    date += timestamp.toDate().month.toString();
+  date += ' / ${timestamp.toDate().year.toString()}';
+  return date;
 }

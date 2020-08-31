@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:timetable/widgets/widgets.dart';
 
 class AnnouncementsPage extends StatefulWidget {
   AnnouncementsPage({this.code});
@@ -12,106 +14,38 @@ class AnnouncementsPage extends StatefulWidget {
 class _AnnouncementsPageState extends State<AnnouncementsPage> {
   @override
   Widget build(BuildContext context) {
-    double widthC = MediaQuery.of(context).size.width - 80;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Container(
+    return Container(
         child: ListView(
           children: <Widget>[
+            headingText('Announcemnts'),
             Container(
-                padding: EdgeInsets.all(10),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Announcements',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      SizedBox(width: 5),
-                      Icon(Icons.speaker_notes)
-                    ])),
-            for (int i = 0; i < 5; i++)
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border(
-                      bottom:
-                          BorderSide(width: 1, color: Colors.grey.shade200)),
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 2),
-                          height: 35,
-                          width: 2,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            color: Colors.green,
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(right: 10),
-                          height: 55,
-                          width: 2,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            color: Colors.green,
-                          ),
-                        ),
-                        Container(
-                          width: widthC,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  Text(
-                                    '11:00 ',
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 13,
-                                    ),
-                                  ),
-                                  SizedBox(width: 2),
-                                  Text(
-                                    '1/09/2020',
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 13,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                'There will be no class on saturday be no class on saturday There will be no class on saturday There will be no class',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: FutureBuilder<DocumentSnapshot>(
+                future: Firestore.instance
+                    .collection('classes')
+                    .document('${widget.code}/updates/announcements')
+                    .get(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData)
+                    return Center(child: CircularProgressIndicator());
+                  return _buildList(context, snapshot.data['announcements']);
+                },
               ),
+            ),
           ],
         ),
-      ),
-    );
+      );
+  }
+
+  Widget _buildList(BuildContext context, List<dynamic> snapshot) {
+    return ListView.builder(
+        itemCount: (snapshot != null) ? snapshot.length : 0,
+        physics: ScrollPhysics(),
+        shrinkWrap: true,
+        itemBuilder: (BuildContext context, int index) {
+          return announcementCard(
+              context, snapshot[snapshot.length - index - 1]);
+        });
   }
 }

@@ -18,24 +18,25 @@ class _TodayClassesPageState extends State<TodayClassesPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery
-          .of(context)
-          .size
-          .height,
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
-      child: FutureBuilder<DocumentSnapshot>(
-        future: Firestore.instance
-            .collection('classes')
-            .document(widget.code)
-            .get(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData)
-            return Center(child: CircularProgressIndicator());
-          return _buildList(context, snapshot.data['lecturesToday']);
-        },
+      child: ListView(
+        children: <Widget>[
+          headingText('Lectures Today'),
+          Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: FutureBuilder<DocumentSnapshot>(
+              future: Firestore.instance
+                  .collection('classes')
+                  .document('${widget.code}/lectures/lecturesToday')
+                  .get(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData)
+                  return Center(child: CircularProgressIndicator());
+                return _buildList(context, snapshot.data['lectures']);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -47,7 +48,6 @@ class _TodayClassesPageState extends State<TodayClassesPage> {
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
           return lectureCard(context, snapshot[index]);
-        }
-    );
+        });
   }
 }

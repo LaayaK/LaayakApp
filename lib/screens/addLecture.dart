@@ -15,23 +15,21 @@ class AddLecturePage extends StatefulWidget {
 class _AddLecturePageState extends State<AddLecturePage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView(
-        children: <Widget>[
-          Text('Add Lecture',
-            style: TextStyle(
-              fontSize: 30,
+    return Scaffold(
+      body: Container(
+        child: ListView(
+          children: <Widget>[
+            headingText('Add Lecture'),
+            FutureBuilder(
+              future: Firestore.instance.collection('classes').document(widget.code).get(),
+              builder: (context, snapshot){
+                if(!snapshot.hasData)
+                  return Center(child: CircularProgressIndicator(),);
+                return _buildSubjectList(context, snapshot.data['subjects']);
+              },
             ),
-          ),
-          FutureBuilder(
-            future: Firestore.instance.collection('classes').document(widget.code).get(),
-            builder: (context, snapshot){
-              if(!snapshot.hasData)
-                return Center(child: CircularProgressIndicator(),);
-              return _buildSubjectList(context, snapshot.data['subjects']);
-            },
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

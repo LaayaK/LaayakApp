@@ -554,3 +554,95 @@ Widget lectureDetails(BuildContext context, dynamic data) {
     ]),
   );
 }
+
+Widget announcementCard(BuildContext context, dynamic data) {
+  double widthC = MediaQuery.of(context).size.width - 80;
+  return Container(
+    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      border: Border(
+          bottom:
+              BorderSide(width: 1, color: Colors.grey.shade200)),
+    ),
+    child: Column(
+      children: <Widget>[
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 2),
+              height: 35,
+              width: 2,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                color: Colors.green,
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(right: 10),
+              height: 55,
+              width: 2,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                color: Colors.green,
+              ),
+            ),
+            Container(
+              width: widthC,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        getTime(data['dateAndTime']),
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15,
+                        ),
+                      ),
+                      Spacer(),
+                      Text(
+                        getDate(data['dateAndTime']),
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    data['text'],
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget headingText(String text){
+  return Padding(
+    padding: const EdgeInsets.all(20),
+    child: Text(
+      text,
+      textAlign: TextAlign.left,
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
+    ),
+  );
+}
