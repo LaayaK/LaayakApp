@@ -44,8 +44,16 @@ class _AnnouncementsPageState extends State<AnnouncementsPage> {
         physics: ScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
-          return announcementCard(
-              context, snapshot[snapshot.length - index - 1]);
+          if (snapshot[snapshot.length - index - 1]['type'] == 'announcement')
+            return announcementCard(
+                context, snapshot[snapshot.length - index - 1]);
+          else if (snapshot[snapshot.length - index - 1]['type'] == 'poll')
+            return pollCard(
+                context, snapshot[snapshot.length - index - 1]);
+          else if (snapshot[snapshot.length - index - 1]['type'] == 'link')
+            return linkCard(
+                context, snapshot[snapshot.length - index - 1]);
+          return Container();
         });
   }
 }

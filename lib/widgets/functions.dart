@@ -45,18 +45,18 @@ void addLinkFirestore(String code, Map<String, dynamic> link)
 {
   Firestore.instance
       .collection('classes')
-      .document('$code/updates/links')
+      .document('$code/updates/announcements')
       .setData({
-    'links': FieldValue.arrayUnion([link])
+    'announcements': FieldValue.arrayUnion([link])
   }, merge: true);
 }
 
 void addPollFirestore(String code, Map<String, dynamic> poll){
   Firestore.instance
       .collection('classes')
-      .document('$code/updates/polls')
+      .document('$code/updates/announcements')
       .setData({
-    'polls': FieldValue.arrayUnion([poll])
+    'announcements': FieldValue.arrayUnion([poll])
   }, merge: true);
 }
 

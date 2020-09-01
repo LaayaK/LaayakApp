@@ -29,8 +29,7 @@ class AddLectureState extends State<AddLecture>
   bool validateAndSave() {
     final form = _formKey.currentState;
     if (form.validate()) {
-      if (startTime == initDate || endTime == initDate)
-        return false;
+      if (startTime == initDate || endTime == initDate) return false;
       form.save();
       print('Form Validated');
       return true;
@@ -212,21 +211,22 @@ class AddLectureState extends State<AddLecture>
                                       showSecondsColumn: false,
                                       showTitleActions: true,
                                       onChanged: (date) {
-                                        print('change $date in time zone ' +
-                                            date.timeZoneOffset.inHours.toString());
-                                      }, onConfirm: (date) {
-                                        print('confirm $date');
-                                        setState(() {
-                                          if (date.hour >= DateTime.now().hour ||
-                                            date.hour > startTime.hour
-                                          )
-                                            if (date.hour == startTime.hour && date.minute > startTime.minute)
-                                              endTime = date;
-                                            else
-                                              endTime = initDate;
-                                          else
-                                            endTime = initDate;
-                                        });
+                                    print('change $date in time zone ' +
+                                        date.timeZoneOffset.inHours.toString());
+                                  }, onConfirm: (date) {
+                                    print('confirm $date');
+                                    setState(() {
+                                      if (date.hour >= DateTime.now().hour ||
+                                          date.hour > startTime.hour) if (date
+                                                  .hour ==
+                                              startTime.hour &&
+                                          date.minute > startTime.minute)
+                                        endTime = date;
+                                      else
+                                        endTime = initDate;
+                                      else
+                                        endTime = initDate;
+                                    });
                                   }, currentTime: DateTime.now());
                                 },
                                 child: Icon(Icons.timer, color: Colors.blue)),
@@ -245,7 +245,7 @@ class AddLectureState extends State<AddLecture>
                             decoration: InputDecoration(
                                 border: InputBorder.none,
                                 hintText: 'Additional Information'),
-                              onSaved: (value) => (value.isNotEmpty)
+                            onSaved: (value) => (value.isNotEmpty)
                                 ? desc = value.trim()
                                 : desc = 'No information',
                           ),
@@ -641,10 +641,12 @@ Widget lectureCard(BuildContext context, dynamic data) {
                           padding: EdgeInsets.all(0),
                           onPressed: ()
 //                          => details(context, data),
-                          {
-                            Navigator.push(context, MaterialPageRoute(
-                              builder:(BuildContext context)=>SetAlarm()
-                            ));
+                              {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        SetAlarm()));
                           },
                           child: Text('DETAILS',
                               style: TextStyle(
@@ -912,8 +914,8 @@ class AddLinkState extends State<AddLink> with SingleTickerProviderStateMixin {
           'desc': desc,
         };
 
-       addLinkFirestore(widget.code, linkData);
-       Navigator.pop(context);
+        addLinkFirestore(widget.code, linkData);
+        Navigator.pop(context);
 
         setState(() {
           _isLoading = false;
@@ -1033,9 +1035,10 @@ class AddLinkState extends State<AddLink> with SingleTickerProviderStateMixin {
                         maxLines: 1,
                         decoration: InputDecoration(
                             border: InputBorder.none, hintText: 'Enter Link'),
-                        validator: (value)=> (value.isEmpty || !Uri.parse(value).isAbsolute)
-                            ? 'Enter Link'
-                            : null,
+                        validator: (value) =>
+                            (value.isEmpty || !Uri.parse(value).isAbsolute)
+                                ? 'Enter Link'
+                                : null,
                         onSaved: (value) => link = value.trim(),
                       ),
                     ),
@@ -1054,9 +1057,8 @@ class AddLinkState extends State<AddLink> with SingleTickerProviderStateMixin {
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: 'Add description'),
-                        validator: (value)=> (value.isEmpty)
-                            ? 'Enter Description'
-                            : null,
+                        validator: (value) =>
+                            (value.isEmpty) ? 'Enter Description' : null,
                         onSaved: (value) => desc = value.trim(),
                       ),
                     ),
@@ -1125,14 +1127,14 @@ class AddPollState extends State<AddPoll> with SingleTickerProviderStateMixin {
         //Add data to Database
 
         Map<String, dynamic> poll = {
-          option1 : 0,
-          option2 : 0,
+          option1: 0,
+          option2: 0,
           'desc': desc,
-          'dateAndTime' : DateTime.now()
+          'dateAndTime': DateTime.now()
         };
 
-       addPollFirestore(widget.code, poll);
-       Navigator.pop(context);
+        addPollFirestore(widget.code, poll);
+        Navigator.pop(context);
 
         setState(() {
           _isLoading = false;
@@ -1252,10 +1254,9 @@ class AddPollState extends State<AddPoll> with SingleTickerProviderStateMixin {
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: 'Add description'),
-                          validator: (value)=> (value.isEmpty)
-                              ? 'Enter Description'
-                              : null,
-                          onSaved: (value) => desc = value.trim(),
+                        validator: (value) =>
+                            (value.isEmpty) ? 'Enter Description' : null,
+                        onSaved: (value) => desc = value.trim(),
                       ),
                     ),
                     SizedBox(height: 20),
@@ -1275,15 +1276,13 @@ class AddPollState extends State<AddPoll> with SingleTickerProviderStateMixin {
                             color: Colors.white,
                           ),
                           child: TextFormField(
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Option 1',
-                            ),
-                            validator: (value)=> (value.isEmpty)
-                              ? 'Enter Option 1'
-                              : null,
-                            onSaved: (value) => option1 = value.trim()
-                          ),
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Option 1',
+                              ),
+                              validator: (value) =>
+                                  (value.isEmpty) ? 'Enter Option 1' : null,
+                              onSaved: (value) => option1 = value.trim()),
                         ),
                       ),
                       Container(
@@ -1301,13 +1300,12 @@ class AddPollState extends State<AddPoll> with SingleTickerProviderStateMixin {
                             color: Colors.white,
                           ),
                           child: TextFormField(
-                            decoration: InputDecoration(
-                                border: InputBorder.none, hintText: 'Option 2'),
-                              validator: (value)=> (value.isEmpty)
-                                  ? 'Enter Option 2'
-                                  : null,
-                              onSaved: (value) => option2 = value.trim()
-                          ),
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Option 2'),
+                              validator: (value) =>
+                                  (value.isEmpty) ? 'Enter Option 2' : null,
+                              onSaved: (value) => option2 = value.trim()),
                         ),
                       ),
                     ]),
@@ -1352,357 +1350,374 @@ class PaddedRaisedButton extends StatelessWidget {
     );
   }
 }
+
 Widget pollCard(BuildContext context, dynamic data) {
   double widthC = MediaQuery.of(context).size.width - 80;
-  return
-    Container(
+  return Container(
     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     decoration: BoxDecoration(
       color: Colors.white,
-      border: Border(bottom: BorderSide(width: 1, color: Colors.grey.shade200),),
-    ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 2),
-          height: 35,
-          width: 2,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-            color: Colors.green,
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(right: 10),
-          height: 55,
-          width: 2,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-            color: Colors.green,
-          ),
-        ),
-        Container(
-          width: widthC,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Text(
-                    getTime(data['dateAndTime'].toDate()),
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
-                    ),
-                  ),
-                  Spacer(),
-                  Text(
-                    getDate(data['dateAndTime'].toDate()),
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 5),
-              Text(
-                data['text'],
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                ),
-              ),
-            Padding(padding: EdgeInsets.symmetric(vertical: 10),child: Row(children:<Widget>[
-               Container(
-                 margin: EdgeInsets.symmetric(horizontal: 5),
-            width: (MediaQuery.of(context).size.width - 100)*0.5,
-                 height: 30,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            color: Colors.green),
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: FlatButton(
-                child: Padding(
-                  padding: EdgeInsets.all(0),
-                  child: Text(
-                    'Yes',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                onPressed: () {},
-                ),
-          ), 
-               Container(
-                 margin: EdgeInsets.symmetric(horizontal: 5),
-            width: (MediaQuery.of(context).size.width - 100)*0.5,
-                 height: 30,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            color: Colors.redAccent),
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: FlatButton(
-                child: Padding(
-                  padding: EdgeInsets.all(0),
-                  child: Text(
-                    'No',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                onPressed: () {},
-                ),
-          ),
-            ],),)
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-    }
-
-
- Widget pollCardCR(BuildContext context, dynamic data) {
-  double widthC = MediaQuery.of(context).size.width - 80;
-  return
-    Container(
-    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      border: Border(bottom: BorderSide(width: 1, color: Colors.grey.shade200),),
-    ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 2),
-          height: 35,
-          width: 2,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-            color: Colors.green,
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(right: 10),
-          height: 55,
-          width: 2,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-            color: Colors.green,
-          ),
-        ),
-        Container(
-          width: widthC,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Text(
-                    getTime(data['dateAndTime'].toDate()),
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
-                    ),
-                  ),
-                  Spacer(),
-                  Text(
-                    getDate(data['dateAndTime'].toDate()),
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 5),
-              Text(
-                data['text'],
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                ),
-              ),
-            Padding(padding: EdgeInsets.symmetric(vertical : 10),child: Row(children:<Widget>[
-               RichText(
-               text: TextSpan(
-               children: <TextSpan>[
-                 TextSpan(text: 'Option1 : ', style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black)),
-                 TextSpan(text: ' 23', style: TextStyle(fontWeight: FontWeight.w600, color: Colors.green)),
-               ])),
-              Spacer(),
-              RichText(
-               text: TextSpan(
-               children: <TextSpan>[
-                 TextSpan(text: 'Option2 : ', style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black)),
-                 TextSpan(text: ' 77', style: TextStyle(fontWeight: FontWeight.w600, color: Colors.red)),
-               ])),
-            ],),)
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-    }
-
- Widget linkCard(BuildContext context, dynamic data) {
-  double widthC = MediaQuery.of(context).size.width - 80;
-  return
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border(
-                  bottom: BorderSide(width: 1, color: Colors.grey.shade200),
-                ),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 2),
-                    height: 35,
-                    width: 2,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                      color: Colors.green,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(right: 10),
-                    height: 55,
-                    width: 2,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                      color: Colors.green,
-                    ),
-                  ),
-                  Container(
-                    width: widthC,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Text(
-                    getTime(data['dateAndTime'].toDate()),
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 15,
-                              ),
-                            ),
-                            Spacer(),
-                            Text(
-                    getDate(data['dateAndTime'].toDate()),
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 15,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                data['text'],
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                'https://doc.google.com/notes/analog.docx',
-                                style: TextStyle(color: Colors.blue),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 10),
-                                child: Row(
-                                  children: <Widget>[
-                                    Container(
-                                      margin:
-                                          EdgeInsets.symmetric(horizontal: 5),
-                                      width:
-                                          (MediaQuery.of(context).size.width -
-                                                  100) *
-                                              0.5,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10)),
-                                          color: Colors.green),
-                                      child: FlatButton(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(0),
-                                          child: Text(
-                                            'Copy Link',
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                        onPressed: () {},
-                                      ),
-                                    ),
-                                    Container(
-                                      margin:
-                                          EdgeInsets.symmetric(horizontal: 5),
-                                      width:
-                                          (MediaQuery.of(context).size.width -
-                                                  100) *
-                                              0.5,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10)),
-                                          color: Colors.blue),
-                                      child: FlatButton(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(0),
-                                          child: Text(
-                                            'Visit Link',
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                        onPressed: () {},
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            )
-        ],
+      border: Border(
+        bottom: BorderSide(width: 1, color: Colors.grey.shade200),
       ),
-    );
-  }
+    ),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 2),
+          height: 35,
+          width: 2,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+            color: Colors.green,
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(right: 10),
+          height: 55,
+          width: 2,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+            color: Colors.green,
+          ),
+        ),
+        Container(
+          width: widthC,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Text(
+                    getTime(data['dateAndTime'].toDate()),
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 15,
+                    ),
+                  ),
+                  Spacer(),
+                  Text(
+                    getDate(data['dateAndTime'].toDate()),
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 5),
+              Text(
+                data['text'],
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 5),
+                      width: (MediaQuery.of(context).size.width - 100) * 0.5,
+                      height: 30,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Colors.green),
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: FlatButton(
+                        child: Padding(
+                          padding: EdgeInsets.all(0),
+                          child: Text(
+                            data['yesOption'],
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        onPressed: () {},
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 5),
+                      width: (MediaQuery.of(context).size.width - 100) * 0.5,
+                      height: 30,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Colors.redAccent),
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: FlatButton(
+                        child: Padding(
+                          padding: EdgeInsets.all(0),
+                          child: Text(
+                            data['noOption'],
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        onPressed: () {},
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget pollCardCR(BuildContext context, dynamic data) {
+  double widthC = MediaQuery.of(context).size.width - 80;
+  return Container(
+    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      border: Border(
+        bottom: BorderSide(width: 1, color: Colors.grey.shade200),
+      ),
+    ),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 2),
+          height: 35,
+          width: 2,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+            color: Colors.green,
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(right: 10),
+          height: 55,
+          width: 2,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+            color: Colors.green,
+          ),
+        ),
+        Container(
+          width: widthC,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Text(
+                    getTime(data['dateAndTime'].toDate()),
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 15,
+                    ),
+                  ),
+                  Spacer(),
+                  Text(
+                    getDate(data['dateAndTime'].toDate()),
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 5),
+              Text(
+                data['text'],
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Row(
+                  children: <Widget>[
+                    RichText(
+                        text: TextSpan(children: <TextSpan>[
+                      TextSpan(
+                          text: '${data['yesOption']} : ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black)),
+                      TextSpan(
+                          text: data['yesCount'],
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.green)),
+                    ])),
+                    Spacer(),
+                    RichText(
+                        text: TextSpan(children: <TextSpan>[
+                      TextSpan(
+                          text: '${data['noOption']} : ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black)),
+                      TextSpan(
+                          text: data['noCount'],
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, color: Colors.red)),
+                    ])),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget linkCard(BuildContext context, dynamic data) {
+  double widthC = MediaQuery.of(context).size.width - 80;
+  return Container(
+    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      border: Border(
+        bottom: BorderSide(width: 1, color: Colors.grey.shade200),
+      ),
+    ),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 2),
+          height: 35,
+          width: 2,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+            color: Colors.green,
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(right: 10),
+          height: 55,
+          width: 2,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+            color: Colors.green,
+          ),
+        ),
+        Container(
+          width: widthC,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Text(
+                    getTime(data['dateAndTime'].toDate()),
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 15,
+                    ),
+                  ),
+                  Spacer(),
+                  Text(
+                    getDate(data['dateAndTime'].toDate()),
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 5),
+              Text(
+                data['text'],
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      data['link'],
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            width:
+                                (MediaQuery.of(context).size.width - 100) * 0.5,
+                            height: 30,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                color: Colors.green),
+                            child: FlatButton(
+                              child: Padding(
+                                padding: EdgeInsets.all(0),
+                                child: Text(
+                                  'Copy Link',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              onPressed: () {
+                                copyText(context, data['link']);
+                              },
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            width:
+                                (MediaQuery.of(context).size.width - 100) * 0.5,
+                            height: 30,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                color: Colors.blue),
+                            child: FlatButton(
+                              child: Padding(
+                                padding: EdgeInsets.all(0),
+                                child: Text(
+                                  'Visit Link',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              onPressed: () {
+                                launchUrl(data['link']);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
