@@ -214,38 +214,51 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
               SizedBox(height: 20),
               Builder(
                 builder: (BuildContext context) {
-                  return RaisedButton(
-                    elevation: 0.0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    onPressed: (_isButtonDisabled == true)
-                        ? () {
-                      setState(() {
-                        _errorMessage =
-                        'Please Enter Valid Email and Password';
-                      });
-                      if (_errorMessage.length > 0 &&
-                          _errorMessage != null) {
-                        final snackBar = SnackBar(
-                          content: Text(_errorMessage),
-                        );
-                        Scaffold.of(context).showSnackBar(snackBar);
-                      }
-                    }
-                        : () async {
-                      if (validateAndSave()) {
-                        String userId = "";
+                  return Container(
+                    margin: EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(10)),
+                        color: Colors.pinkAccent),
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: FlatButton(
+                      child: Padding(
+                        padding: EdgeInsets.all(0),
+                        child: Text(
+                          'Login',
+                          style: TextStyle(
+                              fontSize: 20, color: Colors.white),
+                        ),
+                      ),
+                      onPressed: (_isButtonDisabled == true)
+                          ? () {
                         setState(() {
-                          _isLoading = true;
+                          _errorMessage =
+                          'Please Enter Valid Email and Password';
                         });
-                        try {
-                          if (_isLoginForm) {
-                            userId = await widget.auth
-                                .signIn(_email, _password);
+                        if (_errorMessage.length > 0 &&
+                            _errorMessage != null) {
+                          final snackBar = SnackBar(
+                            content: Text(_errorMessage),
+                          );
+                          Scaffold.of(context).showSnackBar(snackBar);
+                        }
+                      }
+                          : () async {
+                        if (validateAndSave()) {
+                          String userId = "";
+                          setState(() {
+                            _isLoading = true;
+                          });
+                          try {
+                            if (_isLoginForm) {
+                              userId = await widget.auth
+                                  .signIn(_email, _password);
 //                            checkFCMToken();
-                            print('Signed in: $userId');
-                          } else {
+                              print('Signed in: $userId');
+                            } else {
 //                            if (_password == _rePassword) {
 //                              userId = await widget.auth
 //                                  .signUp(_email, _password);
@@ -270,85 +283,202 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
 //                              );
 //                              Scaffold.of(context).showSnackBar(snackBar);
 //                            }
-                          }
-                          setState(() {
-                            _isLoading = false;
-                          });
-
-                          if (userId.length > 0 &&
-                              userId != null &&
-                              _isLoginForm) {
-                            widget.loginCallback();
-                            Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
-                          }
-                        } catch (e) {
-                          print('Error: $e');
-                          setState(() {
-                            _isLoading = false;
-                            switch (e.code) {
-                              case "ERROR_INVALID_EMAIL":
-                                _errorMessage = "Please enter a valid email address.";
-                                break;
-                              case "ERROR_WRONG_PASSWORD":
-                                _errorMessage = "Incorrect password entered.";
-                                break;
-                              case "ERROR_USER_NOT_FOUND":
-                                _errorMessage = "User with this email doesn't exist.";
-                                break;
-                              case "ERROR_USER_DISABLED":
-                                _errorMessage = "User with this email has been disabled.";
-                                break;
-                              case "ERROR_TOO_MANY_REQUESTS":
-                                _errorMessage = "Too many requests. Please try again later.";
-                                break;
-                              case "ERROR_OPERATION_NOT_ALLOWED":
-                                _errorMessage = "Signing in with Email and Password is not enabled.";
-                                break;
-                              case "ERROR_WEAK_PASSWORD":
-                                _errorMessage = "Your password is too weak";
-                                break;
-                              case "ERROR_EMAIL_ALREADY_IN_USE":
-                                _errorMessage = "Email is already in use on different account";
-                                break;
-                              case "ERROR_INVALID_CREDENTIAL":
-                                _errorMessage = "Your email is invalid";
-                                break;
-                              default:
-                                _errorMessage = "An undefined Error happened.";
                             }
-                            _formKey.currentState.reset();
-                          });
-                          if (_errorMessage.length > 0 &&
-                              _errorMessage != null) {
-                            final snackBar = SnackBar(
-                              content: Text(_errorMessage),
-                            );
-                            Scaffold.of(context).showSnackBar(snackBar);
+                            setState(() {
+                              _isLoading = false;
+                            });
+
+                            if (userId.length > 0 &&
+                                userId != null &&
+                                _isLoginForm) {
+                              widget.loginCallback();
+                              Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
+                            }
+                          } catch (e) {
+                            print('Error: $e');
+                            setState(() {
+                              _isLoading = false;
+                              switch (e.code) {
+                                case "ERROR_INVALID_EMAIL":
+                                  _errorMessage = "Please enter a valid email address.";
+                                  break;
+                                case "ERROR_WRONG_PASSWORD":
+                                  _errorMessage = "Incorrect password entered.";
+                                  break;
+                                case "ERROR_USER_NOT_FOUND":
+                                  _errorMessage = "User with this email doesn't exist.";
+                                  break;
+                                case "ERROR_USER_DISABLED":
+                                  _errorMessage = "User with this email has been disabled.";
+                                  break;
+                                case "ERROR_TOO_MANY_REQUESTS":
+                                  _errorMessage = "Too many requests. Please try again later.";
+                                  break;
+                                case "ERROR_OPERATION_NOT_ALLOWED":
+                                  _errorMessage = "Signing in with Email and Password is not enabled.";
+                                  break;
+                                case "ERROR_WEAK_PASSWORD":
+                                  _errorMessage = "Your password is too weak";
+                                  break;
+                                case "ERROR_EMAIL_ALREADY_IN_USE":
+                                  _errorMessage = "Email is already in use on different account";
+                                  break;
+                                case "ERROR_INVALID_CREDENTIAL":
+                                  _errorMessage = "Your email is invalid";
+                                  break;
+                                default:
+                                  _errorMessage = "An undefined Error happened.";
+                              }
+                              _formKey.currentState.reset();
+                            });
+                            if (_errorMessage.length > 0 &&
+                                _errorMessage != null) {
+                              final snackBar = SnackBar(
+                                content: Text(_errorMessage),
+                              );
+                              Scaffold.of(context).showSnackBar(snackBar);
+                            }
                           }
                         }
-                      }
-                    },
-                    textColor: Colors.white,
-                    padding: const EdgeInsets.all(0.0),
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        gradient: LinearGradient(
-                            colors: [Color(0xff3BB0EA), Color(0xff44D7B6)]),
-                      ),
-                      padding: EdgeInsets.symmetric(vertical: 15),
-                      child: Text(
-                        _loginCreateAccText,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
+                      },
                     ),
                   );
+
+//                    RaisedButton(
+//                    elevation: 0.0,
+//                    shape: RoundedRectangleBorder(
+//                      borderRadius: BorderRadius.circular(10),
+//                    ),
+//                    onPressed: (_isButtonDisabled == true)
+//                        ? () {
+//                      setState(() {
+//                        _errorMessage =
+//                        'Please Enter Valid Email and Password';
+//                      });
+//                      if (_errorMessage.length > 0 &&
+//                          _errorMessage != null) {
+//                        final snackBar = SnackBar(
+//                          content: Text(_errorMessage),
+//                        );
+//                        Scaffold.of(context).showSnackBar(snackBar);
+//                      }
+//                    }
+//                        : () async {
+//                      if (validateAndSave()) {
+//                        String userId = "";
+//                        setState(() {
+//                          _isLoading = true;
+//                        });
+//                        try {
+//                          if (_isLoginForm) {
+//                            userId = await widget.auth
+//                                .signIn(_email, _password);
+////                            checkFCMToken();
+//                            print('Signed in: $userId');
+//                          } else {
+////                            if (_password == _rePassword) {
+////                              userId = await widget.auth
+////                                  .signUp(_email, _password);
+////                              createStudentData();
+////                              storeFCMToken();
+////                              widget.loginCallback();
+////
+////                              Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
+//
+////                              Navigator.push(
+////                                  context,
+////                                  MaterialPageRoute(
+////                                      builder: (BuildContext context) =>
+////                                          DonePage(
+////                                              text: 'Account Created',
+////                                              email: _email,
+////                                              details: 1)));
+////                              print('Signed up user: $userId');
+////                            } else {
+////                              final snackBar = SnackBar(
+////                                content: Text('Passwords do not match'),
+////                              );
+////                              Scaffold.of(context).showSnackBar(snackBar);
+////                            }
+//                          }
+//                          setState(() {
+//                            _isLoading = false;
+//                          });
+//
+//                          if (userId.length > 0 &&
+//                              userId != null &&
+//                              _isLoginForm) {
+//                            widget.loginCallback();
+//                            Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
+//                          }
+//                        } catch (e) {
+//                          print('Error: $e');
+//                          setState(() {
+//                            _isLoading = false;
+//                            switch (e.code) {
+//                              case "ERROR_INVALID_EMAIL":
+//                                _errorMessage = "Please enter a valid email address.";
+//                                break;
+//                              case "ERROR_WRONG_PASSWORD":
+//                                _errorMessage = "Incorrect password entered.";
+//                                break;
+//                              case "ERROR_USER_NOT_FOUND":
+//                                _errorMessage = "User with this email doesn't exist.";
+//                                break;
+//                              case "ERROR_USER_DISABLED":
+//                                _errorMessage = "User with this email has been disabled.";
+//                                break;
+//                              case "ERROR_TOO_MANY_REQUESTS":
+//                                _errorMessage = "Too many requests. Please try again later.";
+//                                break;
+//                              case "ERROR_OPERATION_NOT_ALLOWED":
+//                                _errorMessage = "Signing in with Email and Password is not enabled.";
+//                                break;
+//                              case "ERROR_WEAK_PASSWORD":
+//                                _errorMessage = "Your password is too weak";
+//                                break;
+//                              case "ERROR_EMAIL_ALREADY_IN_USE":
+//                                _errorMessage = "Email is already in use on different account";
+//                                break;
+//                              case "ERROR_INVALID_CREDENTIAL":
+//                                _errorMessage = "Your email is invalid";
+//                                break;
+//                              default:
+//                                _errorMessage = "An undefined Error happened.";
+//                            }
+//                            _formKey.currentState.reset();
+//                          });
+//                          if (_errorMessage.length > 0 &&
+//                              _errorMessage != null) {
+//                            final snackBar = SnackBar(
+//                              content: Text(_errorMessage),
+//                            );
+//                            Scaffold.of(context).showSnackBar(snackBar);
+//                          }
+//                        }
+//                      }
+//                    },
+//                    textColor: Colors.white,
+//                    padding: const EdgeInsets.all(0.0),
+//                    child: Container(
+//                      width: double.infinity,
+//                      decoration: BoxDecoration(
+//                        borderRadius: BorderRadius.circular(10.0),
+//                        gradient: LinearGradient(
+//                            colors: [Color(0xff3BB0EA), Color(0xff44D7B6)]),
+//                      ),
+//                      padding: EdgeInsets.symmetric(vertical: 15),
+//                      child: Text(
+//                        _loginCreateAccText,
+//                        style: TextStyle(
+//                          color: Colors.white,
+//                          fontSize: 18,
+//                          fontWeight: FontWeight.bold,
+//                        ),
+//                        textAlign: TextAlign.center,
+//                      ),
+//                    ),
+//                  );
                 },
               ),
               Visibility(
