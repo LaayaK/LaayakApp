@@ -1355,37 +1355,53 @@ Widget pollCard(BuildContext context, dynamic data) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      border: Border(
-        bottom: BorderSide(width: 1, color: Colors.grey.shade200),
-      ),
-    ),
+     decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                  offset: Offset(0,1),
+                  blurRadius: 7,
+                  color: Colors.grey.shade500,                    
+                  ),
+                ],
+              ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 2),
-          height: 35,
-          width: 2,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-            color: Colors.green,
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(right: 10),
-          height: 55,
-          width: 2,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-            color: Colors.green,
-          ),
-        ),
+//                     margin: EdgeInsets.symmetric(horizontal: 2),
+                    height: 35,
+                    width: 2,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      color: Colors.pinkAccent,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 2),
+                    height: 55,
+                    width: 2,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      color: Colors.pinkAccent,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(right: 10),
+                    height: 35,
+                    width: 2,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      color: Colors.pinkAccent,
+                    ),
+                  ),
         Container(
           width: widthC,
           child: Column(
@@ -1424,43 +1440,40 @@ Widget pollCard(BuildContext context, dynamic data) {
                 child: Row(
                   children: <Widget>[
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 5),
-                      width: (MediaQuery.of(context).size.width - 100) * 0.5,
-                      height: 30,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.green),
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: FlatButton(
-                        child: Padding(
-                          padding: EdgeInsets.all(0),
-                          child: Text(
+                               margin: EdgeInsets.symmetric(horizontal: 5),
+                                   width:
+                                    (MediaQuery.of(context).size.width - 100) *
+                                        0.5,
+                                  child:RaisedButton(                                 
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                  color: Colors.green,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(0),
+                                    child: Text(
                             data['yesOption'],
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                        onPressed: () {},
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 5),
-                      width: (MediaQuery.of(context).size.width - 100) * 0.5,
-                      height: 30,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.redAccent),
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: FlatButton(
-                        child: Padding(
-                          padding: EdgeInsets.all(0),
-                          child: Text(
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  onPressed: () {},
+                                ),),
+//                               ),
+                             Container(
+                               margin: EdgeInsets.symmetric(horizontal: 5),
+                                   width:
+                                    (MediaQuery.of(context).size.width - 100) *
+                                        0.5,
+                                  child:RaisedButton(                                 
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                  color: Colors.red,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(0),
+                                    child: Text(
                             data['noOption'],
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                        onPressed: () {},
-                      ),
-                    ),
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  onPressed: () {},
+                                ),),
                   ],
                 ),
               )
