@@ -786,35 +786,55 @@ Widget announcementCard(BuildContext context, dynamic data) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      border: Border(bottom: BorderSide(width: 1, color: Colors.grey.shade200)),
-    ),
+      decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                  offset: Offset(0,1),
+                  blurRadius: 2,
+                  color: Colors.grey.shade500,                    
+                  ),
+                ],
+              ),
     child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 2),
-          height: 35,
-          width: 2,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-            color: Colors.green,
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(right: 10),
-          height: 55,
-          width: 2,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-            color: Colors.green,
-          ),
-        ),
+       Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+         children: <Widget>[ Container(
+//                     margin: EdgeInsets.symmetric(horizontal: 2),
+                    height: 25,
+                    width: 2,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      color: Colors.green,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 2),
+                    height: 105,
+                    width: 2,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      color: Colors.green,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(right: 10),
+                    height: 25,
+                    width: 2,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      color: Colors.green,
+                    ),
+                  ),],),
         Container(
           width: widthC,
           child: Column(
@@ -1352,124 +1372,136 @@ class PaddedRaisedButton extends StatelessWidget {
 
 Widget pollCard(BuildContext context, dynamic data) {
   double widthC = MediaQuery.of(context).size.width - 80;
-  return Container(
-    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      border: Border(
-        bottom: BorderSide(width: 1, color: Colors.grey.shade200),
-      ),
-    ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 2),
-          height: 35,
-          width: 2,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-            color: Colors.green,
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(right: 10),
-          height: 55,
-          width: 2,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-            color: Colors.green,
-          ),
-        ),
-        Container(
-          width: widthC,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
+  return  Container(
+              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                  offset: Offset(0,1),
+                  blurRadius: 2,
+                  color: Colors.grey.shade500,                    
+                  ),
+                ],
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text(
-                    getTime(data['dateAndTime'].toDate()),
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
+                  Container(
+                    height: 25,
+                    width: 2,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      color: Colors.pinkAccent,
                     ),
                   ),
-                  Spacer(),
-                  Text(
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 2),
+                    height: 105,
+                    width: 2,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      color: Colors.pinkAccent,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(right: 10),
+                    height: 25,
+                    width: 2,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      color: Colors.pinkAccent,
+                    ),
+                  ),      
+                  Container(
+                    width: widthC,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Text(
+                    getTime(data['dateAndTime'].toDate()),
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 15,
+                              ),
+                            ),
+                            Spacer(),
+                            Text(
                     getDate(data['dateAndTime'].toDate()),
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 5),
+                        Text(
+                data['text'],
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: Row(
+                            children: <Widget>[
+                               Container(
+                               margin: EdgeInsets.symmetric(horizontal: 5),
+                                   width:
+                                    (MediaQuery.of(context).size.width - 100) *
+                                        0.5,
+                                  child:RaisedButton(                                 
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                  color: Colors.green,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(0),
+                                    child: Text(
+                            data['yesOption'],
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  onPressed: () {},
+                                ),),
+//                               ),
+                             Container(
+                               margin: EdgeInsets.symmetric(horizontal: 5),
+                                   width:
+                                    (MediaQuery.of(context).size.width - 100) *
+                                        0.5,
+                                  child:RaisedButton(                                 
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                  color: Colors.red,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(0),
+                                    child: Text(
+                            data['noOption'],
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  onPressed: () {},
+                                ),),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 5),
-              Text(
-                data['text'],
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 5),
-                      width: (MediaQuery.of(context).size.width - 100) * 0.5,
-                      height: 30,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.green),
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: FlatButton(
-                        child: Padding(
-                          padding: EdgeInsets.all(0),
-                          child: Text(
-                            data['yesOption'],
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                        onPressed: () {},
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 5),
-                      width: (MediaQuery.of(context).size.width - 100) * 0.5,
-                      height: 30,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.redAccent),
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: FlatButton(
-                        child: Padding(
-                          padding: EdgeInsets.all(0),
-                          child: Text(
-                            data['noOption'],
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                        onPressed: () {},
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
+            );
 }
 
 Widget pollCardCR(BuildContext context, dynamic data) {
@@ -1477,37 +1509,55 @@ Widget pollCardCR(BuildContext context, dynamic data) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      border: Border(
-        bottom: BorderSide(width: 1, color: Colors.grey.shade200),
-      ),
-    ),
+               decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.white,
+                 boxShadow: [
+                  BoxShadow(
+                  offset: Offset(0,1),
+                  blurRadius: 2,
+                  color: Colors.grey.shade500,                    
+                  ),
+                ],
+              ),
     child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 2),
-          height: 35,
-          width: 2,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-            color: Colors.green,
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(right: 10),
-          height: 55,
-          width: 2,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-            color: Colors.green,
-          ),
-        ),
+       Row(
+         crossAxisAlignment: CrossAxisAlignment.center,
+         children: <Widget>[
+         Container(
+                    height: 25,
+                    width: 2,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      color: Colors.pinkAccent,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 2),
+                    height: 105,
+                    width: 2,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      color: Colors.pinkAccent,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(right: 10),
+                    height: 25,
+                    width: 2,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      color: Colors.pinkAccent,
+                    ),
+                  ),],),
         Container(
           width: widthC,
           child: Column(
@@ -1538,7 +1588,7 @@ Widget pollCardCR(BuildContext context, dynamic data) {
                 data['text'],
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: 18,
                 ),
               ),
               Padding(
@@ -1548,12 +1598,14 @@ Widget pollCardCR(BuildContext context, dynamic data) {
                     RichText(
                         text: TextSpan(children: <TextSpan>[
                       TextSpan(
-                          text: '${data['yesOption']} : ',
+                          text: 
+                        '${data['yesOption']} : ',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Colors.black)),
                       TextSpan(
-                          text: data['yesCount'],
+                          text: 
+                        data['yesCount'],
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Colors.green)),
@@ -1562,12 +1614,14 @@ Widget pollCardCR(BuildContext context, dynamic data) {
                     RichText(
                         text: TextSpan(children: <TextSpan>[
                       TextSpan(
-                          text: '${data['noOption']} : ',
+                          text:
+                        '${data['noOption']} : ',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Colors.black)),
                       TextSpan(
-                          text: data['noCount'],
+                          text:
+                        data['noCount'],
                           style: TextStyle(
                               fontWeight: FontWeight.w600, color: Colors.red)),
                     ])),
@@ -1588,36 +1642,51 @@ Widget linkCard(BuildContext context, dynamic data) {
     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     decoration: BoxDecoration(
-      color: Colors.white,
-      border: Border(
-        bottom: BorderSide(width: 1, color: Colors.grey.shade200),
-      ),
-    ),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                  offset: Offset(0,1),
+                  blurRadius: 2,
+                  color: Colors.grey.shade500,                    
+                  ),
+                ],
+              ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 2),
-          height: 35,
-          width: 2,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-            color: Colors.green,
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(right: 10),
-          height: 55,
-          width: 2,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-            color: Colors.green,
-          ),
-        ),
+                    height: 25,
+                    width: 2,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                       color: Colors.deepPurple,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 2),
+                    height: 125,
+                    width: 2,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                       color: Colors.deepPurple,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(right: 10),
+                    height: 25,
+                    width: 2,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      color: Colors.deepPurple,
+                    ),
+                  ),
         Container(
           width: widthC,
           child: Column(
@@ -1648,12 +1717,13 @@ Widget linkCard(BuildContext context, dynamic data) {
                 data['text'],
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: 18,
                 ),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
                       data['link'],
@@ -1664,49 +1734,43 @@ Widget linkCard(BuildContext context, dynamic data) {
                       child: Row(
                         children: <Widget>[
                           Container(
-                            margin: EdgeInsets.symmetric(horizontal: 5),
-                            width:
-                                (MediaQuery.of(context).size.width - 100) * 0.5,
-                            height: 30,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                color: Colors.green),
-                            child: FlatButton(
-                              child: Padding(
-                                padding: EdgeInsets.all(0),
-                                child: Text(
-                                  'Copy Link',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                              onPressed: () {
-                                copyText(context, data['link']);
-                              },
-                            ),
-                          ),
+                               margin: EdgeInsets.symmetric(horizontal: 5),
+                                   width:
+                                    (MediaQuery.of(context).size.width - 100) *
+                                        0.5,
+                                  child:RaisedButton(                                 
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                  color: Colors.pinkAccent,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(0),
+                                    child: Text(
+                            data['Copy Link'],
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                copyText(context, data['link']);                                    
+                                  },
+                                ),),
                           Container(
-                            margin: EdgeInsets.symmetric(horizontal: 5),
-                            width:
-                                (MediaQuery.of(context).size.width - 100) * 0.5,
-                            height: 30,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                color: Colors.blue),
-                            child: FlatButton(
-                              child: Padding(
-                                padding: EdgeInsets.all(0),
-                                child: Text(
-                                  'Visit Link',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                              onPressed: () {
-                                launchUrl(data['link']);
-                              },
-                            ),
-                          ),
+                               margin: EdgeInsets.symmetric(horizontal: 5),
+                                   width:
+                                    (MediaQuery.of(context).size.width - 100) *
+                                        0.5,
+                                  child:RaisedButton(                                 
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                  color: Colors.blue,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(0),
+                                    child: Text(
+                            data['Visit Link'],
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    launchUrl(data['link']);
+                                  },
+                                ),),
                         ],
                       ),
                     )
