@@ -3,9 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:timetable/widgets/widgets.dart';
 
 class AnnouncementsPage extends StatefulWidget {
-  AnnouncementsPage({this.code});
+  AnnouncementsPage({this.code, this.user});
 
-  final String code;
+  final String code, user;
 
   @override
   _AnnouncementsPageState createState() => _AnnouncementsPageState();
@@ -48,8 +48,12 @@ class _AnnouncementsPageState extends State<AnnouncementsPage> {
             return announcementCard(
                 context, snapshot[snapshot.length - index - 1]);
           else if (snapshot[snapshot.length - index - 1]['type'] == 'poll')
-            return pollCard(
-                context, snapshot[snapshot.length - index - 1]);
+            if (widget.user != null)
+              return pollCardCR(
+                  context, snapshot[snapshot.length - index - 1]);
+            else
+              return pollCard(
+                  context, snapshot[snapshot.length - index - 1]);
           else if (snapshot[snapshot.length - index - 1]['type'] == 'link')
             return linkCard(
                 context, snapshot[snapshot.length - index - 1]);

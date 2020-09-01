@@ -22,7 +22,7 @@ class AddLectureState extends State<AddLecture>
   String _errorMessage = '';
   bool _isLoading = false;
 
-  String link, desc;
+  String link, text;
   static DateTime initDate = DateTime.now();
   DateTime startTime = initDate, endTime = initDate;
 
@@ -55,7 +55,7 @@ class AddLectureState extends State<AddLecture>
           'link': link,
           'startTime': startTime,
           'endTime': endTime,
-          'desc': desc,
+          'text': text,
         };
 
         addLectureLinkFirestore(widget.code, lecture);
@@ -246,8 +246,8 @@ class AddLectureState extends State<AddLecture>
                                 border: InputBorder.none,
                                 hintText: 'Additional Information'),
                             onSaved: (value) => (value.isNotEmpty)
-                                ? desc = value.trim()
-                                : desc = 'No information',
+                                ? text = value.trim()
+                                : text = 'No information',
                           ),
                         ),
                         Container(
@@ -316,6 +316,7 @@ class AddAnnounState extends State<AddAnnoun>
         Map<String, dynamic> announcement = {
           'text': text,
           'dateAndTime': DateTime.now(),
+          'type' : 'announcement'
         };
 
         addAnnouncementFirestore(widget.code, announcement);
@@ -766,7 +767,7 @@ Widget lectureDetails(BuildContext context, dynamic data) {
                               ))),
                       Align(
                           alignment: Alignment.topLeft,
-                          child: Text(data['desc'],
+                          child: Text(data['text'],
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 14,
@@ -904,7 +905,7 @@ class AddLinkState extends State<AddLink> with SingleTickerProviderStateMixin {
   String _errorMessage = '';
   bool _isLoading = false;
 
-  String link, desc;
+  String link, text;
 
   bool validateAndSave() {
     final form = _formKey.currentState;
@@ -929,8 +930,9 @@ class AddLinkState extends State<AddLink> with SingleTickerProviderStateMixin {
 
         Map<String, dynamic> linkData = {
           'link': link,
-          'dateAndtime': DateTime.now(),
-          'desc': desc,
+          'dateAndTime': DateTime.now(),
+          'text': text,
+          'type' : 'link'
         };
 
         addLinkFirestore(widget.code, linkData);
@@ -1078,7 +1080,7 @@ class AddLinkState extends State<AddLink> with SingleTickerProviderStateMixin {
                             hintText: 'Add description'),
                         validator: (value) =>
                             (value.isEmpty) ? 'Enter Description' : null,
-                        onSaved: (value) => desc = value.trim(),
+                        onSaved: (value) => text = value.trim(),
                       ),
                     ),
                     Container(
@@ -1122,7 +1124,7 @@ class AddPollState extends State<AddPoll> with SingleTickerProviderStateMixin {
   String _errorMessage = '';
   bool _isLoading = false;
 
-  String option1, option2, desc;
+  String option1, option2, text;
 
   bool validateAndSave() {
     final form = _formKey.currentState;
@@ -1146,10 +1148,13 @@ class AddPollState extends State<AddPoll> with SingleTickerProviderStateMixin {
         //Add data to Database
 
         Map<String, dynamic> poll = {
-          option1: 0,
-          option2: 0,
-          'desc': desc,
-          'dateAndTime': DateTime.now()
+          'yesOption' : option1,
+          'noOption' : option2,
+          'yesCount' : 0,
+          'noCount' : 0,
+          'text': text,
+          'dateAndTime': DateTime.now(),
+          'type' : 'poll'
         };
 
         addPollFirestore(widget.code, poll);
@@ -1275,7 +1280,7 @@ class AddPollState extends State<AddPoll> with SingleTickerProviderStateMixin {
                             hintText: 'Add description'),
                         validator: (value) =>
                             (value.isEmpty) ? 'Enter Description' : null,
-                        onSaved: (value) => desc = value.trim(),
+                        onSaved: (value) => text = value.trim(),
                       ),
                     ),
                     SizedBox(height: 20),
@@ -1605,7 +1610,7 @@ Widget pollCardCR(BuildContext context, dynamic data) {
                               color: Colors.black)),
                       TextSpan(
                           text: 
-                        data['yesCount'],
+                        data['yesCount'].toString(),
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Colors.green)),
@@ -1621,7 +1626,7 @@ Widget pollCardCR(BuildContext context, dynamic data) {
                               color: Colors.black)),
                       TextSpan(
                           text:
-                        data['noCount'],
+                        data['noCount'].toString(),
                           style: TextStyle(
                               fontWeight: FontWeight.w600, color: Colors.red)),
                     ])),
@@ -1744,7 +1749,7 @@ Widget linkCard(BuildContext context, dynamic data) {
                                   child: Padding(
                                     padding: EdgeInsets.all(0),
                                     child: Text(
-                            data['Copy Link'],
+                            'Copy Link',
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   ),
@@ -1763,7 +1768,7 @@ Widget linkCard(BuildContext context, dynamic data) {
                                   child: Padding(
                                     padding: EdgeInsets.all(0),
                                     child: Text(
-                            data['Visit Link'],
+                                    'Visit Link',
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   ),

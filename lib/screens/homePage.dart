@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
           : (_page == 1)
             ? TodayClassesPage(code:widget.code)
             : (_page == 2)
-              ? AnnouncementsPage(code:widget.code)
+              ? AnnouncementsPage(code:widget.code, user : widget.userId)
               : DetailsPage(code: widget.code, user: widget.userId, logoutCallback: widget.logoutCallback, auth: widget.auth,)
       ),
     );
