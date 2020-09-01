@@ -468,7 +468,7 @@ class _DetailsPageState extends State<DetailsPage> {
   }
 }
 
-class DetailsPage extends StatefulWidget {
+//class DetailsPage extends StatefulWidget {
 //   DetailsPage({this.code});
 
 //   final String code;
