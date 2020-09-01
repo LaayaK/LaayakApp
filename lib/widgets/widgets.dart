@@ -1509,37 +1509,55 @@ Widget pollCardCR(BuildContext context, dynamic data) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      border: Border(
-        bottom: BorderSide(width: 1, color: Colors.grey.shade200),
-      ),
-    ),
+               decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.white,
+                 boxShadow: [
+                  BoxShadow(
+                  offset: Offset(0,1),
+                  blurRadius: 2,
+                  color: Colors.grey.shade500,                    
+                  ),
+                ],
+              ),
     child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 2),
-          height: 35,
-          width: 2,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-            color: Colors.green,
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(right: 10),
-          height: 55,
-          width: 2,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-            color: Colors.green,
-          ),
-        ),
+       Row(
+         crossAxisAlignment: CrossAxisAlignment.center,
+         children: <Widget>[
+         Container(
+                    height: 25,
+                    width: 2,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      color: Colors.pinkAccent,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 2),
+                    height: 105,
+                    width: 2,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      color: Colors.pinkAccent,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(right: 10),
+                    height: 25,
+                    width: 2,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      color: Colors.pinkAccent,
+                    ),
+                  ),],),
         Container(
           width: widthC,
           child: Column(
@@ -1570,7 +1588,7 @@ Widget pollCardCR(BuildContext context, dynamic data) {
                 data['text'],
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: 18,
                 ),
               ),
               Padding(
@@ -1580,12 +1598,14 @@ Widget pollCardCR(BuildContext context, dynamic data) {
                     RichText(
                         text: TextSpan(children: <TextSpan>[
                       TextSpan(
-                          text: '${data['yesOption']} : ',
+                          text: 
+                        '${data['yesOption']} : ',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Colors.black)),
                       TextSpan(
-                          text: data['yesCount'],
+                          text: 
+                        data['yesCount'],
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Colors.green)),
@@ -1594,12 +1614,14 @@ Widget pollCardCR(BuildContext context, dynamic data) {
                     RichText(
                         text: TextSpan(children: <TextSpan>[
                       TextSpan(
-                          text: '${data['noOption']} : ',
+                          text:
+                        '${data['noOption']} : ',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Colors.black)),
                       TextSpan(
-                          text: data['noCount'],
+                          text:
+                        data['noCount'],
                           style: TextStyle(
                               fontWeight: FontWeight.w600, color: Colors.red)),
                     ])),
