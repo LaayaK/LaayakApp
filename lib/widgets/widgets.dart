@@ -639,7 +639,13 @@ Widget lectureCard(BuildContext context, dynamic data) {
                       decoration: BoxDecoration(),
                       child: FlatButton(
                           padding: EdgeInsets.all(0),
-                          onPressed: () => details(context, data),
+                          onPressed: ()
+//                          => details(context, data),
+                          {
+                            Navigator.push(context, MaterialPageRoute(
+                              builder:(BuildContext context)=>SetAlarm()
+                            ));
+                          },
                           child: Text('DETAILS',
                               style: TextStyle(
                                 color: Colors.blue,
