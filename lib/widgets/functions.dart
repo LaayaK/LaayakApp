@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:timetable/services/notification.dart';
 import 'package:timetable/widgets/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,7 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 void details (BuildContext context, dynamic data) {
   showModalBottomSheet(context: context, builder: (context){
-    return lectureDetails(context, data);
+    return SetAlarm(context:context, data:data);
   });
 }
 

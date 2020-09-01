@@ -13,6 +13,12 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
 class SetAlarm extends StatefulWidget {
+
+  SetAlarm({this.context, this.data});
+
+  final BuildContext context;
+  final data;
+
   @override
   _SetAlarmState createState() => _SetAlarmState();
 }
@@ -92,273 +98,356 @@ class _SetAlarmState extends State<SetAlarm> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Plugin example app'),
-        ),
-        body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Center(
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
-                    child: Text(
-                        'Tap on a notification when it appears to trigger navigation'),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
-                    child: Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Did notification launch app? ',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          TextSpan(
-                            text:
-                            '${notificationAppLaunchDetails
-                                ?.didNotificationLaunchApp ?? false}',
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  if (notificationAppLaunchDetails?.didNotificationLaunchApp ??
-                      false)
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
-                      child: Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: 'Launch notification payload: ',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            TextSpan(
-                              text: notificationAppLaunchDetails.payload,
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  PaddedRaisedButton(
-                    buttonText: 'Show plain notification with payload',
-                    onPressed: () async {
-                      await _showNotification();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText:
-                    'Show plain notification that has no body with payload',
-                    onPressed: () async {
-                      await _showNotificationWithNoBody();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText:
-                    'Show plain notification with payload and update channel description [Android]',
-                    onPressed: () async {
-                      await _showNotificationWithUpdatedChannelDescription();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText:
-                    'Show plain notification as public on every lockscreen [Android]',
-                    onPressed: () async {
-                      await _showPublicNotification();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText: 'Cancel notification',
-                    onPressed: () async {
-                      await _cancelNotification();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText:
-                    'Schedule notification to appear in 5 seconds, custom sound, red colour, large icon, red LED',
-                    onPressed: () async {
-                      await _scheduleNotification();
-                    },
-                  ),
-                  Text(
-                      'NOTE: red colour, large icon and red LED are Android-specific'),
-                  PaddedRaisedButton(
-                    buttonText: 'Repeat notification every minute',
-                    onPressed: () async {
-                      await _repeatNotification();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText:
-                    'Repeat notification every day at approximately 10:00:00 am',
-                    onPressed: () async {
-                      await _showDailyAtTime();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText:
-                    'Repeat notification weekly on Monday at approximately 10:00:00 am',
-                    onPressed: () async {
-                      await _showWeeklyAtDayAndTime();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText: 'Show notification with no sound',
-                    onPressed: () async {
-                      await _showNotificationWithNoSound();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText:
-                    'Show notification using Android Uri sound [Android]',
-                    onPressed: () async {
-                      await _showSoundUriNotification();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText:
-                    'Show notification that times out after 3 seconds [Android]',
-                    onPressed: () async {
-                      await _showTimeoutNotification();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText: 'Show insistent notification [Android]',
-                    onPressed: () async {
-                      await _showInsistentNotification();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText: 'Show big picture notification [Android]',
-                    onPressed: () async {
-                      await _showBigPictureNotification();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText:
-                    'Show big picture notification, hide large icon on expand [Android]',
-                    onPressed: () async {
-                      await _showBigPictureNotificationHideExpandedLargeIcon();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText: 'Show media notification [Android]',
-                    onPressed: () async {
-                      await _showNotificationMediaStyle();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText: 'Show big text notification [Android]',
-                    onPressed: () async {
-                      await _showBigTextNotification();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText: 'Show inbox notification [Android]',
-                    onPressed: () async {
-                      await _showInboxNotification();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText: 'Show messaging notification [Android]',
-                    onPressed: () async {
-                      await _showMessagingNotification();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText: 'Show grouped notifications [Android]',
-                    onPressed: () async {
-                      await _showGroupedNotifications();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText: 'Show ongoing notification [Android]',
-                    onPressed: () async {
-                      await _showOngoingNotification();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText:
-                    'Show notification with no badge, alert only once [Android]',
-                    onPressed: () async {
-                      await _showNotificationWithNoBadge();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText:
-                    'Show progress notification - updates every second [Android]',
-                    onPressed: () async {
-                      await _showProgressNotification();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText:
-                    'Show indeterminate progress notification [Android]',
-                    onPressed: () async {
-                      await _showIndeterminateProgressNotification();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText: 'Check pending notifications',
-                    onPressed: () async {
-                      await _checkPendingNotificationRequests();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText: 'Cancel all notifications',
-                    onPressed: () async {
-                      await _cancelAllNotifications();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText: 'Show notification with icon badge [iOS]',
-                    onPressed: () async {
-                      await _showNotificationWithIconBadge();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText: 'Show notification without timestamp [Android]',
-                    onPressed: () async {
-                      await _showNotificationWithoutTimestamp();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText:
-                    'Show notification with custom timestamp [Android]',
-                    onPressed: () async {
-                      await _showNotificationWithCustomTimestamp();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText: 'Show notification with attachment [iOS]',
-                    onPressed: () async {
-                      await _showNotificationWithAttachment();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText: 'Create notification channel [Android]',
-                    onPressed: () async {
-                      await _createNotificationChannel();
-                    },
-                  ),
-                  PaddedRaisedButton(
-                    buttonText: 'Delete notification channel [Android]',
-                    onPressed: () async {
-                      await _deleteNotificationChannel();
-                    },
-                  ),
-                ],
-              ),
-            ),
+    return new Container(
+      decoration: new BoxDecoration(
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(15), topLeft: Radius.circular(15)),
+      ),
+      height: 300,
+      child: Column(children: <Widget>[
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 5),
+          height: 40,
+          color: Colors.grey.shade300,
+          child: Center(
+            child: Text('Lecture details',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25)),
           ),
         ),
-      ),
+        Expanded(
+          child: ListView.builder(
+              itemCount: 1,
+              physics: ScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      children: <Widget>[
+                        Text(widget.data['subject'],
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                            )),
+                        Text('by ${widget.data['teacher']}',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 15,
+                            )),
+                        Container(
+                          margin: EdgeInsets.all(10),
+                          height: 35,
+//                          width: 120,
+                          child: FloatingActionButton.extended(
+                            onPressed: () {
+                              _scheduleNotification(
+                                  widget.data['dateAndTime'].toDate(),
+                                  '${widget.data['subject']} Lecture',
+                                  'by ${widget.data['teacher']}. '
+                                );
+                              final snackbar = SnackBar(content: Text('You will recieve a notification when the class begins'));
+                              Scaffold.of(context).showSnackBar(snackbar);
+                              },
+                            label: Text('Set Notification'),
+                            icon: Icon(Icons.notifications_active),
+                            elevation: 1,
+                          ),
+                        ),
+                        Align(
+                            alignment: Alignment.topLeft,
+                            child: Text('Additional Information',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                ))),
+                        Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(widget.data['desc'],
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                )))
+                      ],
+                    ),
+                  ),
+                );
+              }),
+        )
+      ]),
     );
+
+
+
+
+//      MaterialApp(
+//      home: Scaffold(
+//        appBar: AppBar(
+//          title: Text('Plugin example app'),
+//        ),
+//        body: SingleChildScrollView(
+//          scrollDirection: Axis.vertical,
+//          child: Padding(
+//            padding: EdgeInsets.all(8.0),
+//            child: Center(
+//              child: Column(
+//                children: <Widget>[
+//                  Padding(
+//                    padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
+//                    child: Text(
+//                        'Tap on a notification when it appears to trigger navigation'),
+//                  ),
+//                  Padding(
+//                    padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
+//                    child: Text.rich(
+//                      TextSpan(
+//                        children: [
+//                          TextSpan(
+//                            text: 'Did notification launch app? ',
+//                            style: TextStyle(fontWeight: FontWeight.bold),
+//                          ),
+//                          TextSpan(
+//                            text:
+//                            '${notificationAppLaunchDetails
+//                                ?.didNotificationLaunchApp ?? false}',
+//                          )
+//                        ],
+//                      ),
+//                    ),
+//                  ),
+//                  if (notificationAppLaunchDetails?.didNotificationLaunchApp ??
+//                      false)
+//                    Padding(
+//                      padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
+//                      child: Text.rich(
+//                        TextSpan(
+//                          children: [
+//                            TextSpan(
+//                              text: 'Launch notification payload: ',
+//                              style: TextStyle(fontWeight: FontWeight.bold),
+//                            ),
+//                            TextSpan(
+//                              text: notificationAppLaunchDetails.payload,
+//                            )
+//                          ],
+//                        ),
+//                      ),
+//                    ),
+//                  PaddedRaisedButton(
+//                    buttonText: 'Show plain notification with payload',
+//                    onPressed: () async {
+//                      await _showNotification();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText:
+//                    'Show plain notification that has no body with payload',
+//                    onPressed: () async {
+//                      await _showNotificationWithNoBody();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText:
+//                    'Show plain notification with payload and update channel description [Android]',
+//                    onPressed: () async {
+//                      await _showNotificationWithUpdatedChannelDescription();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText:
+//                    'Show plain notification as public on every lockscreen [Android]',
+//                    onPressed: () async {
+//                      await _showPublicNotification();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText: 'Cancel notification',
+//                    onPressed: () async {
+//                      await _cancelNotification();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText:
+//                    'Schedule notification to appear in 5 seconds, custom sound, red colour, large icon, red LED',
+//                    onPressed: () async {
+//                      await _scheduleNotification();
+//                    },
+//                  ),
+//                  Text(
+//                      'NOTE: red colour, large icon and red LED are Android-specific'),
+//                  PaddedRaisedButton(
+//                    buttonText: 'Repeat notification every minute',
+//                    onPressed: () async {
+//                      await _repeatNotification();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText:
+//                    'Repeat notification every day at approximately 10:00:00 am',
+//                    onPressed: () async {
+//                      await _showDailyAtTime();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText:
+//                    'Repeat notification weekly on Monday at approximately 10:00:00 am',
+//                    onPressed: () async {
+//                      await _showWeeklyAtDayAndTime();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText: 'Show notification with no sound',
+//                    onPressed: () async {
+//                      await _showNotificationWithNoSound();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText:
+//                    'Show notification using Android Uri sound [Android]',
+//                    onPressed: () async {
+//                      await _showSoundUriNotification();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText:
+//                    'Show notification that times out after 3 seconds [Android]',
+//                    onPressed: () async {
+//                      await _showTimeoutNotification();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText: 'Show insistent notification [Android]',
+//                    onPressed: () async {
+//                      await _showInsistentNotification();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText: 'Show big picture notification [Android]',
+//                    onPressed: () async {
+//                      await _showBigPictureNotification();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText:
+//                    'Show big picture notification, hide large icon on expand [Android]',
+//                    onPressed: () async {
+//                      await _showBigPictureNotificationHideExpandedLargeIcon();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText: 'Show media notification [Android]',
+//                    onPressed: () async {
+//                      await _showNotificationMediaStyle();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText: 'Show big text notification [Android]',
+//                    onPressed: () async {
+//                      await _showBigTextNotification();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText: 'Show inbox notification [Android]',
+//                    onPressed: () async {
+//                      await _showInboxNotification();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText: 'Show messaging notification [Android]',
+//                    onPressed: () async {
+//                      await _showMessagingNotification();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText: 'Show grouped notifications [Android]',
+//                    onPressed: () async {
+//                      await _showGroupedNotifications();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText: 'Show ongoing notification [Android]',
+//                    onPressed: () async {
+//                      await _showOngoingNotification();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText:
+//                    'Show notification with no badge, alert only once [Android]',
+//                    onPressed: () async {
+//                      await _showNotificationWithNoBadge();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText:
+//                    'Show progress notification - updates every second [Android]',
+//                    onPressed: () async {
+//                      await _showProgressNotification();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText:
+//                    'Show indeterminate progress notification [Android]',
+//                    onPressed: () async {
+//                      await _showIndeterminateProgressNotification();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText: 'Check pending notifications',
+//                    onPressed: () async {
+//                      await _checkPendingNotificationRequests();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText: 'Cancel all notifications',
+//                    onPressed: () async {
+//                      await _cancelAllNotifications();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText: 'Show notification with icon badge [iOS]',
+//                    onPressed: () async {
+//                      await _showNotificationWithIconBadge();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText: 'Show notification without timestamp [Android]',
+//                    onPressed: () async {
+//                      await _showNotificationWithoutTimestamp();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText:
+//                    'Show notification with custom timestamp [Android]',
+//                    onPressed: () async {
+//                      await _showNotificationWithCustomTimestamp();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText: 'Show notification with attachment [iOS]',
+//                    onPressed: () async {
+//                      await _showNotificationWithAttachment();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText: 'Create notification channel [Android]',
+//                    onPressed: () async {
+//                      await _createNotificationChannel();
+//                    },
+//                  ),
+//                  PaddedRaisedButton(
+//                    buttonText: 'Delete notification channel [Android]',
+//                    onPressed: () async {
+//                      await _deleteNotificationChannel();
+//                    },
+//                  ),
+//                ],
+//              ),
+//            ),
+//          ),
+//        ),
+//      ),
+//    );
   }
 
 Future<void> _showNotification() async {
@@ -390,7 +479,7 @@ Future<void> _cancelNotification() async {
 }
 
 /// Schedules a notification that specifies a different icon, sound and vibration pattern
-Future<void> _scheduleNotification() async {
+Future<void> _scheduleNotification(DateTime dateTime, String title, String body) async {
   var scheduledNotificationDateTime =
   DateTime.now().add(Duration(seconds: 5));
   var vibrationPattern = Int64List(4);
@@ -403,9 +492,9 @@ Future<void> _scheduleNotification() async {
       'your other channel id',
       'your other channel name',
       'your other channel description',
-      icon: 'secondary_icon',
-      sound: RawResourceAndroidNotificationSound('slow_spring_board'),
-      largeIcon: DrawableResourceAndroidBitmap('sample_large_icon'),
+//      icon: 'secondary_icon',
+//      sound: RawResourceAndroidNotificationSound('slow_spring_board'),
+//      largeIcon: DrawableResourceAndroidBitmap('sample_large_icon'),
       vibrationPattern: vibrationPattern,
       enableLights: true,
       color: const Color.fromARGB(255, 255, 0, 0),
@@ -418,8 +507,8 @@ Future<void> _scheduleNotification() async {
       androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
   await flutterLocalNotificationsPlugin.schedule(
       0,
-      'scheduled title',
-      'scheduled body',
+      title,
+      body,
       scheduledNotificationDateTime,
       platformChannelSpecifics);
 }
