@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:timetable/services/notification.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void details (BuildContext context, dynamic data) {
   showModalBottomSheet(context: context, builder: (context){
@@ -88,4 +89,53 @@ String getDate(DateTime dateTime)
     date += dateTime.month.toString();
   date += ' / ${dateTime.year.toString()}';
   return date;
+}
+
+String getPollKey(DateTime dateTime)
+{
+  String key = '${dateTime.millisecondsSinceEpoch}';
+  return key;
+}
+
+void pollTap(BuildContext context, String code, dynamic data, bool response) async {
+  String text;
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  if (response)
+  {
+    prefs.setString(getPollKey(data['dateAndTime'].toDate()), data['yesOption']);
+    text = data['yesOption'];
+    data['yesCount']++;
+  }
+  else
+  {
+    prefs.setString(getPollKey(data['dateAndTime'].toDate()), data['noOption']);
+    text = data['noOption'];
+    data['noCount']++;
+  }
+  var docData = await Firestore.instance.collection('classes')
+      .document('$code/updates/announcements').get();
+  List<dynamic> announcements = docData.data['announcements'];
+  print('announcements set up');
+  for (int i = 0; i < announcements.length; i++)
+  {
+    print(announcements[i]['type']);
+    if(announcements[i]['type'] == 'poll'
+        && announcements[i]['dateAndTime'] == data['dateAndTime'])
+    {
+      announcements[i] = data;
+      break;
+    }
+  }
+  Firestore.instance.collection('classes')
+      .document('$code/updates/announcements')
+      .updateData({'announcements': announcements});
+  final snackBar = SnackBar(content: Text('You have responded $text successfully'));
+  Scaffold.of(context).showSnackBar(snackBar);
+}
+
+Future<String> getPollResponse(String key) async {
+  String response;
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  response = prefs.getString(key) ?? '';
+  return response;
 }

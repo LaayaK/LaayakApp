@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:timetable/widgets/widgets.dart';
-import 'package:timetable/widgets/functions.dart';
 
 class TodayClassesPage extends StatefulWidget {
   TodayClassesPage({this.code});
@@ -22,7 +20,7 @@ class _TodayClassesPageState extends State<TodayClassesPage> {
         children: <Widget>[
           headingText('Lectures Today'),
           Container(
-            height: MediaQuery.of(context).size.height,
+            height: MediaQuery.of(context).size.height - 100,
             width: MediaQuery.of(context).size.width,
             child: FutureBuilder<DocumentSnapshot>(
               future: Firestore.instance
@@ -47,7 +45,7 @@ class _TodayClassesPageState extends State<TodayClassesPage> {
         physics: ScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
-          return lectureCard(context, snapshot[index]);
+          return lectureCard(context, snapshot[snapshot.length - index - 1]);
         });
   }
 }

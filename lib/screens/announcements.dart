@@ -19,7 +19,7 @@ class _AnnouncementsPageState extends State<AnnouncementsPage> {
           children: <Widget>[
             headingText('Announcemnts'),
             Container(
-              height: MediaQuery.of(context).size.height,
+              height: MediaQuery.of(context).size.height - 200,
               width: MediaQuery.of(context).size.width,
               child: FutureBuilder<DocumentSnapshot>(
                 future: Firestore.instance
@@ -52,8 +52,8 @@ class _AnnouncementsPageState extends State<AnnouncementsPage> {
               return pollCardCR(
                   context, snapshot[snapshot.length - index - 1]);
             else
-              return pollCard(
-                  context, snapshot[snapshot.length - index - 1]);
+              return PollCard(
+                  context: context, data:snapshot[snapshot.length - index - 1], code: widget.code);
           else if (snapshot[snapshot.length - index - 1]['type'] == 'link')
             return linkCard(
                 context, snapshot[snapshot.length - index - 1]);
