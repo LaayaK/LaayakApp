@@ -51,6 +51,7 @@ class _DetailsPageState extends State<DetailsPage> {
               pinned: true,
               backgroundColor: Colors.blueGrey[900],
               flexibleSpace: FlexibleSpaceBar(
+                collapseMode: CollapseMode.none,
                 background: (widget.code == 'btech-cse-3')
                     ? Image.asset('assets/images/btechcsetime.jpg',
                         fit: BoxFit.cover)
@@ -114,7 +115,7 @@ class _DetailsPageState extends State<DetailsPage> {
                             fontSize: 30, fontWeight: FontWeight.bold)),
                   ),
                   Container(
-//                    height: MediaQuery.of(context).size.height,
+//                    height: 500,
                     width: MediaQuery.of(context).size.width,
                     child: FutureBuilder<DocumentSnapshot>(
                       future: Firestore.instance
@@ -136,6 +137,7 @@ class _DetailsPageState extends State<DetailsPage> {
           Text('Developer Info', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),),
           Text('himeshnayak015@gmail.com'),
           Text('sketchharry01@gmail.com'),
+          Text('pscoder10462@gmail.com'),
           ],),),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
@@ -171,7 +173,7 @@ class _DetailsPageState extends State<DetailsPage> {
               ),
             ),
             Container(
-              height: 700,
+//              height: 700,
               decoration: BoxDecoration(
                 color: Colors.white,
               ),
@@ -184,7 +186,7 @@ class _DetailsPageState extends State<DetailsPage> {
                             fontSize: 30, fontWeight: FontWeight.bold)),
                   ),
                   Container(
-                    height: MediaQuery.of(context).size.height,
+//                    height: MediaQuery.of(context).size.height,
                     width: MediaQuery.of(context).size.width,
                     child: FutureBuilder<DocumentSnapshot>(
                       future: Firestore.instance
