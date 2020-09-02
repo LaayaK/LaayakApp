@@ -26,19 +26,16 @@ class _AddDataPageState extends State<AddDataPage> {
             padding: EdgeInsets.all(0),
             height: 70,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(10),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                  offset: Offset(0,1),
+                  blurRadius: 2,
+                  color: Colors.grey.shade500,                    
+                  ),
+                ],
               ),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(0.0, 0.4),
-                  blurRadius: 3,
-                  color: Colors.grey.shade300,
-                )
-              ],
-              border: Border.all(color: Colors.grey.shade300),
-            ),
             child: FlatButton(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               onPressed: () {
@@ -54,7 +51,7 @@ class _AddDataPageState extends State<AddDataPage> {
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
-                        child: Icon(Icons.edit, color: Colors.green, size: 30),
+                        child: Icon(Icons.edit,   color: Colors.blue, size: 30),
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 2),
@@ -64,7 +61,7 @@ class _AddDataPageState extends State<AddDataPage> {
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
                           ),
-                          color: Colors.green,
+                           color: Colors.blue,
                         ),
                       ),
                       Container(
@@ -75,7 +72,7 @@ class _AddDataPageState extends State<AddDataPage> {
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
                           ),
-                          color: Colors.green,
+                           color: Colors.blue,
                         ),
                       ),
                       Container(
@@ -86,7 +83,7 @@ class _AddDataPageState extends State<AddDataPage> {
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
                           ),
-                          color: Colors.green,
+                          color: Colors.blue,
                         ),
                       ),
                       Container(
@@ -108,20 +105,17 @@ class _AddDataPageState extends State<AddDataPage> {
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
             padding: EdgeInsets.all(0),
             height: 70,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(10),
+             decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                  offset: Offset(0,1),
+                  blurRadius: 2,
+                  color: Colors.grey.shade500,                    
+                  ),
+                ],
               ),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(0.0, 0.4),
-                  blurRadius: 3,
-                  color: Colors.grey.shade300,
-                )
-              ],
-              border: Border.all(color: Colors.grey.shade300),
-            ),
             child: FlatButton(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               onPressed: () {
@@ -198,20 +192,17 @@ class _AddDataPageState extends State<AddDataPage> {
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
             padding: EdgeInsets.all(0),
             height: 70,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(10),
+             decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                  offset: Offset(0,1),
+                  blurRadius: 2,
+                  color: Colors.grey.shade500,                    
+                  ),
+                ],
               ),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(0.0, 0.4),
-                  blurRadius: 3,
-                  color: Colors.grey.shade300,
-                )
-              ],
-              border: Border.all(color: Colors.grey.shade300),
-            ),
             child: FlatButton(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               onPressed: () {
@@ -226,7 +217,7 @@ class _AddDataPageState extends State<AddDataPage> {
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
-                        child: Icon(Icons.link, color: Colors.green, size: 30),
+                        child: Icon(Icons.link,  color: Colors.deepPurple, size: 30),
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 2),
@@ -236,7 +227,7 @@ class _AddDataPageState extends State<AddDataPage> {
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
                           ),
-                          color: Colors.green,
+                           color: Colors.deepPurple,
                         ),
                       ),
                       Container(
@@ -247,7 +238,7 @@ class _AddDataPageState extends State<AddDataPage> {
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
                           ),
-                          color: Colors.green,
+                          color: Colors.deepPurple,
                         ),
                       ),
                       Container(
@@ -258,7 +249,7 @@ class _AddDataPageState extends State<AddDataPage> {
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
                           ),
-                          color: Colors.green,
+                          color: Colors.deepPurple,
                         ),
                       ),
                       Container(
@@ -280,20 +271,31 @@ class _AddDataPageState extends State<AddDataPage> {
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
             padding: EdgeInsets.all(0),
             height: 70,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(10),
+//             decoration: BoxDecoration(
+//               borderRadius: BorderRadius.all(
+//                 Radius.circular(10),
+//               ),
+//               color: Colors.white,
+//               boxShadow: [
+//                 BoxShadow(
+//                   offset: Offset(0.0, 0.4),
+//                   blurRadius: 3,
+//                   color: Colors.grey.shade300,
+//                 )
+//               ],
+//               border: Border.all(color: Colors.grey.shade300),
+//             ),
+             decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                  offset: Offset(0,1),
+                  blurRadius: 2,
+                  color: Colors.grey.shade500,                    
+                  ),
+                ],
               ),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(0.0, 0.4),
-                  blurRadius: 3,
-                  color: Colors.grey.shade300,
-                )
-              ],
-              border: Border.all(color: Colors.grey.shade300),
-            ),
             child: FlatButton(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               onPressed: () {
@@ -310,7 +312,7 @@ class _AddDataPageState extends State<AddDataPage> {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
                         child: Icon(Icons.poll,
-                            color: Colors.green, size: 30),
+                            color: Colors.pinkAccent, size: 30),
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 2),
@@ -320,7 +322,7 @@ class _AddDataPageState extends State<AddDataPage> {
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
                           ),
-                          color: Colors.green,
+                          color: Colors.pinkAccent,
                         ),
                       ),
                       Container(
@@ -331,7 +333,7 @@ class _AddDataPageState extends State<AddDataPage> {
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
                           ),
-                          color: Colors.green,
+                          color: Colors.pinkAccent,
                         ),
                       ),
                       Container(
@@ -342,7 +344,7 @@ class _AddDataPageState extends State<AddDataPage> {
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
                           ),
-                          color: Colors.green,
+                          color: Colors.pinkAccent,
                         ),
                       ),
                       Container(
