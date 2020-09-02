@@ -570,7 +570,7 @@ Widget buildWaitingScreen() {
     backgroundColor: Colors.white,
     body: Container(
       alignment: Alignment.center,
-      child: Text('LINK AAYA KYA???'),
+      child: Image.asset(assets/images/logo512.png),
     ),
   );
 }
@@ -580,20 +580,17 @@ Widget lectureCard(BuildContext context, dynamic data) {
     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
 //    height: 110,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.all(
-        Radius.circular(10),
-      ),
-      boxShadow: [
-        BoxShadow(
-          offset: Offset(0.0, 0.4),
-          blurRadius: 3,
-          color: Colors.grey.shade300,
-        )
-      ],
-      color: Colors.white,
-      border: Border.all(color: Colors.grey.shade300),
-    ),
+     decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                  offset: Offset(0,1),
+                  blurRadius: 2,
+                  color: Colors.grey.shade500,                    
+                  ),
+                ],
+              ),
     child: Column(children: <Widget>[
       Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
         Container(
@@ -627,7 +624,7 @@ Widget lectureCard(BuildContext context, dynamic data) {
             borderRadius: BorderRadius.all(
               Radius.circular(10),
             ),
-            color: Colors.green,
+            color: Colors.blue,
           ),
         ),
         Container(
@@ -668,7 +665,7 @@ Widget lectureCard(BuildContext context, dynamic data) {
 //                          },
                           child: Text('Details',
                               style: TextStyle(
-                                color: Colors.blue,
+                                color: Colors.deepPurple,
                                 fontSize: 15,
 //                                fontFamily: 'Comfortaa'
                               ))),
@@ -681,7 +678,7 @@ Widget lectureCard(BuildContext context, dynamic data) {
                         borderRadius: BorderRadius.all(
                           Radius.circular(10),
                         ),
-                        color: Colors.blue,
+                        color: Colors.deepPurple,
                       ),
                     ),
                     Container(
@@ -695,7 +692,7 @@ Widget lectureCard(BuildContext context, dynamic data) {
                           },
                           child: Text('Join',
                               style: TextStyle(
-                                color: Colors.blue,
+                               color: Colors.deepPurple,
                                 fontSize: 15,
 //                                fontFamily: 'Comfortaa'
                               ))),
@@ -708,7 +705,7 @@ Widget lectureCard(BuildContext context, dynamic data) {
                         borderRadius: BorderRadius.all(
                           Radius.circular(10),
                         ),
-                        color: Colors.blue,
+                        color: Colors.deepPurple,
                       ),
                     ),
                     Container(
@@ -722,7 +719,7 @@ Widget lectureCard(BuildContext context, dynamic data) {
                           },
                           child: Text('Copy',
                               style: TextStyle(
-                                color: Colors.blue,
+                              color: Colors.deepPurple,
                                 fontSize: 15,
 //                                fontFamily: 'Comfortaa'
                               ))),
@@ -772,27 +769,31 @@ Widget lectureDetails(BuildContext context, dynamic data) {
                             color: Colors.grey,
                             fontSize: 15,
                           )),
-                      Container(
-                        margin: EdgeInsets.all(10),
-                        height: 35,
-                        width: 120,
-                        child: SetAlarm(),
-                      ),
+//                       Container(
+//                         margin: EdgeInsets.all(10),
+//                         height: 35,
+//                         width: 120,
+//                         child: SetAlarm(),
+//                       ),
+                      Align(alignment: Alignment.center,child: Padding(padding: EdgeInsets.symmetric(vertical: 10),child:Text(
+                      data['link'],
+                      style: TextStyle(color: Colors.blue),
+                    ),),),
                       Align(
                           alignment: Alignment.topLeft,
-                          child: Text('Additional Information',
+                          child:  Padding(padding: EdgeInsets.symmetric(horizontal: 20),child: Text('Additional Information',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black,
                                 fontSize: 16,
-                              ))),
+                              ),),),),
                       Align(
                           alignment: Alignment.topLeft,
-                          child: Text(data['text'],
+                          child:  Padding(padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),child:Text(data['text'],
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 14,
-                              )))
+                              ),),),),
                     ],
                   ),
                 ),
