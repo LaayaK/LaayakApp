@@ -128,6 +128,15 @@ class _DetailsPageState extends State<DetailsPage> {
                       },
                     ),
                   ),
+                   Container(
+            margin: EdgeInsets.all(20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children:<Widget>[
+          Text('Developer Info', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),),
+          Text('himeshnayak015@gmail.com'),
+          Text('sketchharry01@gmail.com'),
+          ],),),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                     decoration: BoxDecoration(
