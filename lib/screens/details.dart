@@ -51,7 +51,7 @@ class _DetailsPageState extends State<DetailsPage> {
               pinned: true,
               backgroundColor: Colors.blueGrey[900],
               flexibleSpace: FlexibleSpaceBar(
-                collapseMode: CollapseMode.none,
+                collapseMode: CollapseMode.parallax,
                 background: (widget.code == 'btech-cse-3')
                     ? Image.asset('assets/images/btechcsetime.jpg',
                         fit: BoxFit.cover)
@@ -247,11 +247,12 @@ class _DetailsPageState extends State<DetailsPage> {
                       ),
                     ),
                     Container(
+                      width: MediaQuery.of(context).size.width - 60,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(snapshot[index]['subject'],
+                          Text('${snapshot[index]['subjectCode']} : ${snapshot[index]['subject']}',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 18,
@@ -311,6 +312,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 ),
               ),
               Container(
+                width: MediaQuery.of(context).size.width - 60,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
