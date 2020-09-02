@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timetable/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class DetailsPage extends StatefulWidget {
   DetailsPage({this.code, this.user, this.logoutCallback, this.auth});
@@ -14,6 +15,28 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
+
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
+  void deleteFCMToken() {
+    _firebaseMessaging.getToken().then((deviceToken) async {
+      print('Device Token : $deviceToken');
+      var data = await Firestore.instance
+          .collection('students')
+          .document('fcmTokens').get();
+      List<dynamic> newTokens = [], fcmTokens = data['fcmTokens'];
+      for (int i = 0; i < fcmTokens.length; i++)
+      {
+        if (fcmTokens[i] != deviceToken)
+          newTokens.add(fcmTokens[i]);
+      }
+      Firestore.instance
+          .collection('students')
+          .document('fcmTokens')
+          .updateData({'fcmTokens': newTokens});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -125,7 +148,8 @@ class _DetailsPageState extends State<DetailsPage> {
                           await widget.auth.signOut();
                           widget.logoutCallback();
                         }
-                        print('clearing SP');
+                        print('clearing SP and FCM token');
+                        deleteFCMToken();
                         SharedPreferences prefs =
                             await SharedPreferences.getInstance();
                         prefs.setString('code', '');

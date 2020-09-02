@@ -25,6 +25,7 @@ class AddLectureState extends State<AddLecture>
   String link, text;
   static DateTime initDate = DateTime.now();
   DateTime startTime = initDate, endTime = initDate;
+  Color timeColor = Colors.black;
 
   bool validateAndSave() {
     final form = _formKey.currentState;
@@ -154,14 +155,14 @@ class AddLectureState extends State<AddLecture>
                           Text('Start Time',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                color: Colors.black,
+                                color: timeColor,
                                 fontSize: 16,
                               )),
                           Spacer(),
                           Text(getTime(startTime),
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                color: Colors.black,
+                                color: timeColor,
                                 fontSize: 16,
                               )),
                           SizedBox(
@@ -178,10 +179,18 @@ class AddLectureState extends State<AddLecture>
                                   }, onConfirm: (date) {
                                     print('confirm $date');
                                     setState(() {
-                                      if (date.hour >= DateTime.now().hour)
+                                      if (date.hour >= DateTime.now().hour) {
                                         startTime = date;
-                                      else
-                                        startTime = DateTime.now();
+                                        setState(() {
+                                          timeColor = Colors.green;
+                                        });
+                                      }
+                                      else {
+                                        startTime = initDate;
+                                        setState(() {
+                                          timeColor = Colors.red;
+                                        });
+                                      }
                                     });
                                   }, currentTime: DateTime.now());
                                 },
@@ -192,14 +201,14 @@ class AddLectureState extends State<AddLecture>
                           Text('End Time',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                color: Colors.black,
+                                color: timeColor,
                                 fontSize: 16,
                               )),
                           Spacer(),
                           Text(getTime(endTime),
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                color: Colors.black,
+                                color: timeColor,
                                 fontSize: 16,
                               )),
                           SizedBox(
@@ -217,15 +226,27 @@ class AddLectureState extends State<AddLecture>
                                     print('confirm $date');
                                     setState(() {
                                       if (date.hour >= DateTime.now().hour ||
-                                          date.hour > startTime.hour) if (date
-                                                  .hour ==
+                                          date.hour > startTime.hour)
+                                        if (date.hour >=
                                               startTime.hour &&
-                                          date.minute > startTime.minute)
-                                        endTime = date;
-                                      else
+                                          date.minute > startTime.minute) {
+                                          endTime = date;
+                                          setState(() {
+                                            timeColor = Colors.green;
+                                          });
+                                        }
+                                        else {
+                                          endTime = initDate;
+                                          setState(() {
+                                            timeColor = Colors.red;
+                                          });
+                                        }
+                                      else {
                                         endTime = initDate;
-                                      else
-                                        endTime = initDate;
+                                        setState(() {
+                                          timeColor = Colors.red;
+                                        });
+                                      }
                                     });
                                   }, currentTime: DateTime.now());
                                 },
