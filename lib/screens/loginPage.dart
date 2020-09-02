@@ -113,9 +113,10 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
                   color: Color(0xFF0D0C21),
                 ),
               ),
+              SizedBox(height: 20),
               showEmailInput(),
               showPasswordInput(),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               Builder(
                 builder: (BuildContext context) {
                   return Container(
@@ -236,6 +237,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
 
   Widget showEmailInput() {
     return Container(
+      margin: EdgeInsets.all(10),
       child: new TextFormField(
         maxLines: 1,
         keyboardType: TextInputType.emailAddress,
@@ -265,6 +267,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
 
   Widget showPasswordInput() {
     return Container(
+      margin: EdgeInsets.all(10),
       child: new TextFormField(
         maxLines: 1,
         obscureText: true,

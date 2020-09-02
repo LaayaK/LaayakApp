@@ -16,6 +16,7 @@ class _AddLecturePageState extends State<AddLecturePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
         child: ListView(
           children: <Widget>[

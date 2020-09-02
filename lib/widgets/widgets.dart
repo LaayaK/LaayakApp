@@ -25,7 +25,7 @@ class AddLectureState extends State<AddLecture>
   String link, text;
   static DateTime initDate = DateTime.now();
   DateTime startTime = initDate, endTime = initDate;
-  Color timeColor = Colors.black;
+  Color startTimeColor = Colors.black, endTimeColor = Colors.black;
 
   bool validateAndSave() {
     final form = _formKey.currentState;
@@ -155,14 +155,14 @@ class AddLectureState extends State<AddLecture>
                           Text('Start Time',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                color: timeColor,
+                                color: startTimeColor,
                                 fontSize: 16,
                               )),
                           Spacer(),
                           Text(getTime(startTime),
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                color: timeColor,
+                                color: startTimeColor,
                                 fontSize: 16,
                               )),
                           SizedBox(
@@ -182,13 +182,13 @@ class AddLectureState extends State<AddLecture>
                                       if (date.hour >= DateTime.now().hour) {
                                         startTime = date;
                                         setState(() {
-                                          timeColor = Colors.green;
+                                          startTimeColor = Colors.green;
                                         });
                                       }
                                       else {
                                         startTime = initDate;
                                         setState(() {
-                                          timeColor = Colors.red;
+                                          startTimeColor = Colors.red;
                                         });
                                       }
                                     });
@@ -201,14 +201,14 @@ class AddLectureState extends State<AddLecture>
                           Text('End Time',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                color: timeColor,
+                                color: endTimeColor,
                                 fontSize: 16,
                               )),
                           Spacer(),
                           Text(getTime(endTime),
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                color: timeColor,
+                                color: endTimeColor,
                                 fontSize: 16,
                               )),
                           SizedBox(
@@ -232,19 +232,19 @@ class AddLectureState extends State<AddLecture>
                                           date.minute > startTime.minute) {
                                           endTime = date;
                                           setState(() {
-                                            timeColor = Colors.green;
+                                            endTimeColor = Colors.green;
                                           });
                                         }
                                         else {
                                           endTime = initDate;
                                           setState(() {
-                                            timeColor = Colors.red;
+                                            endTimeColor = Colors.red;
                                           });
                                         }
                                       else {
                                         endTime = initDate;
                                         setState(() {
-                                          timeColor = Colors.red;
+                                          endTimeColor = Colors.red;
                                         });
                                       }
                                     });
@@ -570,7 +570,7 @@ Widget buildWaitingScreen() {
     backgroundColor: Colors.white,
     body: Container(
       alignment: Alignment.center,
-      child: Image.asset(assets/images/logo512.png),
+      child: Image.asset('assets/images/ic_launcher.png'),
     ),
   );
 }
@@ -585,7 +585,7 @@ Widget lectureCard(BuildContext context, dynamic data) {
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                  offset: Offset(0,1),
+                  offset: Offset(0, 1),
                   blurRadius: 2,
                   color: Colors.grey.shade500,                    
                   ),

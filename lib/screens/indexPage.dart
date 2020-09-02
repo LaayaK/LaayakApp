@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -60,6 +61,7 @@ class _IndexPageState extends State<IndexPage> {
     });
     if (codeStatus == CodeStatus.CODE_PRESENT) {
       print('code matched document ID');
+      storeFCMToken();
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('code', codeController.value.text);
     } else {
@@ -70,6 +72,19 @@ class _IndexPageState extends State<IndexPage> {
         codeController.clear();
       });
     }
+  }
+
+  void storeFCMToken() {
+    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+    _firebaseMessaging.getToken().then((deviceToken) {
+      print('Device Token : $deviceToken');
+      Firestore.instance
+          .collection('students')
+          .document('fcmTokens')
+          .setData({
+        'fcmTokens': FieldValue.arrayUnion([deviceToken])
+      }, merge: true);
+    });
   }
 
   @override
