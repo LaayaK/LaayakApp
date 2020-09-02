@@ -496,19 +496,16 @@ Widget subjectCR(BuildContext context, dynamic data, String code) {
     padding: EdgeInsets.all(0),
     height: 70,
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.all(
-        Radius.circular(10),
-      ),
-      color: Colors.white,
-      boxShadow: [
-        BoxShadow(
-          offset: Offset(0.0, 0.4),
-          blurRadius: 3,
-          color: Colors.grey.shade300,
-        )
-      ],
-      border: Border.all(color: Colors.grey.shade300),
-    ),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                  offset: Offset(0,1),
+                  blurRadius: 2,
+                  color: Colors.grey.shade500,                    
+                  ),
+                ],
+              ),
     child: FlatButton(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       onPressed: () {
