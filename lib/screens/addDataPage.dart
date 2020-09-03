@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:timetable/screens/addLecture.dart';
 import 'package:timetable/widgets/widgets.dart';
 
 class AddDataPage extends StatefulWidget {
-  AddDataPage({this.code});
+  AddDataPage({this.code, this.subjects});
 
   final String code;
+  final subjects;
 
   @override
   _AddDataPageState createState() => _AddDataPageState();
@@ -43,7 +43,7 @@ class _AddDataPageState extends State<AddDataPage> {
                     context,
                     MaterialPageRoute(
                         builder: (BuildContext context) =>
-                            AddLecturePage(code: widget.code)));
+                            AddLecturePage(code: widget.code, subjects: widget.subjects,)));
               },
               child: Column(children: <Widget>[
                 Row(

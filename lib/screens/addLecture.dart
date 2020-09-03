@@ -4,9 +4,10 @@ import 'package:timetable/widgets/widgets.dart';
 
 class AddLecturePage extends StatefulWidget {
 
-  AddLecturePage({this.code});
+  AddLecturePage({this.code, this.subjects});
 
   final String code;
+  final subjects;
 
   @override
   _AddLecturePageState createState() => _AddLecturePageState();
@@ -21,14 +22,7 @@ class _AddLecturePageState extends State<AddLecturePage> {
         child: ListView(
           children: <Widget>[
             headingText('Add Lecture'),
-            FutureBuilder(
-              future: Firestore.instance.collection('classes').document(widget.code).get(),
-              builder: (context, snapshot){
-                if(!snapshot.hasData)
-                  return Center(child: CircularProgressIndicator(),);
-                return _buildSubjectList(context, snapshot.data['subjects']);
-              },
-            ),
+            _buildSubjectList(context, widget.subjects)
           ],
         ),
       ),

@@ -22,7 +22,7 @@ class AddLectureState extends State<AddLecture>
   String _errorMessage = '';
   bool _isLoading = false;
 
-  String link, text;
+  String link, text, group = '';
   static DateTime initDate = DateTime.now();
   DateTime startTime = initDate, endTime = initDate;
   Color startTimeColor = Colors.black, endTimeColor = Colors.black;
@@ -57,6 +57,7 @@ class AddLectureState extends State<AddLecture>
           'startTime': startTime,
           'endTime': endTime,
           'text': text,
+          'group' : group,
         };
 
         addLectureLinkFirestore(widget.code, lecture);
@@ -123,7 +124,7 @@ class AddLectureState extends State<AddLecture>
 
                     // dashed Border
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,                     
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text('Add Lecture',
                             style: TextStyle(
@@ -131,27 +132,27 @@ class AddLectureState extends State<AddLecture>
                               color: Colors.black,
                               fontSize: 18,
                             )),
-                         Container(
-                      margin: EdgeInsets.symmetric(vertical: 4),
-                      height: 2,
-                      width: MediaQuery.of(context).size.width - 90,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 4),
+                          height: 2,
+                          width: MediaQuery.of(context).size.width - 90,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                            color: Colors.green,
+                          ),
                         ),
-                        color: Colors.green,
-                      ),
-                    ),
-                    Container(
-                      height: 2,
-                      width: MediaQuery.of(context).size.width - 90,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
+                        Container(
+                          height: 2,
+                          width: MediaQuery.of(context).size.width - 90,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                            color: Colors.green,
+                          ),
                         ),
-                        color: Colors.green,
-                      ),
-                    ),
                         SizedBox(height: 10),
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 10),
@@ -172,7 +173,7 @@ class AddLectureState extends State<AddLecture>
                             onSaved: (value) => link = value.trim(),
                           ),
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 10),
                         Row(children: <Widget>[
                           Text('Start Time',
                               style: TextStyle(
@@ -201,15 +202,18 @@ class AddLectureState extends State<AddLecture>
                                   }, onConfirm: (date) {
                                     print('confirm $date');
                                     setState(() {
-                                      if (date.hour >= DateTime.now().hour) {
+                                      if (date.hour >= initDate.hour) {
                                         startTime = date;
                                         setState(() {
+                                          endTime = initDate;
+                                          endTimeColor = Colors.black;
                                           startTimeColor = Colors.green;
                                         });
-                                      }
-                                      else {
+                                      } else {
                                         startTime = initDate;
                                         setState(() {
+                                          endTime = initDate;
+                                          endTimeColor = Colors.black;
                                           startTimeColor = Colors.red;
                                         });
                                       }
@@ -247,23 +251,21 @@ class AddLectureState extends State<AddLecture>
                                   }, onConfirm: (date) {
                                     print('confirm $date');
                                     setState(() {
-                                      if (date.hour >= DateTime.now().hour ||
-                                          date.hour > startTime.hour)
-                                        if (date.hour >=
-                                              startTime.hour &&
-                                          date.minute > startTime.minute) {
+                                      if (date.hour >= initDate.hour &&
+                                          date.hour >= startTime.hour) {
+                                        if (date.hour == startTime.hour &&
+                                            date.minute <= startTime.minute) {
+                                          endTime = initDate;
+                                          setState(() {
+                                            endTimeColor = Colors.red;
+                                          });
+                                        } else {
                                           endTime = date;
                                           setState(() {
                                             endTimeColor = Colors.green;
                                           });
                                         }
-                                        else {
-                                          endTime = initDate;
-                                          setState(() {
-                                            endTimeColor = Colors.red;
-                                          });
-                                        }
-                                      else {
+                                      } else {
                                         endTime = initDate;
                                         setState(() {
                                           endTimeColor = Colors.red;
@@ -275,6 +277,7 @@ class AddLectureState extends State<AddLecture>
                                 child: Icon(Icons.timer, color: Colors.blue)),
                           ),
                         ]),
+                        SizedBox(height: 10),
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(
@@ -286,10 +289,11 @@ class AddLectureState extends State<AddLecture>
                             maxLines: 1,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintText: 'Batch / Whole Class'),
+                                hintText:
+                                    'Group? (Leave Empty for Whole Class)'),
                             onSaved: (value) => (value.isNotEmpty)
-                                ? text = value.trim()
-                                : text = 'No information',
+                                ? group = value.trim()
+                                : group = '',
                           ),
                         ),
                         SizedBox(height: 10),
@@ -534,18 +538,18 @@ Widget subjectCR(BuildContext context, dynamic data, String code) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
     padding: EdgeInsets.all(0),
-    height: 70,
+//    height: 70,
     decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                  offset: Offset(0,1),
-                  blurRadius: 2,
-                  color: Colors.grey.shade500,                    
-                  ),
-                ],
-              ),
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+      color: Colors.white,
+      boxShadow: [
+        BoxShadow(
+          offset: Offset(0, 1),
+          blurRadius: 2,
+          color: Colors.grey.shade500,
+        ),
+      ],
+    ),
     child: FlatButton(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       onPressed: () {
@@ -583,22 +587,23 @@ Widget subjectCR(BuildContext context, dynamic data, String code) {
             ),
           ),
           Container(
+              width: MediaQuery.of(context).size.width - 80,
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                Text(data['subject'],
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                    )),
-                SizedBox(height: 2),
-                Text('by ${data['teacher']}',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
-                    )),
-              ])),
+                    Text(data['subject'],
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                        )),
+                    SizedBox(height: 2),
+                    Text('by ${data['teacher']}',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15,
+                        )),
+                  ])),
         ]),
       ]),
     ),
@@ -620,17 +625,17 @@ Widget lectureCard(BuildContext context, dynamic data) {
     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
 //    height: 110,
-     decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                  offset: Offset(0, 1),
-                  blurRadius: 2,
-                  color: Colors.grey.shade500,                    
-                  ),
-                ],
-              ),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+      color: Colors.white,
+      boxShadow: [
+        BoxShadow(
+          offset: Offset(0, 1),
+          blurRadius: 2,
+          color: Colors.grey.shade500,
+        ),
+      ],
+    ),
     child: Column(children: <Widget>[
       Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
         Container(
@@ -668,6 +673,7 @@ Widget lectureCard(BuildContext context, dynamic data) {
           ),
         ),
         Container(
+          width: MediaQuery.of(context).size.width - 145,
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -683,12 +689,17 @@ Widget lectureCard(BuildContext context, dynamic data) {
                     color: Colors.grey,
                     fontSize: 15,
                   )),
-                  Padding(padding: EdgeInsets.only(top: 5), child: Text(
-                'Group',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 15,
-                  )),),
+              Visibility(
+                visible: (data['group'].isNotEmpty),
+                child: Padding(
+                  padding: EdgeInsets.only(top: 5),
+                  child: Text(data['group'],
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 15,
+                      )),
+                ),
+              ),
               SizedBox(height: 7),
               Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -738,7 +749,7 @@ Widget lectureCard(BuildContext context, dynamic data) {
                           },
                           child: Text('Join',
                               style: TextStyle(
-                               color: Colors.deepPurple,
+                                color: Colors.deepPurple,
                                 fontSize: 15,
 //                                fontFamily: 'Comfortaa'
                               ))),
@@ -765,7 +776,7 @@ Widget lectureCard(BuildContext context, dynamic data) {
                           },
                           child: Text('Copy',
                               style: TextStyle(
-                              color: Colors.deepPurple,
+                                color: Colors.deepPurple,
                                 fontSize: 15,
 //                                fontFamily: 'Comfortaa'
                               ))),
@@ -821,25 +832,44 @@ Widget lectureDetails(BuildContext context, dynamic data) {
 //                         width: 120,
 //                         child: SetAlarm(),
 //                       ),
-                      Align(alignment: Alignment.center,child: Padding(padding: EdgeInsets.symmetric(vertical: 10),child:Text(
-                      data['link'],
-                      style: TextStyle(color: Colors.blue),
-                    ),),),
                       Align(
-                          alignment: Alignment.topLeft,
-                          child:  Padding(padding: EdgeInsets.symmetric(horizontal: 20),child: Text('Additional Information',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black,
-                                fontSize: 16,
-                              ),),),),
+                        alignment: Alignment.center,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: Text(
+                            data['link'],
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        ),
+                      ),
                       Align(
-                          alignment: Alignment.topLeft,
-                          child:  Padding(padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),child:Text(data['text'],
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                              ),),),),
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Text(
+                            'Additional Information',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: Text(
+                            data['text'],
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -1449,7 +1479,6 @@ class PaddedRaisedButton extends StatelessWidget {
 }
 
 class PollCard extends StatefulWidget {
-
   PollCard({this.context, this.data, this.code});
 
   final context, data, code;
@@ -1511,10 +1540,7 @@ class _PollCardState extends State<PollCard> {
             ),
           ),
           Container(
-            width: MediaQuery
-                .of(context)
-                .size
-                .width - 80,
+            width: MediaQuery.of(context).size.width - 80,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1557,10 +1583,8 @@ class _PollCardState extends State<PollCard> {
                           child: Center(
                             child: Container(
                               margin: EdgeInsets.symmetric(horizontal: 5),
-                              width: (MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width - 100) * 0.5,
+                              width: (MediaQuery.of(context).size.width - 100) *
+                                  0.5,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: Colors.grey,
@@ -1584,14 +1608,12 @@ class _PollCardState extends State<PollCard> {
                             children: <Widget>[
                               Container(
                                 margin: EdgeInsets.symmetric(horizontal: 5),
-                                width: (MediaQuery
-                                    .of(context)
-                                    .size
-                                    .width - 100) * 0.5,
+                                width:
+                                    (MediaQuery.of(context).size.width - 100) *
+                                        0.5,
                                 child: RaisedButton(
                                   shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          20)),
+                                      borderRadius: BorderRadius.circular(20)),
                                   color: Colors.green,
                                   child: Padding(
                                     padding: EdgeInsets.all(0),
@@ -1602,21 +1624,20 @@ class _PollCardState extends State<PollCard> {
                                   ),
                                   onPressed: () {
                                     setState(() {
-                                      pollTap(context, widget.code, widget.data, true);
+                                      pollTap(context, widget.code, widget.data,
+                                          true);
                                     });
                                   },
                                 ),
                               ),
                               Container(
                                 margin: EdgeInsets.symmetric(horizontal: 5),
-                                width: (MediaQuery
-                                    .of(context)
-                                    .size
-                                    .width - 100) * 0.5,
+                                width:
+                                    (MediaQuery.of(context).size.width - 100) *
+                                        0.5,
                                 child: RaisedButton(
                                   shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          20)),
+                                      borderRadius: BorderRadius.circular(20)),
                                   color: Colors.red,
                                   child: Padding(
                                     padding: EdgeInsets.all(0),
@@ -1627,7 +1648,8 @@ class _PollCardState extends State<PollCard> {
                                   ),
                                   onPressed: () {
                                     setState(() {
-                                      pollTap(context, widget.code, widget.data, false);
+                                      pollTap(context, widget.code, widget.data,
+                                          false);
                                     });
                                   },
                                 ),
@@ -1635,8 +1657,7 @@ class _PollCardState extends State<PollCard> {
                             ],
                           ),
                         );
-                    }
-                    else
+                    } else
                       return LinearProgressIndicator();
                   },
                 ),

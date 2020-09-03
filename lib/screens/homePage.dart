@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Container(
           child: (_page == 0)
-              ? AddDataPage(code: widget.code)
+              ? AddDataPage(code: widget.code, subjects: widget.data['subjects'],)
               : (_page == 1)
                   ? TodayClassesPage(code: widget.code)
                   : (_page == 2)
