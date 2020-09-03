@@ -488,6 +488,7 @@ class AddAnnounState extends State<AddAnnoun>
                       height: 40,
                       width: MediaQuery.of(context).size.width,
                       child: FloatingActionButton.extended(
+                        backgroundColor: Colors.green,
                         onPressed: () {
                           validateAndSubmit();
                         },
@@ -545,7 +546,7 @@ Widget subjectCR(BuildContext context, dynamic data, String code) {
               borderRadius: BorderRadius.all(
                 Radius.circular(10),
               ),
-              color: Colors.green,
+              color: Colors.blue,
             ),
           ),
           Container(
@@ -556,7 +557,7 @@ Widget subjectCR(BuildContext context, dynamic data, String code) {
               borderRadius: BorderRadius.all(
                 Radius.circular(10),
               ),
-              color: Colors.green,
+              color: Colors.blue,
             ),
           ),
           Container(
@@ -1130,6 +1131,7 @@ class AddLinkState extends State<AddLink> with SingleTickerProviderStateMixin {
                       height: 40,
                       width: MediaQuery.of(context).size.width,
                       child: FloatingActionButton.extended(
+                        backgroundColor: Colors.deepPurple,
                         onPressed: () {
                           validateAndSubmit();
                         },
@@ -1380,6 +1382,7 @@ class AddPollState extends State<AddPoll> with SingleTickerProviderStateMixin {
                       height: 40,
                       width: MediaQuery.of(context).size.width,
                       child: FloatingActionButton.extended(
+                        backgroundColor: Colors.pinkAccent,
                         onPressed: () {
                           validateAndSubmit();
                         },
