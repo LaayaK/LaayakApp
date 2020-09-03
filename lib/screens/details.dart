@@ -5,9 +5,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 class DetailsPage extends StatefulWidget {
-  DetailsPage({this.code, this.user, this.logoutCallback, this.auth});
+  DetailsPage(
+      {this.code,
+      this.details,
+      this.subjects,
+      this.user,
+      this.logoutCallback,
+      this.auth});
 
   final String code, user;
+  final details, subjects;
   final logoutCallback, auth;
 
   @override
@@ -15,7 +22,6 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   void deleteFCMToken() {
@@ -23,12 +29,11 @@ class _DetailsPageState extends State<DetailsPage> {
       print('Device Token : $deviceToken');
       var data = await Firestore.instance
           .collection('students')
-          .document('fcmTokens').get();
+          .document('fcmTokens')
+          .get();
       List<dynamic> newTokens = [], fcmTokens = data['fcmTokens'];
-      for (int i = 0; i < fcmTokens.length; i++)
-      {
-        if (fcmTokens[i] != deviceToken)
-          newTokens.add(fcmTokens[i]);
+      for (int i = 0; i < fcmTokens.length; i++) {
+        if (fcmTokens[i] != deviceToken) newTokens.add(fcmTokens[i]);
       }
       Firestore.instance
           .collection('students')
@@ -52,11 +57,8 @@ class _DetailsPageState extends State<DetailsPage> {
               backgroundColor: Colors.blueGrey[900],
               flexibleSpace: FlexibleSpaceBar(
                 collapseMode: CollapseMode.parallax,
-                background: (widget.code == 'btech-cse-3')
-                    ? Image.asset('assets/images/btechcsetime.jpg',
-                        fit: BoxFit.cover)
-                    : Image.asset(
-                        'assets/images/btechecetime.jpg',
+                background: Image.asset(
+                        'assets/images/${widget.details['timeTable']}.jpg',
                         fit: BoxFit.cover,
                       ),
               ),
@@ -117,28 +119,24 @@ class _DetailsPageState extends State<DetailsPage> {
                   Container(
 //                    height: 500,
                     width: MediaQuery.of(context).size.width,
-                    child: FutureBuilder<DocumentSnapshot>(
-                      future: Firestore.instance
-                          .collection('classes')
-                          .document(widget.code)
-                          .get(),
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData)
-                          return Center(child: CircularProgressIndicator());
-                        return _buildDetails(context, snapshot.data['details']);
-                      },
+                    child: _buildDetails(context),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'Developer Info',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 20),
+                        ),
+                        Text('himeshnayak015@gmail.com'),
+                        Text('sketchharry01@gmail.com'),
+                        Text('pscoder10462@gmail.com'),
+                      ],
                     ),
                   ),
-                   Container(
-            margin: EdgeInsets.all(20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children:<Widget>[
-          Text('Developer Info', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),),
-          Text('himeshnayak015@gmail.com'),
-          Text('sketchharry01@gmail.com'),
-          Text('pscoder10462@gmail.com'),
-          ],),),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                     decoration: BoxDecoration(
@@ -188,17 +186,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   Container(
 //                    height: MediaQuery.of(context).size.height,
                     width: MediaQuery.of(context).size.width,
-                    child: FutureBuilder<DocumentSnapshot>(
-                      future: Firestore.instance
-                          .collection('classes')
-                          .document(widget.code)
-                          .get(),
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData)
-                          return Center(child: CircularProgressIndicator());
-                        return _buildList(context, snapshot.data['subjects']);
-                      },
-                    ),
+                    child: _buildList(context),
                   ),
                 ],
               ),
@@ -209,9 +197,9 @@ class _DetailsPageState extends State<DetailsPage> {
     );
   }
 
-  Widget _buildList(BuildContext context, dynamic snapshot) {
+  Widget _buildList(BuildContext context) {
     return ListView.builder(
-        itemCount: (snapshot != null) ? snapshot.length : 0,
+        itemCount: (widget.subjects != null) ? widget.subjects.length : 0,
         physics: ScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
@@ -252,14 +240,15 @@ class _DetailsPageState extends State<DetailsPage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text('${snapshot[index]['subjectCode']} : ${snapshot[index]['subject']}',
+                          Text(
+                              '${widget.subjects[index]['subjectCode']} : ${widget.subjects[index]['subject']}',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 18,
                               )),
                           SizedBox(height: 2),
                           Text(
-                            'by ${snapshot[index]['teacher']}',
+                            'by ${widget.subjects[index]['teacher']}',
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 15,
@@ -276,7 +265,7 @@ class _DetailsPageState extends State<DetailsPage> {
         });
   }
 
-  Widget _buildDetails(BuildContext context, dynamic data) {
+  Widget _buildDetails(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(
         horizontal: 20,
@@ -318,7 +307,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      data['college'],
+                      widget.details['college'],
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w600,
@@ -357,12 +346,13 @@ class _DetailsPageState extends State<DetailsPage> {
                 ),
               ),
               Container(
+                width: MediaQuery.of(context).size.width - 60,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      '${data['course']} ${data['branch']} ',
+                      '${widget.details['course']} ${widget.details['branch']} ',
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w600,
@@ -401,12 +391,13 @@ class _DetailsPageState extends State<DetailsPage> {
                 ),
               ),
               Container(
+                width: MediaQuery.of(context).size.width - 60,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      '${data['sem']} Semester',
+                      'Semester : ${widget.details['sem']}',
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w600,
@@ -445,6 +436,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 ),
               ),
               Container(
+                width: MediaQuery.of(context).size.width - 60,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -460,7 +452,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           ),
                         ),
                         TextSpan(
-                          text: data['crName'],
+                          text: widget.details['crName'],
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w500,
@@ -474,62 +466,6 @@ class _DetailsPageState extends State<DetailsPage> {
               ),
             ],
           ),
-//          SizedBox(height: 10),
-//          Row(
-//            crossAxisAlignment: CrossAxisAlignment.center,
-//            children: <Widget>[
-//              Container(
-//                margin: EdgeInsets.symmetric(horizontal: 2),
-//                height: 15,
-//                width: 2,
-//                decoration: BoxDecoration(
-//                  borderRadius: BorderRadius.all(
-//                    Radius.circular(10),
-//                  ),
-//                  color: Colors.green,
-//                ),
-//              ),
-//              Container(
-//                margin: EdgeInsets.only(right: 10),
-//                height: 25,
-//                width: 2,
-//                decoration: BoxDecoration(
-//                  borderRadius: BorderRadius.all(
-//                    Radius.circular(10),
-//                  ),
-//                  color: Colors.green,
-//                ),
-//              ),
-//              Container(
-//                child: Column(
-//                  mainAxisAlignment: MainAxisAlignment.start,
-//                  crossAxisAlignment: CrossAxisAlignment.start,
-//                  children: <Widget>[
-//                    RichText(
-//                      text: TextSpan(children: <TextSpan>[
-//                        TextSpan(
-//                          text: 'Group CR : ',
-//                          style: TextStyle(
-//                            color: Colors.black,
-//                            fontWeight: FontWeight.w600,
-//                            fontSize: 16,
-//                          ),
-//                        ),
-//                        TextSpan(
-//                          text: 'Himanshu Gill',
-//                          style: TextStyle(
-//                            color: Colors.black,
-//                            fontWeight: FontWeight.w500,
-//                            fontSize: 16,
-//                          ),
-//                        ),
-//                      ]),
-//                    ),
-//                  ],
-//                ),
-//              ),
-//            ],
-//          ),
         ],
       ),
     );

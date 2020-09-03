@@ -24,6 +24,7 @@ class RootPage extends StatefulWidget {
 class _RootPageState extends State<RootPage> {
   AuthStatus authStatus = AuthStatus.NOT_DETERMINED;
   String _userId = '', _email = '', _code = '';
+  var data;
 
   @override
   void initState() {
@@ -33,19 +34,22 @@ class _RootPageState extends State<RootPage> {
       var listOfCRs = await Firestore.instance.collection('students').document(
           'listOfCRs').get();
       listOfCRs['listOfCRs'].forEach((key, value) {
-        print('key : $key');
-        print('value : $value');
         setState(() {
-          if (user != null) {
+          if (user != null && user.email == key) {
             _userId = user?.uid;
             _email = user?.email;
             _code = value;
             prefs.setString('code', _code);
             print('code : $_code');
           }
-          authStatus =
-          user?.uid == null ? AuthStatus.NOT_LOGGED_IN : AuthStatus.LOGGED_IN;
         });
+      });
+      if (user.uid!=null)
+        data = await Firestore.instance.collection('classes').document(_code).get();
+
+      setState(() {
+        authStatus =
+        user?.uid == null ? AuthStatus.NOT_LOGGED_IN : AuthStatus.LOGGED_IN;
       });
     });
   }
@@ -100,6 +104,7 @@ class _RootPageState extends State<RootPage> {
             logoutCallback: logoutCallback,
             email: _email,
             code: _code,
+            data: data
           );
         } else
           return buildWaitingScreen();

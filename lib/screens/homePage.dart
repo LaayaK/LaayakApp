@@ -7,21 +7,25 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timetable/services/authentication.dart';
 
 class HomePage extends StatefulWidget {
-
-  HomePage({Key key, this.email, this.auth, this.userId, this.logoutCallback, this.code});
+  HomePage(
+      {Key key,
+      this.email,
+      this.auth,
+      this.userId,
+      this.logoutCallback,
+      this.code,
+      this.data});
 
   final BaseAuth auth;
   final VoidCallback logoutCallback;
-  final String userId;
-  final String email;
-  final String code;
+  final String userId, email, code;
+  final data;
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-
   int _page = 1;
 
   @override
@@ -34,19 +38,9 @@ class _HomePageState extends State<HomePage> {
         fixedColor: Colors.white,
         currentIndex: _page,
         onTap: (int index) async {
-//          if (_page == 3)
-//          {
-//            widget.logoutCallback();
-//            SharedPreferences prefs = await SharedPreferences.getInstance();
-//            prefs.setString('code', '');
-//
-////            Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
-//          }
-//          else {
-            setState(() {
-              _page = index;
-            });
-//          }
+          setState(() {
+            _page = index;
+          });
         },
         items: [
           BottomNavigationBarItem(
@@ -71,15 +65,22 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body:Container(
-        child: (_page == 0)
-          ? AddDataPage(code:widget.code)
-          : (_page == 1)
-            ? TodayClassesPage(code:widget.code)
-            : (_page == 2)
-              ? AnnouncementsPage(code:widget.code, user : widget.userId)
-              : DetailsPage(code: widget.code, user: widget.userId, logoutCallback: widget.logoutCallback, auth: widget.auth,)
-      ),
+      body: Container(
+          child: (_page == 0)
+              ? AddDataPage(code: widget.code)
+              : (_page == 1)
+                  ? TodayClassesPage(code: widget.code)
+                  : (_page == 2)
+                      ? AnnouncementsPage(
+                          code: widget.code, user: widget.userId)
+                      : DetailsPage(
+                          code: widget.code,
+                          user: widget.userId,
+                          logoutCallback: widget.logoutCallback,
+                          auth: widget.auth,
+                          details: widget.data['details'],
+                          subjects: widget.data['subjects'],
+                        )),
     );
   }
 }
