@@ -109,7 +109,7 @@ class AddLectureState extends State<AddLecture>
             child: Container(
                 margin: EdgeInsets.all(20.0),
                 padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-                height: 500.0,
+                height: 570.0,
                 decoration: ShapeDecoration(
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
@@ -683,6 +683,12 @@ Widget lectureCard(BuildContext context, dynamic data) {
                     color: Colors.grey,
                     fontSize: 15,
                   )),
+                  Padding(padding: EdgeInsets.only(top: 5), child: Text(
+                'Group',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 15,
+                  )),),
               SizedBox(height: 7),
               Row(
                   mainAxisAlignment: MainAxisAlignment.end,
