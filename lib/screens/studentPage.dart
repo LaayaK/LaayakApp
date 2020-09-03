@@ -5,9 +5,10 @@ import 'package:timetable/screens/todayClassesPage.dart';
 import 'package:timetable/screens/details.dart';
 class StudentPage extends StatefulWidget {
 
-  StudentPage({this.code});
+  StudentPage({this.code, this.data});
 
   final String code;
+  final data;
 
   @override
   _StudentPageState createState() => _StudentPageState();
@@ -50,7 +51,7 @@ class _StudentPageState extends State<StudentPage> {
       ),
       body:Container(
           child: (_page == 0)
-              ? DetailsPage(code:widget.code)
+              ? DetailsPage(code:widget.code, details: widget.data['details'], subjects:widget.data['subjects'])
               : (_page == 1)
               ? TodayClassesPage(code:widget.code)
               : AnnouncementsPage(code:widget.code)

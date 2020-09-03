@@ -29,22 +29,15 @@ class _RootPageState extends State<RootPage> {
   @override
   void initState() {
     super.initState();
+    authStatus = AuthStatus.NOT_DETERMINED;
     widget.auth.getCurrentUser().then((user) async {
+      print('init Function run MyApp');
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      var listOfCRs = await Firestore.instance.collection('students').document(
-          'listOfCRs').get();
-      listOfCRs['listOfCRs'].forEach((key, value) {
-        setState(() {
-          if (user != null && user.email == key) {
-            _userId = user?.uid;
-            _email = user?.email;
-            _code = value;
-            prefs.setString('code', _code);
-            print('code : $_code');
-          }
-        });
-      });
-      if (user.uid!=null)
+      _code = (prefs.getString('code') ?? '');
+      print('code : $_code');
+      _userId = user?.uid;
+      _email = user?.email;
+      if (_code.isNotEmpty)
         data = await Firestore.instance.collection('classes').document(_code).get();
 
       setState(() {
@@ -56,20 +49,32 @@ class _RootPageState extends State<RootPage> {
 
   void loginCallback() {
     widget.auth.getCurrentUser().then((user) async {
+      print('loginCallBackk started');
       SharedPreferences prefs = await SharedPreferences.getInstance();
-//      var listOfCRs = await Firestore.instance.collection('students').document('listOfCRs').get();
-//      listOfCRs['listOfCRs'].forEach((key, value){
-//        print('key : $key');
-//        print('value : $value');
-//        if (key == _email)
-          setState(() {
-            _code = (prefs.getString('code') ?? '');
-            _userId = user.uid.toString();
-            _email = user.email.toString();
-            print('code : $_code');
-            authStatus = AuthStatus.LOGGED_IN;
-//          });
+      var listOfCRs = await Firestore.instance.collection('students').document(
+          'listOfCRs').get();
+      listOfCRs['listOfCRs'].forEach((key, value) {
+        if (user != null && user.email == key) {
+          _code = value;
+          prefs.setString('code', _code);
+          print('code set sp to $_code');
+//          setState(() {
+//            print('code : $_code');
+//            authStatus = AuthStatus.NOT_DETERMINED;
+//        });
+        }
       });
+      if (_code.isNotEmpty)
+      {
+        data = await Firestore.instance.collection('classes').document(_code).get();
+        print('got Data');
+        setState(() {
+          _userId = user.uid.toString();
+          _email = user.email.toString();
+          authStatus = AuthStatus.LOGGED_IN;
+          print('auth logged in');
+        });
+      }
     });
   }
 

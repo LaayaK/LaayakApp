@@ -28,13 +28,17 @@ class _IndexPageState extends State<IndexPage> {
   String code = '';
   bool wrongCode = false;
   TextEditingController codeController = new TextEditingController();
+  var data;
 
   void getCode() async {
     print('getting code from SP');
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    code = (prefs.getString('code') ?? '');
+    print('code got from SP : $code');
+    if (code.isNotEmpty)
+      data = await Firestore.instance.collection('classes')
+        .document(code).get();
     setState(() {
-      code = (prefs.getString('code') ?? '');
-      print('code got from SP : $code');
       if (code.isNotEmpty)
         codeStatus = CodeStatus.CODE_PRESENT;
       else
@@ -49,21 +53,25 @@ class _IndexPageState extends State<IndexPage> {
         .document(codeGot)
         .get()
         .then((doc) {
-      setState(() {
-        if (doc.exists) {
-          code = codeGot;
-          codeStatus = CodeStatus.CODE_PRESENT;
-        }
-      });
+      if (doc.exists) {
+        code = codeGot;
+      }
     }).catchError((error) {
       print('Error in getting document');
       print('error : $error');
     });
-    if (codeStatus == CodeStatus.CODE_PRESENT) {
+    if (code == codeGot) {
       print('code matched document ID');
       storeFCMToken();
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('code', codeController.value.text);
+      prefs.setString('code', codeGot);
+      data = await Firestore.instance
+          .collection('classes')
+          .document(codeGot)
+          .get();
+      setState(() {
+        codeStatus = CodeStatus.CODE_PRESENT;
+      });
     } else {
       print('code did not match any document ID');
       setState(() {
@@ -222,6 +230,9 @@ class _IndexPageState extends State<IndexPage> {
                                 alignment: Alignment.bottomCenter,
                                 child: FlatButton(
                                   onPressed: () {
+                                    setState(() {
+                                      codeStatus = CodeStatus.NOT_DEFINED;
+                                    });
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -245,6 +256,6 @@ class _IndexPageState extends State<IndexPage> {
                           ),
                         ]),
                   )
-                : StudentPage(code: code));
+                : StudentPage(code: code, data: data));
   }
 }

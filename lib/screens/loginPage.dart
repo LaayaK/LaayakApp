@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:timetable/main.dart';
 
 //Authentication
 import 'package:timetable/services/authentication.dart';
@@ -164,14 +165,11 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
                             userId = await widget.auth
                                 .signIn(_email, _password);
                             storeFCMToken();
-
                             print('Signed in: $userId');
-
                             if (userId.length > 0 &&
                                 userId != null) {
                               widget.loginCallback();
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, '/main', (route) => false);
+                              Navigator.pop(context);
                             }
                           } catch (e) {
                             print('Error: $e');

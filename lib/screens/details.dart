@@ -152,17 +152,17 @@ class _DetailsPageState extends State<DetailsPage> {
                         ),
                       ),
                       onPressed: () async {
+                        deleteFCMToken();
+                        SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                        prefs.setString('code', '');
                         if (widget.user != null) {
                           print('logging out');
                           await widget.auth.signOut();
                           widget.logoutCallback();
                         }
-                        print('clearing SP and FCM token');
-                        deleteFCMToken();
-                        SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
-                        prefs.setString('code', '');
-                        Navigator.pushNamedAndRemoveUntil(
+                        else
+                          Navigator.pushNamedAndRemoveUntil(
                             context, '/main', (route) => false);
                       },
                     ),
