@@ -88,7 +88,7 @@ class AddLectureState extends State<AddLecture>
     controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 450));
     scaleAnimation =
-        CurvedAnimation(parent: controller, curve: Curves.elasticInOut);
+        CurvedAnimation(parent: controller, curve: Curves.decelerate);
 
     controller.addListener(() {
       setState(() {});
@@ -123,6 +123,7 @@ class AddLectureState extends State<AddLecture>
 
                     // dashed Border
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,                     
                       children: <Widget>[
                         Text('Add Lecture',
                             style: TextStyle(
@@ -130,6 +131,27 @@ class AddLectureState extends State<AddLecture>
                               color: Colors.black,
                               fontSize: 18,
                             )),
+                         Container(
+                      margin: EdgeInsets.symmetric(vertical: 4),
+                      height: 2,
+                      width: MediaQuery.of(context).size.width - 90,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        color: Colors.green,
+                      ),
+                    ),
+                    Container(
+                      height: 2,
+                      width: MediaQuery.of(context).size.width - 90,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        color: Colors.green,
+                      ),
+                    ),
                         SizedBox(height: 10),
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 10),
@@ -386,7 +408,7 @@ class AddAnnounState extends State<AddAnnoun>
     controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 450));
     scaleAnimation =
-        CurvedAnimation(parent: controller, curve: Curves.elasticInOut);
+        CurvedAnimation(parent: controller, curve: Curves.decelerate);
 
     controller.addListener(() {
       setState(() {});
