@@ -88,7 +88,7 @@ class AddLectureState extends State<AddLecture>
     controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 450));
     scaleAnimation =
-        CurvedAnimation(parent: controller, curve: Curves.elasticInOut);
+        CurvedAnimation(parent: controller, curve: Curves.decelerate);
 
     controller.addListener(() {
       setState(() {});
@@ -123,6 +123,7 @@ class AddLectureState extends State<AddLecture>
 
                     // dashed Border
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,                     
                       children: <Widget>[
                         Text('Add Lecture',
                             style: TextStyle(
@@ -130,6 +131,27 @@ class AddLectureState extends State<AddLecture>
                               color: Colors.black,
                               fontSize: 18,
                             )),
+                         Container(
+                      margin: EdgeInsets.symmetric(vertical: 4),
+                      height: 2,
+                      width: MediaQuery.of(context).size.width - 90,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        color: Colors.green,
+                      ),
+                    ),
+                    Container(
+                      height: 2,
+                      width: MediaQuery.of(context).size.width - 90,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        color: Colors.green,
+                      ),
+                    ),
                         SizedBox(height: 10),
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 10),
@@ -253,7 +275,24 @@ class AddLectureState extends State<AddLecture>
                                 child: Icon(Icons.timer, color: Colors.blue)),
                           ),
                         ]),
-                        SizedBox(height: 20),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            border: Border.all(color: Colors.grey),
+                            color: Colors.white,
+                          ),
+                          child: TextFormField(
+                            maxLines: 1,
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Batch / Whole Class'),
+                            onSaved: (value) => (value.isNotEmpty)
+                                ? text = value.trim()
+                                : text = 'No information',
+                          ),
+                        ),
+                        SizedBox(height: 10),
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(
@@ -369,7 +408,7 @@ class AddAnnounState extends State<AddAnnoun>
     controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 450));
     scaleAnimation =
-        CurvedAnimation(parent: controller, curve: Curves.elasticInOut);
+        CurvedAnimation(parent: controller, curve: Curves.decelerate);
 
     controller.addListener(() {
       setState(() {});
@@ -471,6 +510,7 @@ class AddAnnounState extends State<AddAnnoun>
                       height: 40,
                       width: MediaQuery.of(context).size.width,
                       child: FloatingActionButton.extended(
+                        backgroundColor: Colors.green,
                         onPressed: () {
                           validateAndSubmit();
                         },
@@ -528,7 +568,7 @@ Widget subjectCR(BuildContext context, dynamic data, String code) {
               borderRadius: BorderRadius.all(
                 Radius.circular(10),
               ),
-              color: Colors.green,
+              color: Colors.blue,
             ),
           ),
           Container(
@@ -539,7 +579,7 @@ Widget subjectCR(BuildContext context, dynamic data, String code) {
               borderRadius: BorderRadius.all(
                 Radius.circular(10),
               ),
-              color: Colors.green,
+              color: Colors.blue,
             ),
           ),
           Container(
@@ -1113,6 +1153,7 @@ class AddLinkState extends State<AddLink> with SingleTickerProviderStateMixin {
                       height: 40,
                       width: MediaQuery.of(context).size.width,
                       child: FloatingActionButton.extended(
+                        backgroundColor: Colors.deepPurple,
                         onPressed: () {
                           validateAndSubmit();
                         },
@@ -1363,6 +1404,7 @@ class AddPollState extends State<AddPoll> with SingleTickerProviderStateMixin {
                       height: 40,
                       width: MediaQuery.of(context).size.width,
                       child: FloatingActionButton.extended(
+                        backgroundColor: Colors.pinkAccent,
                         onPressed: () {
                           validateAndSubmit();
                         },
