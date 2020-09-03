@@ -253,7 +253,24 @@ class AddLectureState extends State<AddLecture>
                                 child: Icon(Icons.timer, color: Colors.blue)),
                           ),
                         ]),
-                        SizedBox(height: 20),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            border: Border.all(color: Colors.grey),
+                            color: Colors.white,
+                          ),
+                          child: TextFormField(
+                            maxLines: 1,
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Batch / Whole Class'),
+                            onSaved: (value) => (value.isNotEmpty)
+                                ? text = value.trim()
+                                : text = 'No information',
+                          ),
+                        ),
+                        SizedBox(height: 10),
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(
