@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timetable/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:timetable/widgets/functions.dart';
 
 class DetailsPage extends StatefulWidget {
   DetailsPage(
@@ -22,25 +23,6 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-//  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-//
-//  void deleteFCMToken(String code) {
-//    _firebaseMessaging.getToken().then((deviceToken) async {
-//      print('Device Token : $deviceToken');
-//      var data = await Firestore.instance
-//          .collection('classes/')
-//          .document('fcmTokens')
-//          .get();
-//      List<dynamic> newTokens = [], fcmTokens = data['fcmTokens'];
-//      for (int i = 0; i < fcmTokens.length; i++) {
-//        if (fcmTokens[i] != deviceToken) newTokens.add(fcmTokens[i]);
-//      }
-//      Firestore.instance
-//          .collection('students')
-//          .document('fcmTokens')
-//          .updateData({'fcmTokens': newTokens});
-//    });
-//  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +96,10 @@ class _DetailsPageState extends State<DetailsPage> {
                     padding: EdgeInsets.all(20),
                     child: Text('Batch Info',
                         style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold)),
+                            fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Lobster'
+                        )),
                   ),
                   Container(
 //                    height: 500,
@@ -129,7 +114,10 @@ class _DetailsPageState extends State<DetailsPage> {
                         Text(
                           'Developer Info',
                           style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 20),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                            fontFamily: 'Lobster'
+                          ),
                         ),
                         SizedBox(height: 5,),
                         Text('himeshnayak015@gmail.com'),
@@ -151,11 +139,15 @@ class _DetailsPageState extends State<DetailsPage> {
                         padding: EdgeInsets.all(0),
                         child: Text(
                           'Logout',
-                          style: TextStyle(fontSize: 20, color: Colors.white),
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontFamily: 'Lobster'
+                          ),
                         ),
                       ),
                       onPressed: () async {
-//                        deleteFCMToken();
+                        deleteFCMToken(widget.code);
                         SharedPreferences prefs =
                           await SharedPreferences.getInstance();
                         prefs.setString('code', '');
@@ -184,7 +176,10 @@ class _DetailsPageState extends State<DetailsPage> {
                     padding: EdgeInsets.all(20),
                     child: Text('My Subjects',
                         style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold)),
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Lobster'
+                        )),
                   ),
                   Container(
 //                    height: MediaQuery.of(context).size.height,
@@ -223,7 +218,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         borderRadius: BorderRadius.all(
                           Radius.circular(10),
                         ),
-                        color: Colors.green,
+                        color: Colors.blue,
                       ),
                     ),
                     Container(
@@ -234,7 +229,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         borderRadius: BorderRadius.all(
                           Radius.circular(10),
                         ),
-                        color: Colors.green,
+                        color: Colors.blue,
                       ),
                     ),
                     Container(

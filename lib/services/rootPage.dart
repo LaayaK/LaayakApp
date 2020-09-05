@@ -5,6 +5,7 @@ import 'package:timetable/screens/indexPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timetable/services/authentication.dart';
 import 'package:timetable/widgets/widgets.dart';
+import 'package:timetable/widgets/functions.dart';
 
 enum AuthStatus {
   NOT_DETERMINED,
@@ -58,6 +59,7 @@ class _RootPageState extends State<RootPage> {
           _code = value;
           prefs.setString('code', _code);
           print('code set sp to $_code');
+          storeFCMToken(_code);
 //          setState(() {
 //            print('code : $_code');
 //            authStatus = AuthStatus.NOT_DETERMINED;

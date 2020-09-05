@@ -32,8 +32,6 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
 
   String _loginCreateAccText = 'Login';
 
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-
   // Check if form is valid before perform login or sign up
   bool validateAndSave() {
     final form = _formKey.currentState;
@@ -43,18 +41,6 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
     }
     return false;
   }
-
-//  void storeFCMToken() {
-//    _firebaseMessaging.getToken().then((deviceToken) {
-//      print('Device Token : $deviceToken');
-//      Firestore.instance
-//          .collection('classes/${widget.code}')
-//          .document('fcmTokens')
-//          .setData({
-//        'fcmTokens': FieldValue.arrayUnion([deviceToken])
-//      }, merge: true);
-//    });
-//  }
 
   @override
   void initState() {
@@ -112,6 +98,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
                   fontWeight: FontWeight.bold,
                   fontSize: 40,
                   color: Color(0xFF0D0C21),
+                  fontFamily: 'Lobster',
                 ),
               ),
               SizedBox(height: 20),
@@ -164,7 +151,6 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
                           try {
                             userId = await widget.auth
                                 .signIn(_email, _password);
-//                            storeFCMToken();
                             print('Signed in: $userId');
                             if (userId.length > 0 &&
                                 userId != null) {

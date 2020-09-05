@@ -10,6 +10,7 @@ import 'package:timetable/services/authentication.dart';
 
 import 'package:timetable/screens/loginPage.dart';
 import 'package:timetable/widgets/widgets.dart';
+import 'package:timetable/widgets/functions.dart';
 
 enum CodeStatus { NOT_DEFINED, CODE_PRESENT, NO_CODE }
 
@@ -62,7 +63,7 @@ class _IndexPageState extends State<IndexPage> {
     });
     if (code == codeGot) {
       print('code matched document ID');
-//      storeFCMToken();
+      storeFCMToken(codeGot);
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('code', codeGot);
       data = await Firestore.instance
@@ -81,19 +82,6 @@ class _IndexPageState extends State<IndexPage> {
       });
     }
   }
-
-//  void storeFCMToken() {
-//    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-//    _firebaseMessaging.getToken().then((deviceToken) {
-//      print('Device Token : $deviceToken');
-//      Firestore.instance
-//          .collection('students')
-//          .document('fcmTokens')
-//          .setData({
-//        'fcmTokens': FieldValue.arrayUnion([deviceToken])
-//      }, merge: true);
-//    });
-//  }
 
   @override
   initState() {
@@ -228,8 +216,10 @@ class _IndexPageState extends State<IndexPage> {
                               Visibility(
                                   visible: wrongCode,
                                   child: Text('Wrong Code Entered',
-                                      style:
-                                          TextStyle(color: Colors.redAccent))),
+                                      style: TextStyle(
+                                        color: Colors.redAccent,
+                                        fontFamily: 'Lobster'
+                                      ))),
                               SizedBox(
                                   height: 50),
                               Align(

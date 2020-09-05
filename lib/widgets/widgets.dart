@@ -141,7 +141,7 @@ class AddLectureState extends State<AddLecture>
                             borderRadius: BorderRadius.all(
                               Radius.circular(10),
                             ),
-                            color: Colors.green,
+                            color: Colors.blue,
                           ),
                         ),
                         Container(
@@ -151,7 +151,7 @@ class AddLectureState extends State<AddLecture>
                             borderRadius: BorderRadius.all(
                               Radius.circular(10),
                             ),
-                            color: Colors.green,
+                            color: Colors.blue,
                           ),
                         ),
                         SizedBox(height: 10),
@@ -1139,7 +1139,7 @@ class AddLinkState extends State<AddLink> with SingleTickerProviderStateMixin {
                         borderRadius: BorderRadius.all(
                           Radius.circular(10),
                         ),
-                        color: Colors.green,
+                        color: Colors.deepPurple,
                       ),
                     ),
                     Container(
@@ -1150,7 +1150,7 @@ class AddLinkState extends State<AddLink> with SingleTickerProviderStateMixin {
                         borderRadius: BorderRadius.all(
                           Radius.circular(10),
                         ),
-                        color: Colors.green,
+                        color: Colors.deepPurple,
                       ),
                     ),
                     SizedBox(height: 20),
@@ -1363,7 +1363,7 @@ class AddPollState extends State<AddPoll> with SingleTickerProviderStateMixin {
                         borderRadius: BorderRadius.all(
                           Radius.circular(10),
                         ),
-                        color: Colors.green,
+                        color: Colors.pinkAccent,
                       ),
                     ),
                     Container(
@@ -1374,7 +1374,7 @@ class AddPollState extends State<AddPoll> with SingleTickerProviderStateMixin {
                         borderRadius: BorderRadius.all(
                           Radius.circular(10),
                         ),
-                        color: Colors.green,
+                        color: Colors.pinkAccent,
                       ),
                     ),
                     SizedBox(height: 20),
@@ -1686,14 +1686,16 @@ class _PollCardState extends State<PollCard> {
 
 Widget pollCardCR(BuildContext context, dynamic data) {
   double widthC = MediaQuery.of(context).size.width - 80;
-  print(data['yesCount'].runtimeType);
-  print(data['noCount'].runtimeType);
-  int totalPoll = data['yesCount'] + data['noCount'];
-  int yesPercent = (data['yesCount'] * 100 / (totalPoll)).round();
-  int noPercent = (data['noCount'] * 100 / (totalPoll)).round();
-  print(totalPoll.runtimeType);
-  print(yesPercent.runtimeType);
-  print(noPercent.runtimeType);
+  int totalPoll, yesPercent, noPercent;
+  totalPoll = data['yesCount'] + data['noCount'];
+  if (totalPoll == 0){
+      yesPercent = 0;
+      noPercent = 0;
+  } else {
+    yesPercent = (data['yesCount'] * 100 / (totalPoll)).round();
+    noPercent = (data['noCount'] * 100 / (totalPoll)).round();
+  }
+
   return Container(
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -1805,8 +1807,9 @@ Widget pollCardCR(BuildContext context, dynamic data) {
                                           BorderRadius.all(Radius.circular(25)),
                                     ),
                                     height: 10,
-                                    width:
-                                    ((widthC - 40) * data['yesCount'] / totalPoll),
+                                    width: (totalPoll == 0)
+                                      ? 0
+                                      : ((widthC - 40) * data['yesCount'] / totalPoll),
                                   ),
                                   Text(
                         ' $yesPercent %',
@@ -1836,8 +1839,9 @@ Widget pollCardCR(BuildContext context, dynamic data) {
                                           BorderRadius.all(Radius.circular(25)),
                                     ),
                                     height: 10,
-                                    width:
-                                    ((widthC - 40) * data['noCount'] / totalPoll),
+                                    width: (totalPoll == 0)
+                                    ? 0
+                                    : ((widthC - 40) * data['noCount'] / totalPoll),
                                   ),
                                   Text(
                         ' $noPercent %',

@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:timetable/widgets/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 void details (BuildContext context, dynamic data) {
   showModalBottomSheet(context: context, builder: (context){
@@ -138,4 +139,36 @@ Future<String> getPollResponse(String key) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   response = prefs.getString(key) ?? '';
   return response;
+}
+
+void storeFCMToken(String code) {
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  _firebaseMessaging.getToken().then((deviceToken) {
+    print('Device Token : $deviceToken');
+    Firestore.instance
+        .collection('classes/$code/fcmTokens')
+        .document('fcmTokens')
+        .setData({
+      'fcmTokens': FieldValue.arrayUnion([deviceToken])
+    }, merge: true);
+  });
+}
+
+void deleteFCMToken(String code) {
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  _firebaseMessaging.getToken().then((deviceToken) async {
+    print('Device Token : $deviceToken');
+    var data = await Firestore.instance
+        .collection('classes/$code/fcmTokens')
+        .document('fcmTokens')
+        .get();
+    List<dynamic> newTokens = [], fcmTokens = data['fcmTokens'];
+    for (int i = 0; i < fcmTokens.length; i++) {
+      if (fcmTokens[i] != deviceToken) newTokens.add(fcmTokens[i]);
+    }
+    Firestore.instance
+        .collection('classes/$code/fcmTokens')
+        .document('fcmTokens')
+        .updateData({'fcmTokens': newTokens});
+  });
 }

@@ -95,6 +95,7 @@ class _AddDataPageState extends State<AddDataPage> {
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 20,
+                                  fontFamily: 'Lobster'
                                 )),
                           ])),
                     ]),
@@ -177,6 +178,7 @@ class _AddDataPageState extends State<AddDataPage> {
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
+                                fontFamily: 'Lobster'
                               ),
                             ),
                           ],
@@ -261,6 +263,7 @@ class _AddDataPageState extends State<AddDataPage> {
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 20,
+                                  fontFamily: 'Lobster'
                                 )),
                           ])),
                     ]),
@@ -357,6 +360,7 @@ class _AddDataPageState extends State<AddDataPage> {
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
+                                fontFamily: 'Lobster'
                               ),
                             ),
                           ],
