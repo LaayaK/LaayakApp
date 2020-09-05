@@ -22,25 +22,25 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-
-  void deleteFCMToken() {
-    _firebaseMessaging.getToken().then((deviceToken) async {
-      print('Device Token : $deviceToken');
-      var data = await Firestore.instance
-          .collection('students')
-          .document('fcmTokens')
-          .get();
-      List<dynamic> newTokens = [], fcmTokens = data['fcmTokens'];
-      for (int i = 0; i < fcmTokens.length; i++) {
-        if (fcmTokens[i] != deviceToken) newTokens.add(fcmTokens[i]);
-      }
-      Firestore.instance
-          .collection('students')
-          .document('fcmTokens')
-          .updateData({'fcmTokens': newTokens});
-    });
-  }
+//  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+//
+//  void deleteFCMToken(String code) {
+//    _firebaseMessaging.getToken().then((deviceToken) async {
+//      print('Device Token : $deviceToken');
+//      var data = await Firestore.instance
+//          .collection('classes/')
+//          .document('fcmTokens')
+//          .get();
+//      List<dynamic> newTokens = [], fcmTokens = data['fcmTokens'];
+//      for (int i = 0; i < fcmTokens.length; i++) {
+//        if (fcmTokens[i] != deviceToken) newTokens.add(fcmTokens[i]);
+//      }
+//      Firestore.instance
+//          .collection('students')
+//          .document('fcmTokens')
+//          .updateData({'fcmTokens': newTokens});
+//    });
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,8 +131,11 @@ class _DetailsPageState extends State<DetailsPage> {
                           style: TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 20),
                         ),
+                        SizedBox(height: 5,),
                         Text('himeshnayak015@gmail.com'),
+                        SizedBox(height: 5,),
                         Text('sketchharry01@gmail.com'),
+                        SizedBox(height: 5,),
                         Text('pscoder10462@gmail.com'),
                       ],
                     ),
@@ -152,7 +155,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         ),
                       ),
                       onPressed: () async {
-                        deleteFCMToken();
+//                        deleteFCMToken();
                         SharedPreferences prefs =
                           await SharedPreferences.getInstance();
                         prefs.setString('code', '');

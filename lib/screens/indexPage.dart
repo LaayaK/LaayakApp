@@ -62,7 +62,7 @@ class _IndexPageState extends State<IndexPage> {
     });
     if (code == codeGot) {
       print('code matched document ID');
-      storeFCMToken();
+//      storeFCMToken();
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('code', codeGot);
       data = await Firestore.instance
@@ -82,23 +82,26 @@ class _IndexPageState extends State<IndexPage> {
     }
   }
 
-  void storeFCMToken() {
-    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-    _firebaseMessaging.getToken().then((deviceToken) {
-      print('Device Token : $deviceToken');
-      Firestore.instance
-          .collection('students')
-          .document('fcmTokens')
-          .setData({
-        'fcmTokens': FieldValue.arrayUnion([deviceToken])
-      }, merge: true);
-    });
-  }
+//  void storeFCMToken() {
+//    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+//    _firebaseMessaging.getToken().then((deviceToken) {
+//      print('Device Token : $deviceToken');
+//      Firestore.instance
+//          .collection('students')
+//          .document('fcmTokens')
+//          .setData({
+//        'fcmTokens': FieldValue.arrayUnion([deviceToken])
+//      }, merge: true);
+//    });
+//  }
 
   @override
   initState() {
+    print('Above init state');
     super.initState();
+    print('Below init state');
     getCode();
+    print('Below getCode');
   }
 
   @override
@@ -208,7 +211,10 @@ class _IndexPageState extends State<IndexPage> {
                                     child: Text(
                                       'Login',
                                       style: TextStyle(
-                                          fontSize: 20, color: Colors.white),
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                        fontFamily: 'Lobster'
+                                      ),
                                     ),
                                   ),
                                   onPressed: () {
@@ -230,9 +236,11 @@ class _IndexPageState extends State<IndexPage> {
                                 alignment: Alignment.bottomCenter,
                                 child: FlatButton(
                                   onPressed: () {
+                                    print('before set change');
                                     setState(() {
                                       codeStatus = CodeStatus.NOT_DEFINED;
                                     });
+                                    print('before navigation');
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -242,12 +250,14 @@ class _IndexPageState extends State<IndexPage> {
                                                   loginCallback:
                                                       widget.loginCallback,
                                                 )));
+                                    print('After navigation');
                                   },
                                   child: Text(
                                     'Login as Class Representative',
                                     style: TextStyle(
                                       color: Colors.blue,
                                       fontSize: 20,
+                                      fontFamily: 'Lobster'
                                     ),
                                   ),
                                 ),

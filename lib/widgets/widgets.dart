@@ -650,6 +650,7 @@ Widget lectureCard(BuildContext context, dynamic data) {
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: 18,
+                      fontFamily: 'Lobster'
                     )),
                 Text('|',
                     style: TextStyle(
@@ -660,6 +661,7 @@ Widget lectureCard(BuildContext context, dynamic data) {
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: 18,
+                      fontFamily: 'Lobster'
                     )),
               ]),
         ),
@@ -684,12 +686,15 @@ Widget lectureCard(BuildContext context, dynamic data) {
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    fontStyle: FontStyle.italic,
                   )),
               SizedBox(height: 2),
               Text('by ${data['teacher']}',
                   style: TextStyle(
                     color: Colors.grey,
                     fontSize: 15,
+                    fontStyle: FontStyle.italic
                   )),
               Visibility(
                 visible: (data['group'].isNotEmpty),
@@ -726,7 +731,8 @@ Widget lectureCard(BuildContext context, dynamic data) {
                               style: TextStyle(
                                 color: Colors.deepPurple,
                                 fontSize: 15,
-//                                fontFamily: 'Comfortaa'
+                                fontFamily: 'Comfortaa',
+                                fontWeight: FontWeight.w500
                               ))),
                     ),
                     Container(
@@ -753,7 +759,7 @@ Widget lectureCard(BuildContext context, dynamic data) {
                               style: TextStyle(
                                 color: Colors.deepPurple,
                                 fontSize: 15,
-//                                fontFamily: 'Comfortaa'
+                                fontFamily: 'Comfortaa'
                               ))),
                     ),
                     Container(
@@ -780,7 +786,7 @@ Widget lectureCard(BuildContext context, dynamic data) {
                               style: TextStyle(
                                 color: Colors.deepPurple,
                                 fontSize: 15,
-//                                fontFamily: 'Comfortaa'
+                                fontFamily: 'Comfortaa'
                               ))),
                     ),
                   ]),
@@ -952,6 +958,7 @@ Widget announcementCard(BuildContext context, dynamic data) {
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: 15,
+                      fontFamily: 'Lobster'
                     ),
                   ),
                   Spacer(),
@@ -960,6 +967,7 @@ Widget announcementCard(BuildContext context, dynamic data) {
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: 15,
+                      fontFamily: 'Lobster'
                     ),
                   ),
                 ],
@@ -969,7 +977,7 @@ Widget announcementCard(BuildContext context, dynamic data) {
                 data['text'],
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: 18,
                 ),
               ),
             ],
@@ -1556,6 +1564,7 @@ class _PollCardState extends State<PollCard> {
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 15,
+                        fontFamily: 'Lobster'
                       ),
                     ),
                     Spacer(),
@@ -1564,6 +1573,7 @@ class _PollCardState extends State<PollCard> {
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 15,
+                        fontFamily: 'Lobster'
                       ),
                     ),
                   ],
@@ -1751,6 +1761,7 @@ Widget pollCardCR(BuildContext context, dynamic data) {
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 15,
+                              fontFamily: 'Lobster'
                             ),
                           ),
                           Spacer(),
@@ -1759,6 +1770,7 @@ Widget pollCardCR(BuildContext context, dynamic data) {
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 15,
+                              fontFamily: 'Lobster'
                             ),
                           ),
                         ],
@@ -1912,6 +1924,7 @@ Widget linkCard(BuildContext context, dynamic data) {
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: 15,
+                      fontFamily: 'Lobster'
                     ),
                   ),
                   Spacer(),
@@ -1920,6 +1933,7 @@ Widget linkCard(BuildContext context, dynamic data) {
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: 15,
+                      fontFamily: 'Lobster'
                     ),
                   ),
                 ],

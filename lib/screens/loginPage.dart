@@ -44,17 +44,17 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
     return false;
   }
 
-  void storeFCMToken() {
-    _firebaseMessaging.getToken().then((deviceToken) {
-      print('Device Token : $deviceToken');
-      Firestore.instance
-          .collection('students')
-          .document('fcmTokens')
-          .setData({
-        'fcmTokens': FieldValue.arrayUnion([deviceToken])
-      }, merge: true);
-    });
-  }
+//  void storeFCMToken() {
+//    _firebaseMessaging.getToken().then((deviceToken) {
+//      print('Device Token : $deviceToken');
+//      Firestore.instance
+//          .collection('classes/${widget.code}')
+//          .document('fcmTokens')
+//          .setData({
+//        'fcmTokens': FieldValue.arrayUnion([deviceToken])
+//      }, merge: true);
+//    });
+//  }
 
   @override
   void initState() {
@@ -164,7 +164,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
                           try {
                             userId = await widget.auth
                                 .signIn(_email, _password);
-                            storeFCMToken();
+//                            storeFCMToken();
                             print('Signed in: $userId');
                             if (userId.length > 0 &&
                                 userId != null) {
