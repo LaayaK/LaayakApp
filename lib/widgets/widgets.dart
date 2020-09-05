@@ -131,6 +131,7 @@ class AddLectureState extends State<AddLecture>
                               fontWeight: FontWeight.w600,
                               color: Colors.black,
                               fontSize: 18,
+                              fontFamily: 'Lobster'
                             )),
                         Container(
                           margin: EdgeInsets.symmetric(vertical: 4),
@@ -464,6 +465,7 @@ class AddAnnounState extends State<AddAnnoun>
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
                           fontSize: 18,
+                          fontFamily: 'Lobster'
                         ),
                       ),
                     ),
@@ -615,7 +617,13 @@ Widget buildWaitingScreen() {
     backgroundColor: Colors.white,
     body: Container(
       alignment: Alignment.center,
-      child: Image.asset('assets/images/ic_launcher.png'),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+       Image.network('https://lh3.googleusercontent.com/Z-R0WuGZVBgl31u41yx8P-u5TTf-1h8mn-VbXC65L-TAlsQDjIpxaBXjtxn7ENgA-rs=h180'),
+        Image.network('https://wpamelia.com/wp-content/uploads/2018/11/ezgif-2-6d0b072c3d3f.gif'),
+          ],
+       ),
     ),
   );
 }
@@ -802,7 +810,7 @@ Widget lectureDetails(BuildContext context, dynamic data) {
         color: Colors.grey.shade300,
         child: Center(
           child: Text('Lecture details',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25)),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, fontFamily: 'Lobster')),
         ),
       ),
       Expanded(
@@ -984,7 +992,7 @@ Widget headingText(String text) {
     child: Text(
       text,
       textAlign: TextAlign.left,
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40, fontFamily: 'Lobster'),
     ),
   );
 }
@@ -1117,6 +1125,7 @@ class AddLinkState extends State<AddLink> with SingleTickerProviderStateMixin {
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
                           fontSize: 18,
+                          fontFamily: 'Lobster'
                         ),
                       ),
                     ),
@@ -1340,6 +1349,7 @@ class AddPollState extends State<AddPoll> with SingleTickerProviderStateMixin {
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
                           fontSize: 18,
+                          fontFamily: 'Lobster'
                         ),
                       ),
                     ),
@@ -1672,132 +1682,171 @@ class _PollCardState extends State<PollCard> {
 
 Widget pollCardCR(BuildContext context, dynamic data) {
   double widthC = MediaQuery.of(context).size.width - 80;
+   double totalPoll = data[yesOption] + data[noOption];
+    int yesPercent = (data[yesOption] * 100 / (totalPoll)).round();
+    int noPercent = (data[yesOption] * 100 / (totalPoll)).round();
   return Container(
-    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.all(Radius.circular(10)),
-      color: Colors.white,
-      boxShadow: [
-        BoxShadow(
-          offset: Offset(0, 1),
-          blurRadius: 2,
-          color: Colors.grey.shade500,
-        ),
-      ],
-    ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              height: 25,
-              width: 2,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
+            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  offset: Offset(0, 1),
+                  blurRadius: 2,
+                  color: Colors.grey.shade500,
                 ),
-                color: Colors.pinkAccent,
-              ),
+              ],
             ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 2),
-              height: 105,
-              width: 2,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                color: Colors.pinkAccent,
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(right: 10),
-              height: 25,
-              width: 2,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                color: Colors.pinkAccent,
-              ),
-            ),
-          ],
-        ),
-        Container(
-          width: widthC,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Text(
-                    getTime(data['dateAndTime'].toDate()),
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
-                    ),
-                  ),
-                  Spacer(),
-                  Text(
-                    getDate(data['dateAndTime'].toDate()),
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 5),
-              Text(
-                data['text'],
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 20),
-                child: Row(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    RichText(
-                        text: TextSpan(children: <TextSpan>[
-                      TextSpan(
-                          text: '${data['yesOption']} : ',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black)),
-                      TextSpan(
-                          text: data['yesCount'].toString(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.green)),
-                    ])),
-                    Spacer(),
-                    RichText(
-                        text: TextSpan(children: <TextSpan>[
-                      TextSpan(
-                          text: '${data['noOption']} : ',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black)),
-                      TextSpan(
-                          text: data['noCount'].toString(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600, color: Colors.red)),
-                    ])),
+                    Container(
+                      height: 45,
+                      width: 2,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        color: Colors.pinkAccent,
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 2),
+                      height: 145,
+                      width: 2,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        color: Colors.pinkAccent,
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(right: 10),
+                      height: 45,
+                      width: 2,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        color: Colors.pinkAccent,
+                      ),
+                    ),
                   ],
                 ),
-              )
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
+                Container(
+                  width: widthC,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Text(
+                    getTime(data['dateAndTime'].toDate()),
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 15,
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                    getDate(data['dateAndTime'].toDate()),
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                data['text'],
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                        '${data['yesOption']}',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black)),
+                            Padding(
+                              padding: EdgeInsets.only(top: 5, bottom: 10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.green,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(25)),
+                                    ),
+                                    height: 10,
+                                    width:
+                                        (widthC - 40) * data[yesOption] / (totalPoll),
+                                  ),
+                                  Text(
+                        '$yesPercent %',
+                                    style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.green),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Text(
+                        '${data['noOption']} ',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 5, bottom: 0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(25)),
+                                    ),
+                                    height: 10,
+                                    width:
+                                        (widthC - 40) * data[noOption] / (totalPoll),
+                                  ),
+                                  Text(
+                        '$noPercent %',
+                                    style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.red),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
 }
 
 Widget linkCard(BuildContext context, dynamic data) {
