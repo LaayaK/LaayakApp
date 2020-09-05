@@ -79,7 +79,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
-        fontFamily: 'Lobster'
+        fontFamily: 'Comfortaa'
       ),
       home: new RootPage(auth: new Auth()),
       routes: {
