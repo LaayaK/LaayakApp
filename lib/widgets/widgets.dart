@@ -702,7 +702,7 @@ Widget lectureCard(BuildContext context, dynamic data) {
                   padding: EdgeInsets.only(top: 5),
                   child: Text(data['group'],
                       style: TextStyle(
-                        color: Colors.grey,
+                        color: Colors.blue,
                         fontSize: 15,
                       )),
                 ),
