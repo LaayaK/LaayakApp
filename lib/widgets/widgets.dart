@@ -131,6 +131,7 @@ class AddLectureState extends State<AddLecture>
                               fontWeight: FontWeight.w600,
                               color: Colors.black,
                               fontSize: 18,
+                              fontFamily: 'Lobster'
                             )),
                         Container(
                           margin: EdgeInsets.symmetric(vertical: 4),
@@ -464,6 +465,7 @@ class AddAnnounState extends State<AddAnnoun>
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
                           fontSize: 18,
+                          fontFamily: 'Lobster'
                         ),
                       ),
                     ),
@@ -615,7 +617,13 @@ Widget buildWaitingScreen() {
     backgroundColor: Colors.white,
     body: Container(
       alignment: Alignment.center,
-      child: Image.asset('assets/images/ic_launcher.png'),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+       Image.network('https://lh3.googleusercontent.com/Z-R0WuGZVBgl31u41yx8P-u5TTf-1h8mn-VbXC65L-TAlsQDjIpxaBXjtxn7ENgA-rs=h180'),
+        Image.network('https://wpamelia.com/wp-content/uploads/2018/11/ezgif-2-6d0b072c3d3f.gif'),
+          ],
+       ),
     ),
   );
 }
@@ -802,7 +810,7 @@ Widget lectureDetails(BuildContext context, dynamic data) {
         color: Colors.grey.shade300,
         child: Center(
           child: Text('Lecture details',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25)),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, fontFamily: 'Lobster')),
         ),
       ),
       Expanded(
@@ -984,7 +992,7 @@ Widget headingText(String text) {
     child: Text(
       text,
       textAlign: TextAlign.left,
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40, fontFamily: 'Lobster'),
     ),
   );
 }
@@ -1117,6 +1125,7 @@ class AddLinkState extends State<AddLink> with SingleTickerProviderStateMixin {
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
                           fontSize: 18,
+                          fontFamily: 'Lobster'
                         ),
                       ),
                     ),
@@ -1340,6 +1349,7 @@ class AddPollState extends State<AddPoll> with SingleTickerProviderStateMixin {
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
                           fontSize: 18,
+                          fontFamily: 'Lobster'
                         ),
                       ),
                     ),
