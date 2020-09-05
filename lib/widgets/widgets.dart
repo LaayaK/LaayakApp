@@ -1672,132 +1672,171 @@ class _PollCardState extends State<PollCard> {
 
 Widget pollCardCR(BuildContext context, dynamic data) {
   double widthC = MediaQuery.of(context).size.width - 80;
+   double totalPoll = data[yesOption] + data[noOption];
+    int yesPercent = (data[yesOption] * 100 / (totalPoll)).round();
+    int noPercent = (data[yesOption] * 100 / (totalPoll)).round();
   return Container(
-    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.all(Radius.circular(10)),
-      color: Colors.white,
-      boxShadow: [
-        BoxShadow(
-          offset: Offset(0, 1),
-          blurRadius: 2,
-          color: Colors.grey.shade500,
-        ),
-      ],
-    ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              height: 25,
-              width: 2,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
+            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  offset: Offset(0, 1),
+                  blurRadius: 2,
+                  color: Colors.grey.shade500,
                 ),
-                color: Colors.pinkAccent,
-              ),
+              ],
             ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 2),
-              height: 105,
-              width: 2,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                color: Colors.pinkAccent,
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(right: 10),
-              height: 25,
-              width: 2,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                color: Colors.pinkAccent,
-              ),
-            ),
-          ],
-        ),
-        Container(
-          width: widthC,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Text(
-                    getTime(data['dateAndTime'].toDate()),
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
-                    ),
-                  ),
-                  Spacer(),
-                  Text(
-                    getDate(data['dateAndTime'].toDate()),
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 5),
-              Text(
-                data['text'],
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 20),
-                child: Row(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    RichText(
-                        text: TextSpan(children: <TextSpan>[
-                      TextSpan(
-                          text: '${data['yesOption']} : ',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black)),
-                      TextSpan(
-                          text: data['yesCount'].toString(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.green)),
-                    ])),
-                    Spacer(),
-                    RichText(
-                        text: TextSpan(children: <TextSpan>[
-                      TextSpan(
-                          text: '${data['noOption']} : ',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black)),
-                      TextSpan(
-                          text: data['noCount'].toString(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600, color: Colors.red)),
-                    ])),
+                    Container(
+                      height: 45,
+                      width: 2,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        color: Colors.pinkAccent,
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 2),
+                      height: 145,
+                      width: 2,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        color: Colors.pinkAccent,
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(right: 10),
+                      height: 45,
+                      width: 2,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        color: Colors.pinkAccent,
+                      ),
+                    ),
                   ],
                 ),
-              )
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
+                Container(
+                  width: widthC,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Text(
+                    getTime(data['dateAndTime'].toDate()),
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 15,
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                    getDate(data['dateAndTime'].toDate()),
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                data['text'],
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                        '${data['yesOption']}',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black)),
+                            Padding(
+                              padding: EdgeInsets.only(top: 5, bottom: 10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.green,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(25)),
+                                    ),
+                                    height: 10,
+                                    width:
+                                        (widthC - 40) * data[yesOption] / (totalPoll),
+                                  ),
+                                  Text(
+                        '$yesPercent %',
+                                    style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.green),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Text(
+                        '${data['noOption']} ',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 5, bottom: 0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(25)),
+                                    ),
+                                    height: 10,
+                                    width:
+                                        (widthC - 40) * data[noOption] / (totalPoll),
+                                  ),
+                                  Text(
+                        '$noPercent %',
+                                    style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.red),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
 }
 
 Widget linkCard(BuildContext context, dynamic data) {
