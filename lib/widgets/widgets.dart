@@ -617,13 +617,7 @@ Widget buildWaitingScreen() {
     backgroundColor: Colors.white,
     body: Container(
       alignment: Alignment.center,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-       Image.network('https://lh3.googleusercontent.com/Z-R0WuGZVBgl31u41yx8P-u5TTf-1h8mn-VbXC65L-TAlsQDjIpxaBXjtxn7ENgA-rs=h180'),
-        Image.network('https://wpamelia.com/wp-content/uploads/2018/11/ezgif-2-6d0b072c3d3f.gif'),
-          ],
-       ),
+      child: Image.asset('assets/images/loading.gif'),
     ),
   );
 }
@@ -1682,9 +1676,14 @@ class _PollCardState extends State<PollCard> {
 
 Widget pollCardCR(BuildContext context, dynamic data) {
   double widthC = MediaQuery.of(context).size.width - 80;
-   double totalPoll = data[yesOption] + data[noOption];
-    int yesPercent = (data[yesOption] * 100 / (totalPoll)).round();
-    int noPercent = (data[yesOption] * 100 / (totalPoll)).round();
+  print(data['yesCount'].runtimeType);
+  print(data['noCount'].runtimeType);
+  int totalPoll = data['yesCount'] + data['noCount'];
+  int yesPercent = (data['yesCount'] * 100 / (totalPoll)).round();
+  int noPercent = (data['noCount'] * 100 / (totalPoll)).round();
+  print(totalPoll.runtimeType);
+  print(yesPercent.runtimeType);
+  print(noPercent.runtimeType);
   return Container(
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -1778,7 +1777,7 @@ Widget pollCardCR(BuildContext context, dynamic data) {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                        '${data['yesOption']}',
+                        data['yesOption'],
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     color: Colors.black)),
@@ -1795,10 +1794,10 @@ Widget pollCardCR(BuildContext context, dynamic data) {
                                     ),
                                     height: 10,
                                     width:
-                                        (widthC - 40) * data[yesOption] / (totalPoll),
+                                    ((widthC - 40) * data['yesCount'] / totalPoll),
                                   ),
                                   Text(
-                        '$yesPercent %',
+                        ' $yesPercent %',
                                     style: TextStyle(
                                         fontSize: 13,
                                         fontWeight: FontWeight.w600,
@@ -1808,7 +1807,7 @@ Widget pollCardCR(BuildContext context, dynamic data) {
                               ),
                             ),
                             Text(
-                        '${data['noOption']} ',
+                        data['noOption'],
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black),
@@ -1826,10 +1825,10 @@ Widget pollCardCR(BuildContext context, dynamic data) {
                                     ),
                                     height: 10,
                                     width:
-                                        (widthC - 40) * data[noOption] / (totalPoll),
+                                    ((widthC - 40) * data['noCount'] / totalPoll),
                                   ),
                                   Text(
-                        '$noPercent %',
+                        ' $noPercent %',
                                     style: TextStyle(
                                         fontSize: 13,
                                         fontWeight: FontWeight.w600,
