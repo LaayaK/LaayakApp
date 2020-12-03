@@ -19,7 +19,7 @@ class HomePage extends StatefulWidget {
   final BaseAuth auth;
   final VoidCallback logoutCallback;
   final String userId, email, code;
-  final data;
+  final dynamic data;
 
   @override
   _HomePageState createState() => _HomePageState();

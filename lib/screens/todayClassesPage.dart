@@ -20,7 +20,7 @@ class _TodayClassesPageState extends State<TodayClassesPage> {
         children: <Widget>[
           headingText('Lectures Today'),
           Container(
-            height: MediaQuery.of(context).size.height - 100,
+            height: MediaQuery.of(context).size.height - 200,
             width: MediaQuery.of(context).size.width,
             child: FutureBuilder<DocumentSnapshot>(
               future: Firestore.instance
