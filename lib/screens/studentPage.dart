@@ -42,13 +42,13 @@ class _StudentPageState extends State<StudentPage> {
         },
         items: [
           BottomNavigationBarItem(
-            activeIcon: Icon(Icons.home, size: 27, color: Colors.blue),
-            icon: Icon(Icons.home, size: 27, color: Colors.grey),
+            activeIcon: Icon(Icons.announcement, size: 27, color: Colors.blue),
+            icon: Icon(Icons.announcement, size: 27, color: Colors.grey),
             title: Container(),
           ),
           BottomNavigationBarItem(
-            activeIcon: Icon(Icons.announcement, size: 27, color: Colors.blue),
-            icon: Icon(Icons.announcement, size: 27, color: Colors.grey),
+            activeIcon: Icon(Icons.home, size: 27, color: Colors.blue),
+            icon: Icon(Icons.home, size: 27, color: Colors.grey),
             title: Container(),
           ),
           BottomNavigationBarItem(
@@ -60,9 +60,9 @@ class _StudentPageState extends State<StudentPage> {
       ),
       body: Container(
         child: (_page == 0)
-            ? TodayClassesPage(code: widget.code)
-            : (_page == 1)
             ? AnnouncementsPage(code: widget.code, user: widget.userId)
+            : (_page == 1)
+            ? TodayClassesPage(code: widget.code)
             : DetailsPage(
           code: widget.code,
           user: widget.userId,

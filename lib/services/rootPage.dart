@@ -123,19 +123,19 @@ class _RootPageState extends State<RootPage> {
           print('Sending to HomePage');
           if (_userType == 'teacher') {
             return Scaffold(
-              body: SafeArea(
-                child: Column(
-                  children: [
-                    Text('TEACHER PAGE!!! Find classes!'),
-                    FlatButton(child: Text('Signout'),
-                    onPressed: (){
-                      widget.auth.signOut();
-                      logoutCallback();
-                    }
-                    ),
-                  ],
-                ),
-              )
+                body: SafeArea(
+                  child: Column(
+                    children: [
+                      Text('TEACHER PAGE!!! Find classes!'),
+                      FlatButton(child: Text('Signout'),
+                          onPressed: () {
+                            widget.auth.signOut();
+                            logoutCallback();
+                          }
+                      ),
+                    ],
+                  ),
+                )
             );
           } else if (_userType == 'cr') {
             return HomePage(
@@ -146,18 +146,18 @@ class _RootPageState extends State<RootPage> {
                 code: _code,
                 data: _data
             );
-          }
-        } else if (_userType == 'student') {
-          return StudentPage(
-            userId: _userId,
-            auth: widget.auth,
-            logoutCallback: logoutCallback,
-            email: _email,
-            code: _code,
-            data: _data
-          );
-        } else
-          return buildWaitingScreen();
+          } else if (_userType == 'student') {
+            return StudentPage(
+                userId: _userId,
+                auth: widget.auth,
+                logoutCallback: logoutCallback,
+                email: _email,
+                code: _code,
+                data: _data
+            );
+          } else
+            return buildWaitingScreen();
+        }
         break;
       default:
         return buildWaitingScreen();
