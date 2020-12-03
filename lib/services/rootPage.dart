@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:timetable/screens/crPage.dart';
 import 'package:timetable/screens/homePage.dart';
 import 'package:timetable/screens/indexPage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timetable/screens/studentPage.dart';
 import 'package:timetable/services/authentication.dart';
 import 'package:timetable/widgets/widgets.dart';
-import 'package:timetable/widgets/functions.dart';
 
 enum AuthStatus {
   NOT_DETERMINED,
@@ -122,23 +121,14 @@ class _RootPageState extends State<RootPage> {
         if (_userId.length > 0 && _userId != null) {
           print('Sending to HomePage');
           if (_userType == 'teacher') {
-            return Scaffold(
-                body: SafeArea(
-                  child: Column(
-                    children: [
-                      Text('TEACHER PAGE!!! Find classes!'),
-                      FlatButton(child: Text('Signout'),
-                          onPressed: () {
-                            widget.auth.signOut();
-                            logoutCallback();
-                          }
-                      ),
-                    ],
-                  ),
-                )
+            return HomePage(
+                userId: _userId,
+                auth: widget.auth,
+                logoutCallback: logoutCallback,
+                email: _email,
             );
           } else if (_userType == 'cr') {
-            return HomePage(
+            return CRPage(
                 userId: _userId,
                 auth: widget.auth,
                 logoutCallback: logoutCallback,
@@ -162,5 +152,6 @@ class _RootPageState extends State<RootPage> {
       default:
         return buildWaitingScreen();
     }
+    return buildWaitingScreen();
   }
 }
