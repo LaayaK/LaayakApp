@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:timetable/widgets/functions.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'dart:ui';
-import 'package:timetable/services/notification.dart';
 
 class AddLecture extends StatefulWidget {
   AddLecture({this.code, this.subjectCode, this.teacher, this.subject});
@@ -990,7 +989,7 @@ Widget announcementCard(BuildContext context, dynamic data) {
 
 Widget headingText(String text) {
   return Padding(
-    padding: const EdgeInsets.all(20),
+    padding: const EdgeInsets.all(30),
     child: Text(
       text,
       textAlign: TextAlign.left,

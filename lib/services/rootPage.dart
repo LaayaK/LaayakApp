@@ -83,7 +83,8 @@ class _RootPageState extends State<RootPage> {
         } else {
           print('No user got!');
           setState(() {
-            authStatus = AuthStatus.LOGGED_IN;
+            authStatus = AuthStatus.NOT_LOGGED_IN;
+            print(authStatus.toString());
           });
         }
       } else {

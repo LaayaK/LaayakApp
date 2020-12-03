@@ -3,6 +3,9 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:timetable/screens/createCr.dart';
+import 'package:timetable/screens/createStudent.dart';
+import 'package:timetable/screens/createTeacher.dart';
 import 'package:timetable/screens/studentPage.dart';
 
 //Authentication
@@ -90,11 +93,9 @@ class _IndexPageState extends State<IndexPage> {
   String _errorMessage;
   bool _loginForm = false;
 
-  bool _isLoading;
+  bool _isLoading = false;
 
   bool _isButtonDisabled = true;
-
-  String _loginCreateAccText = 'Login';
 
   // Check if form is valid before perform login or sign up
   bool validateAndSave() {
@@ -234,15 +235,21 @@ class _IndexPageState extends State<IndexPage> {
 //                              ),
                   Visibility(
                     visible: (_loginForm == false),
-                    child: loginButtons(context, 'Sign up as Student', () {}),
+                    child: loginButtons(context, 'Sign up as Student', () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateStudent(auth: widget.auth, loginCallback: widget.loginCallback,)));
+                    }),
                   ),
                   Visibility(
                     visible: (_loginForm == false),
-                    child: loginButtons(context, 'Sign up as C R', () {}),
+                    child: loginButtons(context, 'Sign up as C R', () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateCr()));
+                    }),
                   ),
                   Visibility(
                     visible: (_loginForm == false),
-                    child: loginButtons(context, 'Sign up as Teacher', () {}),
+                    child: loginButtons(context, 'Sign up as Teacher', () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateTeacher()));
+                    }),
                   ),
                   Visibility(
                     visible: (_loginForm == true),
@@ -288,47 +295,7 @@ class _IndexPageState extends State<IndexPage> {
                                               print('Error: $e');
                                               setState(() {
                                                 _isLoading = false;
-                                                switch (e.code) {
-                                                  case "ERROR_INVALID_EMAIL":
-                                                    _errorMessage =
-                                                        "Please enter a valid email address.";
-                                                    break;
-                                                  case "ERROR_WRONG_PASSWORD":
-                                                    _errorMessage =
-                                                        "Incorrect password entered.";
-                                                    break;
-                                                  case "ERROR_USER_NOT_FOUND":
-                                                    _errorMessage =
-                                                        "User with this email doesn't exist.";
-                                                    break;
-                                                  case "ERROR_USER_DISABLED":
-                                                    _errorMessage =
-                                                        "User with this email has been disabled.";
-                                                    break;
-                                                  case "ERROR_TOO_MANY_REQUESTS":
-                                                    _errorMessage =
-                                                        "Too many requests. Please try again later.";
-                                                    break;
-                                                  case "ERROR_OPERATION_NOT_ALLOWED":
-                                                    _errorMessage =
-                                                        "Signing in with Email and Password is not enabled.";
-                                                    break;
-                                                  case "ERROR_WEAK_PASSWORD":
-                                                    _errorMessage =
-                                                        "Your password is too weak";
-                                                    break;
-                                                  case "ERROR_EMAIL_ALREADY_IN_USE":
-                                                    _errorMessage =
-                                                        "Email is already in use on different account";
-                                                    break;
-                                                  case "ERROR_INVALID_CREDENTIAL":
-                                                    _errorMessage =
-                                                        "Your email is invalid";
-                                                    break;
-                                                  default:
-                                                    _errorMessage =
-                                                        "An undefined Error happened.";
-                                                }
+                                                _errorMessage = loginErrorCodes(e);
                                                 _formKey.currentState.reset();
                                               });
                                               if (_errorMessage.length > 0 &&

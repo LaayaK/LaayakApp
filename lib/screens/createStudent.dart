@@ -1,6 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:timetable/services/authentication.dart';
+import 'package:timetable/widgets/functions.dart';
+import 'package:timetable/widgets/widgets.dart';
 
 class CreateStudent extends StatefulWidget {
+
+  CreateStudent({this.auth, this.loginCallback});
+
+  final BaseAuth auth;
+  final VoidCallback loginCallback;
+
   @override
   _CreateStudentState createState() => _CreateStudentState();
 }
@@ -14,40 +24,64 @@ class _CreateStudentState extends State<CreateStudent> {
   TextEditingController _nameController = new TextEditingController();
   TextEditingController _classCodeController = new TextEditingController();
 
+  String _errorMessage = '';
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(      
+    return Scaffold(
+      backgroundColor: Color(0xFFF1F2F3),
       body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: ListView(
             children: <Widget>[
-              SizedBox(height: 10),
+              SizedBox(height: 30),
               headingText('Student'),
-              showInput('Class Code'), 
-              showInput('Name'), 
-              showInput('Roll No.'), 
-              showInput('Email'),               
-              showPasswordInput(),                            
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    color: Colors.pinkAccent),
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: FlatButton(
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Text(
-                      'Sign Up',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    ),
-                  ),
-                  onPressed: () {},
-                ),
-              ),             
+              showInput('Class Code', _classCodeController),
+              showInput('Name', _nameController),
+              showInput('Roll No.', _rollNoController),
+              showInput('Email', _emailController),
+              showInput('Password', _passwordController),
+              loginButtons(context, 'Sign Up', (){
+                _classCode = _classCodeController.value.text;
+                _name = _nameController.value.text;
+                _rollNo = _rollNoController.value.text;
+                _email = _emailController.value.text;
+                _password = _passwordController.value.text;
+                if (_classCode.isNotEmpty && _name.isNotEmpty && _rollNo.isNotEmpty && _email.isNotEmpty && _password.isNotEmpty)
+                {
+                  try{
+                    widget.auth.signUpWithDisplayName(_email, _password, 'student')
+                        .whenComplete(() {
+                      Firestore.instance.collection('students').document(_email)
+                          .setData({
+                        'classCode' : _classCode,
+                        'email' : _email,
+                        'name' : _name,
+                        'rollNo' : _rollNo,
+                        'verified' : false
+                      }).whenComplete(() {
+                        Firestore.instance.collection('classes/$_classCode/details').document('stuList')
+                            .updateData({
+                          'studentsList' : FieldValue.arrayUnion([{
+                            'email': _email,
+                            'name' : _name,
+                            'rollNo' : _rollNo
+                          }]),
+                        });
+                      }).whenComplete(() {
+                        widget.loginCallback();
+                        Navigator.pop(context);
+                      });
+                    });
+                  } catch(err) {
+                    print(err);
+                    setState(() {
+                      _errorMessage = loginErrorCodes(err);
+                    });
+                  }
+                }
+              }),             
             ],
           ),
       ),
@@ -55,10 +89,11 @@ class _CreateStudentState extends State<CreateStudent> {
   }
 }
 
- Widget showInput(String hint) {
+ Widget showInput(String hint, TextEditingController controller) {
     return Container(
-      margin: EdgeInsets.all(10),
-      child: new TextFormField(
+      margin: EdgeInsets.symmetric(vertical:10, horizontal: 30),
+      child: new TextField(
+        controller: controller,
         maxLines: 1,
         keyboardType: TextInputType.emailAddress,
         autofocus: false,
@@ -75,8 +110,6 @@ class _CreateStudentState extends State<CreateStudent> {
             color: Colors.grey
           ),
         ),
-//         validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
-//         onSaved: (value) => _email = value.trim(),
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
@@ -84,36 +117,3 @@ class _CreateStudentState extends State<CreateStudent> {
       ),
     );
   }
-Widget showPasswordInput() {
-  return Container(
-    margin: EdgeInsets.all(10),
-    child: new TextFormField(
-      maxLines: 1,
-      obscureText: true,
-      autofocus: false,
-      onChanged: (value) {
-//           setState(() {
-//             _isButtonDisabled = false;
-//             print('password tapped');
-//           });
-      },
-      decoration: new InputDecoration(
-        border: InputBorder.none,
-        focusedBorder: InputBorder.none,
-        enabledBorder: InputBorder.none,
-        errorBorder: InputBorder.none,
-        disabledBorder: InputBorder.none,
-        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-        hintText: 'Enter Password',
-        hintStyle: TextStyle(fontSize: 15, color: Colors.grey),
-      ),
-//         validator: (value) => value.isEmpty ? 'Password can\'t be empty' : null,
-//         onSaved: (value) => _password = value.trim(),
-    ),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(14),
-      color: Color(0xFFE5E5E5),
-    ),
-  );
-}
-// }
