@@ -88,32 +88,3 @@ class _CreateStudentState extends State<CreateStudent> {
     );
   }
 }
-
- Widget showInput(String hint, TextEditingController controller) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical:10, horizontal: 30),
-      child: new TextField(
-        controller: controller,
-        maxLines: 1,
-        keyboardType: TextInputType.emailAddress,
-        autofocus: false,
-        decoration: new InputDecoration(
-          border: InputBorder.none,
-          focusedBorder: InputBorder.none,
-          enabledBorder: InputBorder.none,
-          errorBorder: InputBorder.none,
-          disabledBorder: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-          hintText: hint,
-          hintStyle: TextStyle(
-            fontSize: 15,
-            color: Colors.grey
-          ),
-        ),
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(14),
-        color: Color(0xFFE5E5E5),
-      ),
-    );
-  }

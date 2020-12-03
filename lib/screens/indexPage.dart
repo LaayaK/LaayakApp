@@ -242,13 +242,13 @@ class _IndexPageState extends State<IndexPage> {
                   Visibility(
                     visible: (_loginForm == false),
                     child: loginButtons(context, 'Sign up as C R', () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateCr()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateCr(auth: widget.auth, loginCallback: widget.loginCallback,)));
                     }),
                   ),
                   Visibility(
                     visible: (_loginForm == false),
                     child: loginButtons(context, 'Sign up as Teacher', () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateTeacher()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateTeacher(auth: widget.auth, loginCallback: widget.loginCallback,)));
                     }),
                   ),
                   Visibility(
