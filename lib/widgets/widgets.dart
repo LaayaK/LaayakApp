@@ -2016,3 +2016,29 @@ Widget linkCard(BuildContext context, dynamic data) {
     ),
   );
 }
+
+Widget loginButtons(BuildContext context, String text, VoidCallback onPressed)
+{
+  return Container(
+    margin: EdgeInsets.symmetric(
+        horizontal: 30, vertical: 10),
+    width: MediaQuery.of(context).size.width,
+    decoration: BoxDecoration(
+        borderRadius:
+        BorderRadius.all(Radius.circular(10)),
+        color: Colors.pinkAccent),
+    padding: EdgeInsets.symmetric(horizontal: 10),
+    child: FlatButton(
+      padding: EdgeInsets.all(0),
+      child: Text(
+        text,
+        style: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
+            fontFamily: 'Lobster'
+        ),
+      ),
+      onPressed: onPressed,
+    ),
+  );
+}

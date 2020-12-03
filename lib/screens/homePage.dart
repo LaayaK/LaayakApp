@@ -42,6 +42,13 @@ class _HomePageState extends State<HomePage> {
                     ));
                   }
               ),
+              FlatButton(
+                child: Text('Logout'),
+                onPressed: (){
+                  widget.auth.signOut();
+                  widget.logoutCallback();
+                }
+              )
             ],
           ),
         )

@@ -39,8 +39,8 @@ class _DetailsPageState extends State<DetailsPage> {
               backgroundColor: Colors.blueGrey[900],
               flexibleSpace: FlexibleSpaceBar(
                 collapseMode: CollapseMode.parallax,
-                background: Image.asset(
-                        'assets/images/${widget.details['timeTable']}.jpg',
+                background: Image.network(
+                        '${widget.details['timeTable']}',
                         fit: BoxFit.cover,
                       ),
               ),
@@ -125,6 +125,8 @@ class _DetailsPageState extends State<DetailsPage> {
                         Text('sketchharry01@gmail.com'),
                         SizedBox(height: 5,),
                         Text('pscoder10462@gmail.com'),
+                        SizedBox(height: 5,),
+                        Text('jainabhishek7204@gmail.com'),
                       ],
                     ),
                   ),

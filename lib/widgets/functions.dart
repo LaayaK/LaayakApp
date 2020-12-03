@@ -143,33 +143,35 @@ Future<String> getPollResponse(String key) async {
 }
 
 void storeFCMToken(String code) {
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-  _firebaseMessaging.getToken().then((deviceToken) {
-    print('Device Token : $deviceToken');
-    Firestore.instance
-        .collection('classes/$code/fcmTokens')
-        .document('fcmTokens')
-        .setData({
-      'fcmTokens': FieldValue.arrayUnion([deviceToken])
-    }, merge: true);
-  });
+  print('store FCM token started!!!');
+//  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+//  _firebaseMessaging.getToken().then((deviceToken) {
+//    print('Device Token : $deviceToken');
+//    Firestore.instance
+//        .collection('classes/$code/fcmTokens')
+//        .document('fcmTokens')
+//        .setData({
+//      'fcmTokens': FieldValue.arrayUnion([deviceToken])
+//    }, merge: true);
+//  });
 }
 
 void deleteFCMToken(String code) {
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-  _firebaseMessaging.getToken().then((deviceToken) async {
-    print('Device Token : $deviceToken');
-    var data = await Firestore.instance
-        .collection('classes/$code/fcmTokens')
-        .document('fcmTokens')
-        .get();
-    List<dynamic> newTokens = [], fcmTokens = data['fcmTokens'];
-    for (int i = 0; i < fcmTokens.length; i++) {
-      if (fcmTokens[i] != deviceToken) newTokens.add(fcmTokens[i]);
-    }
-    Firestore.instance
-        .collection('classes/$code/fcmTokens')
-        .document('fcmTokens')
-        .updateData({'fcmTokens': newTokens});
-  });
+  print('delete FCM token started!!!');
+//  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+//  _firebaseMessaging.getToken().then((deviceToken) async {
+//    print('Device Token : $deviceToken');
+//    var data = await Firestore.instance
+//        .collection('classes/$code/fcmTokens')
+//        .document('fcmTokens')
+//        .get();
+//    List<dynamic> newTokens = [], fcmTokens = data['fcmTokens'];
+//    for (int i = 0; i < fcmTokens.length; i++) {
+//      if (fcmTokens[i] != deviceToken) newTokens.add(fcmTokens[i]);
+//    }
+//    Firestore.instance
+//        .collection('classes/$code/fcmTokens')
+//        .document('fcmTokens')
+//        .updateData({'fcmTokens': newTokens});
+//  });
 }
