@@ -999,6 +999,30 @@ Widget headingText(String text) {
   );
 }
 
+Widget headingText2(String text) {
+  return Padding(
+    padding: const EdgeInsets.all(10),
+    child: Text(
+      text,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+          fontWeight: FontWeight.bold,color: Colors.black54, fontSize: 30, fontFamily: 'Comfortaa'),
+    ),
+  );
+}
+
+Widget headingText3(String text) {
+  return Padding(
+    padding: const EdgeInsets.all(10),
+    child: Text(
+      text,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+          fontWeight: FontWeight.bold,color: Colors.black54, fontSize: 25, fontFamily: 'Comfortaa'),
+    ),
+  );
+}
+
 class AddLink extends StatefulWidget {
   AddLink({this.code});
 

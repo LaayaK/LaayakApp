@@ -111,15 +111,3 @@ class _CreateClassState extends State<CreateClass> {
     );
   }
 }
-
-Widget headingText2(String text) {
-  return Padding(
-    padding: const EdgeInsets.all(10),
-    child: Text(
-      text,
-      textAlign: TextAlign.center,
-      style: TextStyle(
-          fontWeight: FontWeight.bold,color: Colors.black54, fontSize: 30, fontFamily: 'Comfortaa'),
-    ),
-  );
-}
