@@ -38,9 +38,9 @@ void addAnnouncementFirestore(String code, Map<String, dynamic> announcement){
   Firestore.instance
       .collection('classes')
       .document('$code/updates/announcements')
-      .setData({
+      .updateData({
     'announcements': FieldValue.arrayUnion([announcement])
-  }, merge: true);
+  });
 }
 
 void addLinkFirestore(String code, Map<String, dynamic> link)
@@ -50,6 +50,16 @@ void addLinkFirestore(String code, Map<String, dynamic> link)
       .document('$code/updates/announcements')
       .setData({
     'announcements': FieldValue.arrayUnion([link])
+  }, merge: true);
+}
+
+void addAssignFirestore(String code, Map<String, dynamic> assign)
+{
+  Firestore.instance
+      .collection('classes')
+      .document('$code/updates/announcements')
+      .setData({
+    'assignments': FieldValue.arrayUnion([assign])
   }, merge: true);
 }
 

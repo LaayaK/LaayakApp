@@ -380,7 +380,8 @@ class AddAnnounState extends State<AddAnnoun>
         Map<String, dynamic> announcement = {
           'text': text,
           'dateAndTime': DateTime.now(),
-          'type': 'announcement'
+          'type': 'announcement',
+          'isOfficial': true,
         };
 
         addAnnouncementFirestore(widget.code, announcement);
@@ -1042,7 +1043,8 @@ class AddLinkState extends State<AddLink> with SingleTickerProviderStateMixin {
           'link': link,
           'dateAndTime': DateTime.now(),
           'text': text,
-          'type': 'link'
+          'type': 'link',
+          'isOfficial': true,
         };
 
         addLinkFirestore(widget.code, linkData);
@@ -1266,7 +1268,8 @@ class AddPollState extends State<AddPoll> with SingleTickerProviderStateMixin {
           'noCount': 0,
           'text': text,
           'dateAndTime': DateTime.now(),
-          'type': 'poll'
+          'type': 'poll',
+          'isOfficial': true,
         };
 
         addPollFirestore(widget.code, poll);
@@ -1452,6 +1455,228 @@ class AddPollState extends State<AddPoll> with SingleTickerProviderStateMixin {
                       width: MediaQuery.of(context).size.width,
                       child: FloatingActionButton.extended(
                         backgroundColor: Colors.pinkAccent,
+                        onPressed: () {
+                          validateAndSubmit();
+                        },
+                        label: Text('Send'),
+                        icon: Icon(Icons.check_circle_outline),
+                        elevation: 1,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AddAssign extends StatefulWidget {
+  AddAssign({this.code});
+
+  final String code;
+
+  @override
+  State<StatefulWidget> createState() => AddAssignState();
+}
+
+class AddAssignState extends State<AddAssign> with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> scaleAnimation;
+
+  final _formKey = new GlobalKey<FormState>();
+  String _errorMessage = '';
+  bool _isLoading = false;
+
+  String link, text;
+
+  bool validateAndSave() {
+    final form = _formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      print('Form Validated');
+      return true;
+    } else
+      print('Form Not Validated');
+    return false;
+  }
+
+  // Send data
+  void validateAndSubmit() async {
+    setState(() {
+      _errorMessage = "";
+    });
+    if (validateAndSave()) {
+      _isLoading = true;
+      try {
+        //Add data to Database
+
+        Map<String, dynamic> linkData = {
+          'fileName' : link,
+          'url' : link,
+          'dateAndTime': DateTime.now(),
+          'title': text,
+          'isOfficial': true,
+        };
+
+        addAssignFirestore(widget.code, linkData);
+        Navigator.pop(context);
+
+        setState(() {
+          _isLoading = false;
+        });
+      } catch (e) {
+        print('Error: $e');
+        setState(() {
+          _isLoading = false;
+          _errorMessage = e.message;
+          _formKey.currentState.reset();
+        });
+      }
+    }
+  }
+
+  void resetForm() {
+    _formKey.currentState.reset();
+    _errorMessage = "";
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 450));
+    scaleAnimation =
+        CurvedAnimation(parent: controller, curve: Curves.decelerate);
+
+    controller.addListener(() {
+      setState(() {});
+    });
+
+    controller.forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: new Form(
+        key: _formKey,
+        child: Material(
+          color: Colors.transparent,
+          child: ScaleTransition(
+            scale: scaleAnimation,
+            child: Container(
+              margin: EdgeInsets.all(20.0),
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+              height: 400,
+              decoration: ShapeDecoration(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+              ),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(15.0),
+                  ),
+                  border: Border.all(
+                    width: 5,
+                    color: Colors.grey.shade400,
+                  ),
+                ),
+
+                // dashed Border
+                child: ListView(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 5),
+                      child: Text(
+                        'Send Link',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontFamily: 'Lobster'
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 4),
+                      height: 2,
+                      width: MediaQuery.of(context).size.width - 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        color: Colors.deepPurple,
+                      ),
+                    ),
+                    Container(
+                      //                         margin: EdgeInsets.only(right: 10),
+                      height: 2,
+                      width: MediaQuery.of(context).size.width - 150,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        color: Colors.deepPurple,
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        border: Border.all(color: Colors.grey),
+                        color: Colors.white,
+                      ),
+                      child: TextFormField(
+                        keyboardType: TextInputType.url,
+                        maxLines: 1,
+                        decoration: InputDecoration(
+                            border: InputBorder.none, hintText: 'Enter Link'),
+                        validator: (value) =>
+                        (value.isEmpty || !Uri.parse(value).isAbsolute)
+                            ? 'Enter Link'
+                            : null,
+                        onSaved: (value) => link = value.trim(),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        border: Border.all(color: Colors.grey),
+                        color: Colors.white,
+                      ),
+                      child: TextFormField(
+                        maxLines: 5,
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Add description'),
+                        validator: (value) =>
+                        (value.isEmpty) ? 'Enter Description' : null,
+                        onSaved: (value) => text = value.trim(),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(10, 20, 10, 10),
+                      height: 40,
+                      width: MediaQuery.of(context).size.width,
+                      child: FloatingActionButton.extended(
+                        backgroundColor: Colors.deepPurple,
                         onPressed: () {
                           validateAndSubmit();
                         },

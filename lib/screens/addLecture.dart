@@ -18,6 +18,13 @@ class _AddLecturePageState extends State<AddLecturePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue,
+        child: Icon(Icons.add),
+        onPressed: () {
+
+        },
+      ),
       body: Container(
         child: ListView(
           children: <Widget>[

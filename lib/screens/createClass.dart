@@ -6,9 +6,9 @@ import 'package:timetable/widgets/widgets.dart';
 
 class CreateClass extends StatefulWidget {
 
-  CreateClass({this.classId, this.name, this.auth, this.loginCallback});
+  CreateClass({this.name, this.rollNo, this.email, this.auth, this.loginCallback});
 
-  final String classId, name;
+  final String name, rollNo, email;
   final BaseAuth auth;
   final VoidCallback loginCallback;
 
@@ -38,8 +38,8 @@ class _CreateClassState extends State<CreateClass> {
               headingText('Welcome ${widget.name}'),
               headingText2('Create your class'),
               showInput('College', _collegeController),
-              showInput('Branch', _branchController),
               showInput('Course', _courseController),
+              showInput('Branch', _branchController),
               showInput('Semester', _semesterController),
               loginButtons(context, 'Create Class', (){
                 _college = _collegeController.value.text;
@@ -49,17 +49,51 @@ class _CreateClassState extends State<CreateClass> {
                 if (_college.isNotEmpty && _branch.isNotEmpty && _course.isNotEmpty && _semester.isNotEmpty)
                 {
                   try{
-                    Firestore.instance.collection('classes').document(widget.classId)
-                          .setData({
+                    String docId = Firestore.instance
+                        .collection('classes')
+                        .document()
+                        .documentID;
+                    Firestore.instance.collection('classes').document(docId)
+                      .setData({
+                        'crDetails': {
+                        'classId': docId,
+                        'email': widget.email,
+                        'name': widget.name,
+                        'rollNo': widget.rollNo,
+                        },
                         'details' : {
-                          'branch' : _branch,
-                          'college' : _college,
-                          'course' : _course,
-                          'crName' : widget.name,
-                          'sem' : _semester,
+                        'branch' : _branch,
+                        'college' : _college,
+                        'course' : _course,
+                        'crName' : widget.name,
+                        'sem' : _semester,
                           'timetable' : 'https://www.softwaresuggest.com/blog/wp-content/uploads/2019/10/Advantages-of-Timetable-Management-System-in-Schools-1.png'
+                        },
+                        'subjects' : [],
+                        'timetable' : 'https://www.softwaresuggest.com/blog/wp-content/uploads/2019/10/Advantages-of-Timetable-Management-System-in-Schools-1.png'
+                    }).whenComplete(() {
+                      Firestore.instance.collection('classes/$docId/details')
+                          .document('stuList')
+                          .setData({
+                        'studentsList': FieldValue.arrayUnion([{
+                          'email': widget.email,
+                          'name': widget.name,
+                          'rollNo': widget.rollNo
                         }
-                      }, merge: true).whenComplete(() {
+                        ]),
+                      });
+                  Firestore.instance.collection('classes/$docId/lectures')
+                      .document('lecturesToday')
+                      .setData({
+                    'lectures': [],
+                  });
+                  Firestore.instance.collection('classes/$docId/updates')
+                      .document('announcements')
+                      .setData({
+                    'announcements': [],
+                    'assignments': []
+                  });
+                }).whenComplete(() {
                         widget.loginCallback();
                         Navigator.pop(context);
                       });
