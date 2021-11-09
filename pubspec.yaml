@@ -15,7 +15,7 @@ dependencies:
   # Services
   url_launcher: ^5.5.0
   shared_preferences: ^0.5.10
-  flutter_datetime_picker: ^1.4.0
+# flutter_datetime_picker: ^1.4.0
 #  android_alarm_manager: ^0.4.5+11
   flutter_local_notifications: ^1.4.4+4
   http: ^0.12.0+4

@@ -26,32 +26,41 @@ class _AddDataPageState extends State<AddDataPage> {
             padding: EdgeInsets.all(0),
             height: 70,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                  offset: Offset(0,1),
-                  blurRadius: 2,
-                  color: Colors.grey.shade500,                    
-                  ),
-                ],
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
               ),
-            child: FlatButton(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  offset: Offset(0, 1),
+                  blurRadius: 2,
+                  color: Colors.grey.shade500,
+                ),
+              ],
+            ),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              ),
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            AddLecturePage(code: widget.code, subjects: widget.subjects,)));
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => AddLecturePage(
+                      code: widget.code,
+                      subjects: widget.subjects,
+                    ),
+                  ),
+                );
               },
-              child: Column(children: <Widget>[
-                Row(
+              child: Column(
+                children: <Widget>[
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
-                        child: Icon(Icons.edit,   color: Colors.blue, size: 30),
+                        child: Icon(Icons.edit, color: Colors.blue, size: 30),
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 2),
@@ -61,7 +70,7 @@ class _AddDataPageState extends State<AddDataPage> {
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
                           ),
-                           color: Colors.blue,
+                          color: Colors.blue,
                         ),
                       ),
                       Container(
@@ -72,7 +81,7 @@ class _AddDataPageState extends State<AddDataPage> {
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
                           ),
-                           color: Colors.blue,
+                          color: Colors.blue,
                         ),
                       ),
                       Container(
@@ -87,38 +96,47 @@ class _AddDataPageState extends State<AddDataPage> {
                         ),
                       ),
                       Container(
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                            Text('Lecture',
-                                style: TextStyle(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              'Lecture',
+                              style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 20,
-                                  fontFamily: 'Lobster'
-                                )),
-                          ])),
-                    ]),
-              ]),
+                                  fontFamily: 'Lobster'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
             padding: EdgeInsets.all(0),
             height: 70,
-             decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                  offset: Offset(0,1),
-                  blurRadius: 2,
-                  color: Colors.grey.shade500,                    
-                  ),
-                ],
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
               ),
-            child: FlatButton(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  offset: Offset(0, 1),
+                  blurRadius: 2,
+                  color: Colors.grey.shade500,
+                ),
+              ],
+            ),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              ),
               onPressed: () {
                 showDialog(
                   context: context,
@@ -176,10 +194,9 @@ class _AddDataPageState extends State<AddDataPage> {
                             Text(
                               'Announcement',
                               style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontFamily: 'Lobster'
-                              ),
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontFamily: 'Lobster'),
                             ),
                           ],
                         ),
@@ -194,32 +211,38 @@ class _AddDataPageState extends State<AddDataPage> {
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
             padding: EdgeInsets.all(0),
             height: 70,
-             decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                  offset: Offset(0,1),
-                  blurRadius: 2,
-                  color: Colors.grey.shade500,                    
-                  ),
-                ],
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
               ),
-            child: FlatButton(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  offset: Offset(0, 1),
+                  blurRadius: 2,
+                  color: Colors.grey.shade500,
+                ),
+              ],
+            ),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              ),
               onPressed: () {
                 showDialog(
                   context: context,
                   builder: (_) => AddLink(code: widget.code),
                 );
               },
-              child: Column(children: <Widget>[
-                Row(
+              child: Column(
+                children: <Widget>[
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
-                        child: Icon(Icons.link,  color: Colors.deepPurple, size: 30),
+                        child: Icon(Icons.link,
+                            color: Colors.deepPurple, size: 30),
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 2),
@@ -229,7 +252,7 @@ class _AddDataPageState extends State<AddDataPage> {
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
                           ),
-                           color: Colors.deepPurple,
+                          color: Colors.deepPurple,
                         ),
                       ),
                       Container(
@@ -255,19 +278,24 @@ class _AddDataPageState extends State<AddDataPage> {
                         ),
                       ),
                       Container(
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                            Text('Link',
-                                style: TextStyle(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              'Link',
+                              style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 20,
-                                  fontFamily: 'Lobster'
-                                )),
-                          ])),
-                    ]),
-              ]),
+                                  fontFamily: 'Lobster'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           Container(
@@ -288,19 +316,21 @@ class _AddDataPageState extends State<AddDataPage> {
 //               ],
 //               border: Border.all(color: Colors.grey.shade300),
 //             ),
-             decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                  offset: Offset(0,1),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  offset: Offset(0, 1),
                   blurRadius: 2,
-                  color: Colors.grey.shade500,                    
-                  ),
-                ],
+                  color: Colors.grey.shade500,
+                ),
+              ],
+            ),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               ),
-            child: FlatButton(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               onPressed: () {
                 showDialog(
                   context: context,
@@ -358,10 +388,9 @@ class _AddDataPageState extends State<AddDataPage> {
                             Text(
                               'Poll',
                               style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontFamily: 'Lobster'
-                              ),
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontFamily: 'Lobster'),
                             ),
                           ],
                         ),
@@ -377,18 +406,22 @@ class _AddDataPageState extends State<AddDataPage> {
             padding: EdgeInsets.all(0),
             height: 70,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              ),
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                  offset: Offset(0,1),
+                  offset: Offset(0, 1),
                   blurRadius: 2,
                   color: Colors.grey.shade500,
                 ),
               ],
             ),
-            child: FlatButton(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              ),
               onPressed: () {
                 showDialog(
                   context: context,
@@ -428,7 +461,9 @@ class _AddDataPageState extends State<AddDataPage> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(right: 10),
+                        margin: EdgeInsets.only(
+                          right: 10,
+                        ),
                         height: 25,
                         width: 2,
                         decoration: BoxDecoration(
@@ -446,9 +481,9 @@ class _AddDataPageState extends State<AddDataPage> {
                             Text(
                               'Assignment',
                               style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  fontFamily: 'Lobster'
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontFamily: 'Lobster',
                               ),
                             ),
                           ],

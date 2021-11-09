@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:timetable/widgets/widgets.dart';
 
 class AddLecturePage extends StatefulWidget {
-
   AddLecturePage({this.code, this.subjects});
 
   final String code;
@@ -21,9 +19,7 @@ class _AddLecturePageState extends State<AddLecturePage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue,
         child: Icon(Icons.add),
-        onPressed: () {
-
-        },
+        onPressed: () {},
       ),
       body: Container(
         child: ListView(
@@ -43,7 +39,6 @@ class _AddLecturePageState extends State<AddLecturePage> {
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
           return subjectCR(context, snapshot[index], widget.code);
-        }
-    );
+        });
   }
 }

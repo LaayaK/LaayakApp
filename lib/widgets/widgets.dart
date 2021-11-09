@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:timetable/widgets/functions.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+// import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'dart:ui';
 
 class AddLecture extends StatefulWidget {
@@ -56,7 +56,7 @@ class AddLectureState extends State<AddLecture>
           'startTime': startTime,
           'endTime': endTime,
           'text': text,
-          'group' : group,
+          'group': group,
         };
 
         addLectureLinkFirestore(widget.code, lecture);
@@ -127,11 +127,10 @@ class AddLectureState extends State<AddLecture>
                       children: <Widget>[
                         Text('Add Lecture',
                             style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontFamily: 'Lobster'
-                            )),
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontFamily: 'Lobster')),
                         Container(
                           margin: EdgeInsets.symmetric(vertical: 4),
                           height: 2,
@@ -193,32 +192,32 @@ class AddLectureState extends State<AddLecture>
                             child: FlatButton(
                                 padding: EdgeInsets.all(0),
                                 onPressed: () {
-                                  DatePicker.showTimePicker(context,
-                                      showSecondsColumn: false,
-                                      showTitleActions: true,
-                                      onChanged: (date) {
-                                    print('change $date in time zone ' +
-                                        date.timeZoneOffset.inHours.toString());
-                                  }, onConfirm: (date) {
-                                    print('confirm $date');
-                                    setState(() {
-                                      if (date.hour >= initDate.hour) {
-                                        startTime = date;
-                                        setState(() {
-                                          endTime = initDate;
-                                          endTimeColor = Colors.black;
-                                          startTimeColor = Colors.green;
-                                        });
-                                      } else {
-                                        startTime = initDate;
-                                        setState(() {
-                                          endTime = initDate;
-                                          endTimeColor = Colors.black;
-                                          startTimeColor = Colors.red;
-                                        });
-                                      }
-                                    });
-                                  }, currentTime: DateTime.now());
+                                  // DatePicker.showTimePicker(context,
+                                  //     showSecondsColumn: false,
+                                  //     showTitleActions: true,
+                                  //     onChanged: (date) {
+                                  //   print('change $date in time zone ' +
+                                  //       date.timeZoneOffset.inHours.toString());
+                                  // }, onConfirm: (date) {
+                                  //   print('confirm $date');
+                                  //   setState(() {
+                                  //     if (date.hour >= initDate.hour) {
+                                  //       startTime = date;
+                                  //       setState(() {
+                                  //         endTime = initDate;
+                                  //         endTimeColor = Colors.black;
+                                  //         startTimeColor = Colors.green;
+                                  //       });
+                                  //     } else {
+                                  //       startTime = initDate;
+                                  //       setState(() {
+                                  //         endTime = initDate;
+                                  //         endTimeColor = Colors.black;
+                                  //         startTimeColor = Colors.red;
+                                  //       });
+                                  //     }
+                                  //   });
+                                  // }, currentTime: DateTime.now());
                                 },
                                 child: Icon(Icons.timer, color: Colors.blue)),
                           ),
@@ -242,37 +241,37 @@ class AddLectureState extends State<AddLecture>
                             child: FlatButton(
                                 padding: EdgeInsets.all(0),
                                 onPressed: () {
-                                  DatePicker.showTimePicker(context,
-                                      showSecondsColumn: false,
-                                      showTitleActions: true,
-                                      onChanged: (date) {
-                                    print('change $date in time zone ' +
-                                        date.timeZoneOffset.inHours.toString());
-                                  }, onConfirm: (date) {
-                                    print('confirm $date');
-                                    setState(() {
-                                      if (date.hour >= initDate.hour &&
-                                          date.hour >= startTime.hour) {
-                                        if (date.hour == startTime.hour &&
-                                            date.minute <= startTime.minute) {
-                                          endTime = initDate;
-                                          setState(() {
-                                            endTimeColor = Colors.red;
-                                          });
-                                        } else {
-                                          endTime = date;
-                                          setState(() {
-                                            endTimeColor = Colors.green;
-                                          });
-                                        }
-                                      } else {
-                                        endTime = initDate;
-                                        setState(() {
-                                          endTimeColor = Colors.red;
-                                        });
-                                      }
-                                    });
-                                  }, currentTime: DateTime.now());
+                                  // DatePicker.showTimePicker(context,
+                                  //     showSecondsColumn: false,
+                                  //     showTitleActions: true,
+                                  //     onChanged: (date) {
+                                  //   print('change $date in time zone ' +
+                                  //       date.timeZoneOffset.inHours.toString());
+                                  // }, onConfirm: (date) {
+                                  //   print('confirm $date');
+                                  //   setState(() {
+                                  //     if (date.hour >= initDate.hour &&
+                                  //         date.hour >= startTime.hour) {
+                                  //       if (date.hour == startTime.hour &&
+                                  //           date.minute <= startTime.minute) {
+                                  //         endTime = initDate;
+                                  //         setState(() {
+                                  //           endTimeColor = Colors.red;
+                                  //         });
+                                  //       } else {
+                                  //         endTime = date;
+                                  //         setState(() {
+                                  //           endTimeColor = Colors.green;
+                                  //         });
+                                  //       }
+                                  //     } else {
+                                  //       endTime = initDate;
+                                  //       setState(() {
+                                  //         endTimeColor = Colors.red;
+                                  //       });
+                                  //     }
+                                  //   });
+                                  // }, currentTime: DateTime.now());
                                 },
                                 child: Icon(Icons.timer, color: Colors.blue)),
                           ),
@@ -462,11 +461,10 @@ class AddAnnounState extends State<AddAnnoun>
                       child: Text(
                         'Add Announcement',
                         style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontFamily: 'Lobster'
-                        ),
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontFamily: 'Lobster'),
                       ),
                     ),
                     Container(
@@ -648,10 +646,9 @@ Widget lectureCard(BuildContext context, dynamic data) {
               children: <Widget>[
                 Text(getTime(data['startTime'].toDate()),
                     style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 18,
-                      fontFamily: 'Lobster'
-                    )),
+                        color: Colors.grey,
+                        fontSize: 18,
+                        fontFamily: 'Lobster')),
                 Text('|',
                     style: TextStyle(
                       color: Colors.grey,
@@ -659,10 +656,9 @@ Widget lectureCard(BuildContext context, dynamic data) {
                     )),
                 Text(getTime(data['endTime'].toDate()),
                     style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 18,
-                      fontFamily: 'Lobster'
-                    )),
+                        color: Colors.grey,
+                        fontSize: 18,
+                        fontFamily: 'Lobster')),
               ]),
         ),
         Container(
@@ -677,49 +673,48 @@ Widget lectureCard(BuildContext context, dynamic data) {
           ),
         ),
         Container(
-          width: MediaQuery.of(context).size.width - 145,
+            width: MediaQuery.of(context).size.width - 145,
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-              Text(data['subject'],
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                    fontStyle: FontStyle.italic,
-                  )),
-              SizedBox(height: 2),
-              Text('by ${data['teacher']}',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 15,
-                    fontStyle: FontStyle.italic
-                  )),
-              Visibility(
-                visible: (data['group'].isNotEmpty),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 5),
-                  child: Text(data['group'],
+                  Text(data['subject'],
                       style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 15,
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        fontStyle: FontStyle.italic,
                       )),
-                ),
-              ),
-              SizedBox(height: 7),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 2),
-                      width: (MediaQuery.of(context).size.width - 170) / 3,
-                      height: 30,
-                      decoration: BoxDecoration(),
-                      child: FlatButton(
-                          padding: EdgeInsets.all(0),
-                          onPressed: () => details(context, data),
+                  SizedBox(height: 2),
+                  Text('by ${data['teacher']}',
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15,
+                          fontStyle: FontStyle.italic)),
+                  Visibility(
+                    visible: (data['group'].isNotEmpty),
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 5),
+                      child: Text(data['group'],
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 15,
+                          )),
+                    ),
+                  ),
+                  SizedBox(height: 7),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 2),
+                          width: (MediaQuery.of(context).size.width - 170) / 3,
+                          height: 30,
+                          decoration: BoxDecoration(),
+                          child: FlatButton(
+                              padding: EdgeInsets.all(0),
+                              onPressed: () => details(context, data),
 //                              {
 //                            Navigator.push(
 //                                context,
@@ -727,70 +722,67 @@ Widget lectureCard(BuildContext context, dynamic data) {
 //                                    builder: (BuildContext context) =>
 //                                        SetAlarm(context:context, data:data)));
 //                          },
-                          child: Text('Details',
-                              style: TextStyle(
-                                color: Colors.deepPurple,
-                                fontSize: 15,
-                                fontFamily: 'Comfortaa',
-                                fontWeight: FontWeight.w500
-                              ))),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 3),
-                      height: 15,
-                      width: 2,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
+                              child: Text('Details',
+                                  style: TextStyle(
+                                      color: Colors.deepPurple,
+                                      fontSize: 15,
+                                      fontFamily: 'Comfortaa',
+                                      fontWeight: FontWeight.w500))),
                         ),
-                        color: Colors.deepPurple,
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 2),
-                      width: (MediaQuery.of(context).size.width - 190) / 3,
-                      height: 30,
-                      child: FlatButton(
-                          padding: EdgeInsets.all(0),
-                          onPressed: () {
-                            launchUrl(data['link']);
-                          },
-                          child: Text('Join',
-                              style: TextStyle(
-                                color: Colors.deepPurple,
-                                fontSize: 15,
-                                fontFamily: 'Comfortaa'
-                              ))),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 3),
-                      height: 15,
-                      width: 2,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 3),
+                          height: 15,
+                          width: 2,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                            color: Colors.deepPurple,
+                          ),
                         ),
-                        color: Colors.deepPurple,
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 2),
-                      width: (MediaQuery.of(context).size.width - 190) / 3,
-                      height: 30,
-                      child: FlatButton(
-                          padding: EdgeInsets.all(0),
-                          onPressed: () {
-                            copyText(context, data['link']);
-                          },
-                          child: Text('Copy',
-                              style: TextStyle(
-                                color: Colors.deepPurple,
-                                fontSize: 15,
-                                fontFamily: 'Comfortaa'
-                              ))),
-                    ),
-                  ]),
-            ])),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 2),
+                          width: (MediaQuery.of(context).size.width - 190) / 3,
+                          height: 30,
+                          child: FlatButton(
+                              padding: EdgeInsets.all(0),
+                              onPressed: () {
+                                launchUrl(data['link']);
+                              },
+                              child: Text('Join',
+                                  style: TextStyle(
+                                      color: Colors.deepPurple,
+                                      fontSize: 15,
+                                      fontFamily: 'Comfortaa'))),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 3),
+                          height: 15,
+                          width: 2,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                            color: Colors.deepPurple,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 2),
+                          width: (MediaQuery.of(context).size.width - 190) / 3,
+                          height: 30,
+                          child: FlatButton(
+                              padding: EdgeInsets.all(0),
+                              onPressed: () {
+                                copyText(context, data['link']);
+                              },
+                              child: Text('Copy',
+                                  style: TextStyle(
+                                      color: Colors.deepPurple,
+                                      fontSize: 15,
+                                      fontFamily: 'Comfortaa'))),
+                        ),
+                      ]),
+                ])),
       ]),
     ]),
   );
@@ -810,7 +802,10 @@ Widget lectureDetails(BuildContext context, dynamic data) {
         color: Colors.grey.shade300,
         child: Center(
           child: Text('Lecture details',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, fontFamily: 'Lobster')),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                  fontFamily: 'Lobster')),
         ),
       ),
       Expanded(
@@ -956,19 +951,17 @@ Widget announcementCard(BuildContext context, dynamic data) {
                   Text(
                     getTime(data['dateAndTime'].toDate()),
                     style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
-                      fontFamily: 'Lobster'
-                    ),
+                        color: Colors.grey,
+                        fontSize: 15,
+                        fontFamily: 'Lobster'),
                   ),
                   Spacer(),
                   Text(
                     getDate(data['dateAndTime'].toDate()),
                     style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
-                      fontFamily: 'Lobster'
-                    ),
+                        color: Colors.grey,
+                        fontSize: 15,
+                        fontFamily: 'Lobster'),
                   ),
                 ],
               ),
@@ -994,7 +987,8 @@ Widget headingText(String text) {
     child: Text(
       text,
       textAlign: TextAlign.left,
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40, fontFamily: 'Lobster'),
+      style: TextStyle(
+          fontWeight: FontWeight.bold, fontSize: 40, fontFamily: 'Lobster'),
     ),
   );
 }
@@ -1006,7 +1000,10 @@ Widget headingText2(String text) {
       text,
       textAlign: TextAlign.center,
       style: TextStyle(
-          fontWeight: FontWeight.bold,color: Colors.black54, fontSize: 30, fontFamily: 'Comfortaa'),
+          fontWeight: FontWeight.bold,
+          color: Colors.black54,
+          fontSize: 30,
+          fontFamily: 'Comfortaa'),
     ),
   );
 }
@@ -1018,7 +1015,10 @@ Widget headingText3(String text) {
       text,
       textAlign: TextAlign.center,
       style: TextStyle(
-          fontWeight: FontWeight.bold,color: Colors.black54, fontSize: 25, fontFamily: 'Comfortaa'),
+          fontWeight: FontWeight.bold,
+          color: Colors.black54,
+          fontSize: 25,
+          fontFamily: 'Comfortaa'),
     ),
   );
 }
@@ -1149,11 +1149,10 @@ class AddLinkState extends State<AddLink> with SingleTickerProviderStateMixin {
                       child: Text(
                         'Send Link',
                         style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontFamily: 'Lobster'
-                        ),
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontFamily: 'Lobster'),
                       ),
                     ),
                     Container(
@@ -1374,11 +1373,10 @@ class AddPollState extends State<AddPoll> with SingleTickerProviderStateMixin {
                       child: Text(
                         'Generate Poll ',
                         style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontFamily: 'Lobster'
-                        ),
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontFamily: 'Lobster'),
                       ),
                     ),
                     Container(
@@ -1507,7 +1505,8 @@ class AddAssign extends StatefulWidget {
   State<StatefulWidget> createState() => AddAssignState();
 }
 
-class AddAssignState extends State<AddAssign> with SingleTickerProviderStateMixin {
+class AddAssignState extends State<AddAssign>
+    with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> scaleAnimation;
 
@@ -1539,8 +1538,8 @@ class AddAssignState extends State<AddAssign> with SingleTickerProviderStateMixi
         //Add data to Database
 
         Map<String, dynamic> linkData = {
-          'fileName' : link,
-          'url' : link,
+          'fileName': link,
+          'url': link,
           'dateAndTime': DateTime.now(),
           'title': text,
           'isOfficial': true,
@@ -1627,8 +1626,7 @@ class AddAssignState extends State<AddAssign> with SingleTickerProviderStateMixi
                             fontWeight: FontWeight.w600,
                             color: Colors.black,
                             fontSize: 18,
-                            fontFamily: 'Lobster'
-                        ),
+                            fontFamily: 'Lobster'),
                       ),
                     ),
                     Container(
@@ -1669,9 +1667,9 @@ class AddAssignState extends State<AddAssign> with SingleTickerProviderStateMixi
                         decoration: InputDecoration(
                             border: InputBorder.none, hintText: 'Enter Link'),
                         validator: (value) =>
-                        (value.isEmpty || !Uri.parse(value).isAbsolute)
-                            ? 'Enter Link'
-                            : null,
+                            (value.isEmpty || !Uri.parse(value).isAbsolute)
+                                ? 'Enter Link'
+                                : null,
                         onSaved: (value) => link = value.trim(),
                       ),
                     ),
@@ -1691,7 +1689,7 @@ class AddAssignState extends State<AddAssign> with SingleTickerProviderStateMixi
                             border: InputBorder.none,
                             hintText: 'Add description'),
                         validator: (value) =>
-                        (value.isEmpty) ? 'Enter Description' : null,
+                            (value.isEmpty) ? 'Enter Description' : null,
                         onSaved: (value) => text = value.trim(),
                       ),
                     ),
@@ -1810,19 +1808,17 @@ class _PollCardState extends State<PollCard> {
                     Text(
                       getTime(widget.data['dateAndTime'].toDate()),
                       style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15,
-                        fontFamily: 'Lobster'
-                      ),
+                          color: Colors.grey,
+                          fontSize: 15,
+                          fontFamily: 'Lobster'),
                     ),
                     Spacer(),
                     Text(
                       getDate(widget.data['dateAndTime'].toDate()),
                       style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15,
-                        fontFamily: 'Lobster'
-                      ),
+                          color: Colors.grey,
+                          fontSize: 15,
+                          fontFamily: 'Lobster'),
                     ),
                   ],
                 ),
@@ -1936,180 +1932,177 @@ Widget pollCardCR(BuildContext context, dynamic data) {
   double widthC = MediaQuery.of(context).size.width - 80;
   int totalPoll, yesPercent, noPercent;
   totalPoll = data['yesCount'] + data['noCount'];
-  if (totalPoll == 0){
-      yesPercent = 0;
-      noPercent = 0;
+  if (totalPoll == 0) {
+    yesPercent = 0;
+    noPercent = 0;
   } else {
     yesPercent = (data['yesCount'] * 100 / (totalPoll)).round();
     noPercent = (data['noCount'] * 100 / (totalPoll)).round();
   }
 
   return Container(
-            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(0, 1),
-                  blurRadius: 2,
-                  color: Colors.grey.shade500,
+    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+      color: Colors.white,
+      boxShadow: [
+        BoxShadow(
+          offset: Offset(0, 1),
+          blurRadius: 2,
+          color: Colors.grey.shade500,
+        ),
+      ],
+    ),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              height: 45,
+              width: 2,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
                 ),
-              ],
+                color: Colors.pinkAccent,
+              ),
             ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 2),
+              height: 145,
+              width: 2,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                color: Colors.pinkAccent,
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(right: 10),
+              height: 45,
+              width: 2,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                color: Colors.pinkAccent,
+              ),
+            ),
+          ],
+        ),
+        Container(
+          width: widthC,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Text(
+                    getTime(data['dateAndTime'].toDate()),
+                    style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 15,
+                        fontFamily: 'Lobster'),
+                  ),
+                  Spacer(),
+                  Text(
+                    getDate(data['dateAndTime'].toDate()),
+                    style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 15,
+                        fontFamily: 'Lobster'),
+                  ),
+                ],
+              ),
+              SizedBox(height: 5),
+              Text(
+                data['text'],
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Container(
-                      height: 45,
-                      width: 2,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                        color: Colors.pinkAccent,
+                    Text(data['yesOption'],
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, color: Colors.black)),
+                    Padding(
+                      padding: EdgeInsets.only(top: 5, bottom: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(25)),
+                            ),
+                            height: 10,
+                            width: (totalPoll == 0)
+                                ? 0
+                                : ((widthC - 40) *
+                                    data['yesCount'] /
+                                    totalPoll),
+                          ),
+                          Text(
+                            ' $yesPercent %',
+                            style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.green),
+                          ),
+                        ],
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 2),
-                      height: 145,
-                      width: 2,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                        color: Colors.pinkAccent,
-                      ),
+                    Text(
+                      data['noOption'],
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600, color: Colors.black),
                     ),
-                    Container(
-                      margin: EdgeInsets.only(right: 10),
-                      height: 45,
-                      width: 2,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                        color: Colors.pinkAccent,
+                    Padding(
+                      padding: EdgeInsets.only(top: 5, bottom: 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(25)),
+                            ),
+                            height: 10,
+                            width: (totalPoll == 0)
+                                ? 0
+                                : ((widthC - 40) * data['noCount'] / totalPoll),
+                          ),
+                          Text(
+                            ' $noPercent %',
+                            style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.red),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
-                Container(
-                  width: widthC,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Text(
-                    getTime(data['dateAndTime'].toDate()),
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 15,
-                              fontFamily: 'Lobster'
-                            ),
-                          ),
-                          Spacer(),
-                          Text(
-                    getDate(data['dateAndTime'].toDate()),
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 15,
-                              fontFamily: 'Lobster'
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                data['text'],
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(vertical: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                        data['yesOption'],
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.black)),
-                            Padding(
-                              padding: EdgeInsets.only(top: 5, bottom: 10),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.green,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(25)),
-                                    ),
-                                    height: 10,
-                                    width: (totalPoll == 0)
-                                      ? 0
-                                      : ((widthC - 40) * data['yesCount'] / totalPoll),
-                                  ),
-                                  Text(
-                        ' $yesPercent %',
-                                    style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.green),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Text(
-                        data['noOption'],
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 5, bottom: 0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(25)),
-                                    ),
-                                    height: 10,
-                                    width: (totalPoll == 0)
-                                    ? 0
-                                    : ((widthC - 40) * data['noCount'] / totalPoll),
-                                  ),
-                                  Text(
-                        ' $noPercent %',
-                                    style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.red),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
+              )
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
 }
 
 Widget linkCard(BuildContext context, dynamic data) {
@@ -2174,19 +2167,17 @@ Widget linkCard(BuildContext context, dynamic data) {
                   Text(
                     getTime(data['dateAndTime'].toDate()),
                     style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
-                      fontFamily: 'Lobster'
-                    ),
+                        color: Colors.grey,
+                        fontSize: 15,
+                        fontFamily: 'Lobster'),
                   ),
                   Spacer(),
                   Text(
                     getDate(data['dateAndTime'].toDate()),
                     style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
-                      fontFamily: 'Lobster'
-                    ),
+                        color: Colors.grey,
+                        fontSize: 15,
+                        fontFamily: 'Lobster'),
                   ),
                 ],
               ),
@@ -2265,26 +2256,20 @@ Widget linkCard(BuildContext context, dynamic data) {
   );
 }
 
-Widget loginButtons(BuildContext context, String text, VoidCallback onPressed)
-{
+Widget loginButtons(BuildContext context, String text, VoidCallback onPressed) {
   return Container(
-    margin: EdgeInsets.symmetric(
-        horizontal: 30, vertical: 10),
+    margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
     width: MediaQuery.of(context).size.width,
     decoration: BoxDecoration(
-        borderRadius:
-        BorderRadius.all(Radius.circular(10)),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
         color: Colors.pinkAccent),
     padding: EdgeInsets.symmetric(horizontal: 10),
     child: FlatButton(
       padding: EdgeInsets.all(0),
       child: Text(
         text,
-        style: TextStyle(
-            fontSize: 20,
-            color: Colors.white,
-            fontFamily: 'Lobster'
-        ),
+        style:
+            TextStyle(fontSize: 20, color: Colors.white, fontFamily: 'Lobster'),
       ),
       onPressed: onPressed,
     ),
@@ -2293,7 +2278,7 @@ Widget loginButtons(BuildContext context, String text, VoidCallback onPressed)
 
 Widget showInput(String hint, TextEditingController controller) {
   return Container(
-    margin: EdgeInsets.symmetric(vertical:10, horizontal: 30),
+    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
     child: new TextField(
       controller: controller,
       maxLines: 1,
@@ -2307,10 +2292,7 @@ Widget showInput(String hint, TextEditingController controller) {
         disabledBorder: InputBorder.none,
         contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         hintText: hint,
-        hintStyle: TextStyle(
-            fontSize: 15,
-            color: Colors.grey
-        ),
+        hintStyle: TextStyle(fontSize: 15, color: Colors.grey),
       ),
     ),
     decoration: BoxDecoration(
