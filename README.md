@@ -1,4 +1,4 @@
-# Laayak Web
+# Laayak App
 ## This project is made available for contribution under [GDSC Winter of Code 2.0 ❄](https://gdsc-woc.tech) by [GDSC USICT](https://gdsc.community.dev/university-school-of-information-communication-technology-delhi/)  
 #### You can learn more about the project on the [Wiki Pages](https://github.com/LaayaK/LaayakApp/wiki)
 #### Go through the [CODE OF CONDUCT.md](https://github.com/LaayaK/LaayakApp/blob/master/CODE_OF_CONDUCT.md) and [CONTRIBUTING.md](https://github.com/LaayaK/LaayakApp/blob/master/CONTRIBUTING.md) before you start contributing to the project.
