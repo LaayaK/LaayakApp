@@ -22,7 +22,6 @@ We are happy to welcome all the contributions from anyone willing to improve thi
 - Fork the [repository](https://github.com/LaayaK/LaayakApp)
 - Clone your version of the LaayakApp repository
 - Make a firebase project frome here: [Firebase console](https://console.firebase.google.com)
-- Create a web app in the firebase project and paste the automatically generated credentials into ``` src/firebase.js ``` file.
 
 <!-- ## Find an issue ( or make one ) :
 
