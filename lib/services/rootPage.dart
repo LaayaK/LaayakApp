@@ -35,65 +35,81 @@ class _RootPageState extends State<RootPage> {
   }
 
   void determineUserCode(FirebaseUser user) async {
-    await Firestore.instance.collection('classes').document(_code).get().then((data) {
-      if (data.exists) {
-        setState(() {
-          _userId = user.uid;
-          _email = user.email;
-          _userType = user.displayName;
-          _data = data;
-          authStatus = AuthStatus.LOGGED_IN;
-        });
-      } else {
-        print('Could not find the class $_code');
-        setState(() {
-          authStatus = AuthStatus.NOT_LOGGED_IN;
-        });
-      }
-    });
-  }
-
-  void loginCallback() {
-    authStatus = AuthStatus.NOT_DETERMINED;
-    widget.auth.getCurrentUser().then((user) async {
-      if (user != null) {
-        print('user is not null');
-        if (user.displayName == 'cr') {
-          print('user is cr');
-          await Firestore.instance.collection('cr').document(user.email).get().then((data){
-            _code = data['classId'];
-          }).whenComplete(() {
-            determineUserCode(user);
-          });
-        } else if (user.displayName == 'student') {
-          print('user is student');
-          await Firestore.instance.collection('students').document(user.email).get().then((data){
-            _code = data['classCode'];
-          }).whenComplete(() {
-            determineUserCode(user);
-          });
-        } else if (user.displayName == 'teacher') {
-          print('user is a teacher');
+    await Firestore.instance.collection('classes').document(_code).get().then(
+      (data) {
+        if (data.exists) {
           setState(() {
             _userId = user.uid;
             _email = user.email;
             _userType = user.displayName;
+            _data = data;
             authStatus = AuthStatus.LOGGED_IN;
           });
         } else {
-          print('No user got!');
-          setState(() {
-            authStatus = AuthStatus.NOT_LOGGED_IN;
-            print(authStatus.toString());
-          });
+          print('Could not find the class $_code');
+          setState(
+            () {
+              authStatus = AuthStatus.NOT_LOGGED_IN;
+            },
+          );
         }
-      } else {
-        print('user is null');
-        setState(() {
-          authStatus = AuthStatus.NOT_LOGGED_IN;
-        });
-      }
-    });
+      },
+    );
+  }
+
+  void loginCallback() {
+    authStatus = AuthStatus.NOT_DETERMINED;
+    widget.auth.getCurrentUser().then(
+      (user) async {
+        if (user != null) {
+          print('user is not null');
+          if (user.displayName == 'cr') {
+            print('user is cr');
+            await Firestore.instance
+                .collection('cr')
+                .document(user.email)
+                .get()
+                .then((data) {
+              _code = data['classId'];
+            }).whenComplete(() {
+              determineUserCode(user);
+            });
+          } else if (user.displayName == 'student') {
+            print('user is student');
+            await Firestore.instance
+                .collection('students')
+                .document(user.email)
+                .get()
+                .then((data) {
+              _code = data['classCode'];
+            }).whenComplete(() {
+              determineUserCode(user);
+            });
+          } else if (user.displayName == 'teacher') {
+            print('user is a teacher');
+            setState(() {
+              _userId = user.uid;
+              _email = user.email;
+              _userType = user.displayName;
+              authStatus = AuthStatus.LOGGED_IN;
+            });
+          } else {
+            print('No user got!');
+            setState(() {
+              authStatus = AuthStatus.NOT_LOGGED_IN;
+              print(authStatus.toString());
+            });
+          }
+        } else {
+          print('user is null');
+          setState(
+            () {
+              authStatus = AuthStatus.NOT_LOGGED_IN;
+            },
+          );
+        }
+      },
+    );
   }
 
   void logoutCallback() {
@@ -123,10 +139,10 @@ class _RootPageState extends State<RootPage> {
           print('Sending to HomePage');
           if (_userType == 'teacher') {
             return HomePage(
-                userId: _userId,
-                auth: widget.auth,
-                logoutCallback: logoutCallback,
-                email: _email,
+              userId: _userId,
+              auth: widget.auth,
+              logoutCallback: logoutCallback,
+              email: _email,
             );
           } else if (_userType == 'cr') {
             return CRPage(
@@ -135,8 +151,7 @@ class _RootPageState extends State<RootPage> {
                 logoutCallback: logoutCallback,
                 email: _email,
                 code: _code,
-                data: _data
-            );
+                data: _data);
           } else if (_userType == 'student') {
             return StudentPage(
                 userId: _userId,
@@ -144,8 +159,7 @@ class _RootPageState extends State<RootPage> {
                 logoutCallback: logoutCallback,
                 email: _email,
                 code: _code,
-                data: _data
-            );
+                data: _data);
           } else
             return buildWaitingScreen();
         }

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 class SetAlarm extends StatefulWidget {
-
   SetAlarm({this.context, this.data});
 
   final BuildContext context;
@@ -15,27 +14,31 @@ class SetAlarm extends StatefulWidget {
 }
 
 class _SetAlarmState extends State<SetAlarm> {
-
   @override
   Widget build(BuildContext context) {
     return new Container(
       decoration: new BoxDecoration(
         borderRadius: BorderRadius.only(
-            topRight: Radius.circular(15), topLeft: Radius.circular(15)),
+          topRight: Radius.circular(15),
+          topLeft: Radius.circular(15),
+        ),
       ),
       height: 300,
-      child: Column(children: <Widget>[
-        Container(
-          margin: EdgeInsets.symmetric(vertical: 5),
-          height: 40,
-          color: Colors.grey.shade300,
-          child: Center(
-            child: Text('Lecture details',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25)),
+      child: Column(
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 5),
+            height: 40,
+            color: Colors.grey.shade300,
+            child: Center(
+              child: Text(
+                'Lecture details',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+              ),
+            ),
           ),
-        ),
-        Expanded(
-          child: ListView.builder(
+          Expanded(
+            child: ListView.builder(
               itemCount: 1,
               physics: ScrollPhysics(),
               shrinkWrap: true,
@@ -85,9 +88,11 @@ class _SetAlarmState extends State<SetAlarm> {
                     ),
                   ),
                 );
-              }),
-        )
-      ]),
+              },
+            ),
+          )
+        ],
+      ),
     );
   }
 }

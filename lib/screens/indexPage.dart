@@ -1,17 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timetable/screens/createCr.dart';
 import 'package:timetable/screens/createStudent.dart';
 import 'package:timetable/screens/createTeacher.dart';
-import 'package:timetable/screens/studentPage.dart';
 
 //Authentication
 import 'package:timetable/services/authentication.dart';
 
-import 'package:timetable/screens/loginPage.dart';
 import 'package:timetable/widgets/widgets.dart';
 import 'package:timetable/widgets/functions.dart';
 
@@ -152,15 +147,16 @@ class _IndexPageState extends State<IndexPage> {
         child: ListView(
 //                        crossAxisAlignment: CrossAxisAlignment.start,
 //                        mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              SizedBox(
-                height: 50,
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                padding: EdgeInsets.all(0),
-                color: Colors.transparent,
-                child: Column(children: <Widget>[
+          children: <Widget>[
+            SizedBox(
+              height: 50,
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              padding: EdgeInsets.all(0),
+              color: Colors.transparent,
+              child: Column(
+                children: <Widget>[
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
@@ -236,90 +232,137 @@ class _IndexPageState extends State<IndexPage> {
                   Visibility(
                     visible: (_loginForm == false),
                     child: loginButtons(context, 'Sign up as Student', () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateStudent(auth: widget.auth, loginCallback: widget.loginCallback,)));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CreateStudent(
+                            auth: widget.auth,
+                            loginCallback: widget.loginCallback,
+                          ),
+                        ),
+                      );
                     }),
                   ),
                   Visibility(
                     visible: (_loginForm == false),
-                    child: loginButtons(context, 'Sign up as C R', () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateCr(auth: widget.auth, loginCallback: widget.loginCallback,)));
-                    }),
+                    child: loginButtons(
+                      context,
+                      'Sign up as C R',
+                      () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CreateCr(
+                              auth: widget.auth,
+                              loginCallback: widget.loginCallback,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                   Visibility(
                     visible: (_loginForm == false),
-                    child: loginButtons(context, 'Sign up as Teacher', () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateTeacher(auth: widget.auth, loginCallback: widget.loginCallback,)));
-                    }),
+                    child: loginButtons(
+                      context,
+                      'Sign up as Teacher',
+                      () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CreateTeacher(
+                              auth: widget.auth,
+                              loginCallback: widget.loginCallback,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                   Visibility(
                     visible: (_loginForm == true),
                     child: new Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            showEmailInput(),
-                            showPasswordInput(),
-                            Builder(builder: (BuildContext context) {
-                              return loginButtons(context, 'Login',
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          showEmailInput(),
+                          showPasswordInput(),
+                          Builder(
+                            builder: (BuildContext context) {
+                              return loginButtons(
+                                context,
+                                'Login',
                                 (_isButtonDisabled == true)
-                                      ? () {
-                                          setState(() {
+                                    ? () {
+                                        setState(
+                                          () {
                                             _errorMessage =
                                                 'Please Enter Valid Email and Password';
-                                          });
-                                          if (_errorMessage.length > 0 &&
-                                              _errorMessage != null) {
-                                            final snackBar = SnackBar(
-                                              content: Text(_errorMessage),
-                                            );
-                                            Scaffold.of(context)
-                                                .showSnackBar(snackBar);
-                                          }
+                                          },
+                                        );
+                                        if (_errorMessage.length > 0 &&
+                                            _errorMessage != null) {
+                                          final snackBar = SnackBar(
+                                            content: Text(_errorMessage),
+                                          );
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(snackBar);
                                         }
-                                      : () async {
-                                          if (validateAndSave()) {
-                                            String userId = "";
-                                            setState(() {
+                                      }
+                                    : () async {
+                                        if (validateAndSave()) {
+                                          String userId = "";
+                                          setState(
+                                            () {
                                               _isLoading = true;
-                                            });
-                                            try {
-                                              userId = await widget.auth
-                                                  .signIn(_email, _password);
-                                              print('Signed in: $userId');
-                                              if (userId.length > 0 &&
-                                                  userId != null) {
-                                                widget.loginCallback();
+                                            },
+                                          );
+                                          try {
+                                            userId = await widget.auth
+                                                .signIn(_email, _password);
+                                            print('Signed in: $userId');
+                                            if (userId.length > 0 &&
+                                                userId != null) {
+                                              widget.loginCallback();
 //                                                Navigator.pop(context);
-                                              }
-                                            } catch (e) {
-                                              print('Error: $e');
-                                              setState(() {
+                                            }
+                                          } catch (e) {
+                                            print('Error: $e');
+                                            setState(
+                                              () {
                                                 _isLoading = false;
-                                                _errorMessage = loginErrorCodes(e);
+                                                _errorMessage =
+                                                    loginErrorCodes(e);
                                                 _formKey.currentState.reset();
-                                              });
-                                              if (_errorMessage.length > 0 &&
-                                                  _errorMessage != null) {
-                                                final snackBar = SnackBar(
-                                                  content: Text(_errorMessage),
-                                                );
-                                                Scaffold.of(context)
-                                                    .showSnackBar(snackBar);
-                                              }
+                                              },
+                                            );
+                                            if (_errorMessage.length > 0 &&
+                                                _errorMessage != null) {
+                                              final snackBar = SnackBar(
+                                                content: Text(_errorMessage),
+                                              );
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(snackBar);
                                             }
                                           }
-                                        });
-                            }),
-                          ],
-                        )),
+                                        }
+                                      },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                   Align(
                     alignment: Alignment.bottomCenter,
-                    child: FlatButton(
+                    child: TextButton(
                       onPressed: () {
-                        setState(() {
-                          toggleFormMode();
-                        });
+                        setState(
+                          () {
+                            toggleFormMode();
+                          },
+                        );
 //                                    print('before set change');
 //                                    setState(() {
 //                                      codeStatus = CodeStatus.NOT_DEFINED;
@@ -347,9 +390,11 @@ class _IndexPageState extends State<IndexPage> {
                       ),
                     ),
                   )
-                ]),
+                ],
               ),
-            ]),
+            ),
+          ],
+        ),
       ),
     );
 //                : StudentPage(code: code, data: data));
@@ -357,13 +402,12 @@ class _IndexPageState extends State<IndexPage> {
 
   Widget showEmailInput() {
     return Container(
-      margin: EdgeInsets.symmetric(
-          horizontal: 30, vertical: 10),
+      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          borderRadius:
-          BorderRadius.all(Radius.circular(10)),
-          color: Color(0xFFE5E5E5),),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        color: Color(0xFFE5E5E5),
+      ),
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: new TextFormField(
         maxLines: 1,
@@ -387,13 +431,12 @@ class _IndexPageState extends State<IndexPage> {
 
   Widget showPasswordInput() {
     return Container(
-      margin: EdgeInsets.symmetric(
-          horizontal: 30, vertical: 10),
+      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        borderRadius:
-        BorderRadius.all(Radius.circular(10)),
-        color: Color(0xFFE5E5E5),),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        color: Color(0xFFE5E5E5),
+      ),
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: new TextFormField(
         maxLines: 1,

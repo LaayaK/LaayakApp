@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:timetable/main.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:timetable/widgets/functions.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -23,7 +20,6 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -40,9 +36,9 @@ class _DetailsPageState extends State<DetailsPage> {
               flexibleSpace: FlexibleSpaceBar(
                 collapseMode: CollapseMode.parallax,
                 background: Image.network(
-                        '${widget.details['timeTable']}',
-                        fit: BoxFit.cover,
-                      ),
+                  '${widget.details['timeTable']}',
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             SliverPersistentHeader(
@@ -61,7 +57,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     Tab(
                       child: Container(
                         height: double.infinity,
-                        //                       padding: EdgeInsets,all(10),
+                        // padding: EdgeInsets,all(10),
                         width: double.infinity,
                         decoration: BoxDecoration(color: Colors.white),
                         child: Icon(Icons.person),
@@ -70,7 +66,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     Tab(
                       child: Container(
                         height: double.infinity,
-                        //                       padding: EdgeInsets,all(10),
+                        // padding: EdgeInsets,all(10),
                         width: double.infinity,
                         decoration: BoxDecoration(color: Colors.white),
                         child: Icon(Icons.book),
@@ -91,15 +87,16 @@ class _DetailsPageState extends State<DetailsPage> {
               ),
               child: ListView(
                 children: <Widget>[
-                  //                   SizedBox(height: 10),
+                  // SizedBox(height: 10),
                   Padding(
                     padding: EdgeInsets.all(20),
-                    child: Text('Batch Info',
-                        style: TextStyle(
-                            fontSize: 30,
+                    child: Text(
+                      'Batch Info',
+                      style: TextStyle(
+                          fontSize: 30,
                           fontWeight: FontWeight.bold,
-                          fontFamily: 'Lobster'
-                        )),
+                          fontFamily: 'Lobster'),
+                    ),
                   ),
                   Container(
 //                    height: 500,
@@ -114,18 +111,25 @@ class _DetailsPageState extends State<DetailsPage> {
                         Text(
                           'Developer Info',
                           style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20,
-                            fontFamily: 'Lobster'
-                          ),
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20,
+                              fontFamily: 'Lobster'),
                         ),
-                        SizedBox(height: 5,),
+                        SizedBox(
+                          height: 5,
+                        ),
                         Text('himeshnayak015@gmail.com'),
-                        SizedBox(height: 5,),
+                        SizedBox(
+                          height: 5,
+                        ),
                         Text('sketchharry01@gmail.com'),
-                        SizedBox(height: 5,),
+                        SizedBox(
+                          height: 5,
+                        ),
                         Text('pscoder10462@gmail.com'),
-                        SizedBox(height: 5,),
+                        SizedBox(
+                          height: 5,
+                        ),
                         Text('jainabhishek7204@gmail.com'),
                       ],
                     ),
@@ -133,34 +137,34 @@ class _DetailsPageState extends State<DetailsPage> {
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
                         color: Colors.red),
                     padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: FlatButton(
+                    child: TextButton(
                       child: Padding(
                         padding: EdgeInsets.all(0),
                         child: Text(
                           'Logout',
                           style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontFamily: 'Lobster'
-                          ),
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontFamily: 'Lobster'),
                         ),
                       ),
                       onPressed: () async {
                         deleteFCMToken(widget.code);
                         SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
+                            await SharedPreferences.getInstance();
                         prefs.setString('code', '');
                         if (widget.user != null) {
                           print('logging out');
                           await widget.auth.signOut();
                           widget.logoutCallback();
-                        }
-                        else
+                        } else
                           Navigator.pushNamedAndRemoveUntil(
-                            context, '/main', (route) => false);
+                              context, '/main', (route) => false);
                       },
                     ),
                   ),
@@ -176,12 +180,13 @@ class _DetailsPageState extends State<DetailsPage> {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.all(20),
-                    child: Text('My Subjects',
-                        style: TextStyle(
+                    child: Text(
+                      'My Subjects',
+                      style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
-                          fontFamily: 'Lobster'
-                        )),
+                          fontFamily: 'Lobster'),
+                    ),
                   ),
                   Container(
 //                    height: MediaQuery.of(context).size.height,

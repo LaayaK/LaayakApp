@@ -34,11 +34,12 @@ class _AddLecturePageState extends State<AddLecturePage> {
 
   Widget _buildSubjectList(BuildContext context, List<dynamic> snapshot) {
     return ListView.builder(
-        itemCount: (snapshot != null) ? snapshot.length : 0,
-        physics: ScrollPhysics(),
-        shrinkWrap: true,
-        itemBuilder: (BuildContext context, int index) {
-          return subjectCR(context, snapshot[index], widget.code);
-        });
+      itemCount: (snapshot != null) ? snapshot.length : 0,
+      physics: ScrollPhysics(),
+      shrinkWrap: true,
+      itemBuilder: (BuildContext context, int index) {
+        return subjectCR(context, snapshot[index], widget.code);
+      },
+    );
   }
 }

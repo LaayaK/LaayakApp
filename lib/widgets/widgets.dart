@@ -189,8 +189,10 @@ class AddLectureState extends State<AddLecture>
                               )),
                           SizedBox(
                             width: 50,
-                            child: FlatButton(
-                                padding: EdgeInsets.all(0),
+                            child: TextButton(
+                                style: TextButton.styleFrom(
+                                  padding: EdgeInsets.all(0),
+                                ),
                                 onPressed: () {
                                   // DatePicker.showTimePicker(context,
                                   //     showSecondsColumn: false,
@@ -230,16 +232,20 @@ class AddLectureState extends State<AddLecture>
                                 fontSize: 16,
                               )),
                           Spacer(),
-                          Text(getTime(endTime),
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: endTimeColor,
-                                fontSize: 16,
-                              )),
+                          Text(
+                            getTime(endTime),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: endTimeColor,
+                              fontSize: 16,
+                            ),
+                          ),
                           SizedBox(
                             width: 50,
-                            child: FlatButton(
-                                padding: EdgeInsets.all(0),
+                            child: TextButton(
+                                style: TextButton.styleFrom(
+                                  padding: EdgeInsets.all(0),
+                                ),
                                 onPressed: () {
                                   // DatePicker.showTimePicker(context,
                                   //     showSecondsColumn: false,
@@ -550,16 +556,19 @@ Widget subjectCR(BuildContext context, dynamic data, String code) {
         ),
       ],
     ),
-    child: FlatButton(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    child: TextButton(
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      ),
       onPressed: () {
         showDialog(
           context: context,
           builder: (_) => AddLecture(
-              code: code,
-              subjectCode: data['subjectCode'],
-              subject: data['subject'],
-              teacher: data['teacher']),
+            code: code,
+            subjectCode: data['subjectCode'],
+            subject: data['subject'],
+            teacher: data['teacher'],
+          ),
         );
       },
       child: Column(children: <Widget>[
@@ -636,45 +645,48 @@ Widget lectureCard(BuildContext context, dynamic data) {
         ),
       ],
     ),
-    child: Column(children: <Widget>[
-      Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-        Container(
-          height: 80,
-          width: 60,
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(getTime(data['startTime'].toDate()),
-                    style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 18,
-                        fontFamily: 'Lobster')),
-                Text('|',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 10,
-                    )),
-                Text(getTime(data['endTime'].toDate()),
-                    style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 18,
-                        fontFamily: 'Lobster')),
-              ]),
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 10),
-          height: 80,
-          width: 2,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
+    child: Column(
+      children: <Widget>[
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              height: 80,
+              width: 60,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(getTime(data['startTime'].toDate()),
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 18,
+                            fontFamily: 'Lobster')),
+                    Text('|',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 10,
+                        )),
+                    Text(getTime(data['endTime'].toDate()),
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 18,
+                            fontFamily: 'Lobster')),
+                  ]),
             ),
-            color: Colors.blue,
-          ),
-        ),
-        Container(
-            width: MediaQuery.of(context).size.width - 145,
-            child: Column(
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              height: 80,
+              width: 2,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                color: Colors.blue,
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width - 145,
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -704,17 +716,19 @@ Widget lectureCard(BuildContext context, dynamic data) {
                   ),
                   SizedBox(height: 7),
                   Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 2),
-                          width: (MediaQuery.of(context).size.width - 170) / 3,
-                          height: 30,
-                          decoration: BoxDecoration(),
-                          child: FlatButton(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 2),
+                        width: (MediaQuery.of(context).size.width - 170) / 3,
+                        height: 30,
+                        decoration: BoxDecoration(),
+                        child: TextButton(
+                            style: TextButton.styleFrom(
                               padding: EdgeInsets.all(0),
-                              onPressed: () => details(context, data),
+                            ),
+                            onPressed: () => details(context, data),
 //                              {
 //                            Navigator.push(
 //                                context,
@@ -722,69 +736,84 @@ Widget lectureCard(BuildContext context, dynamic data) {
 //                                    builder: (BuildContext context) =>
 //                                        SetAlarm(context:context, data:data)));
 //                          },
-                              child: Text('Details',
-                                  style: TextStyle(
-                                      color: Colors.deepPurple,
-                                      fontSize: 15,
-                                      fontFamily: 'Comfortaa',
-                                      fontWeight: FontWeight.w500))),
+                            child: Text('Details',
+                                style: TextStyle(
+                                    color: Colors.deepPurple,
+                                    fontSize: 15,
+                                    fontFamily: 'Comfortaa',
+                                    fontWeight: FontWeight.w500))),
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 3),
+                        height: 15,
+                        width: 2,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          color: Colors.deepPurple,
                         ),
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 3),
-                          height: 15,
-                          width: 2,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            color: Colors.deepPurple,
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 2),
+                        width: (MediaQuery.of(context).size.width - 190) / 3,
+                        height: 30,
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.all(0),
+                          ),
+                          onPressed: () {
+                            launchUrl(data['link']);
+                          },
+                          child: Text(
+                            'Join',
+                            style: TextStyle(
+                                color: Colors.deepPurple,
+                                fontSize: 15,
+                                fontFamily: 'Comfortaa'),
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 2),
-                          width: (MediaQuery.of(context).size.width - 190) / 3,
-                          height: 30,
-                          child: FlatButton(
-                              padding: EdgeInsets.all(0),
-                              onPressed: () {
-                                launchUrl(data['link']);
-                              },
-                              child: Text('Join',
-                                  style: TextStyle(
-                                      color: Colors.deepPurple,
-                                      fontSize: 15,
-                                      fontFamily: 'Comfortaa'))),
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 3),
+                        height: 15,
+                        width: 2,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          color: Colors.deepPurple,
                         ),
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 3),
-                          height: 15,
-                          width: 2,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            color: Colors.deepPurple,
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 2),
+                        width: (MediaQuery.of(context).size.width - 190) / 3,
+                        height: 30,
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.all(0),
+                          ),
+                          onPressed: () {
+                            copyText(context, data['link']);
+                          },
+                          child: Text(
+                            'Copy',
+                            style: TextStyle(
+                                color: Colors.deepPurple,
+                                fontSize: 15,
+                                fontFamily: 'Comfortaa'),
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 2),
-                          width: (MediaQuery.of(context).size.width - 190) / 3,
-                          height: 30,
-                          child: FlatButton(
-                              padding: EdgeInsets.all(0),
-                              onPressed: () {
-                                copyText(context, data['link']);
-                              },
-                              child: Text('Copy',
-                                  style: TextStyle(
-                                      color: Colors.deepPurple,
-                                      fontSize: 15,
-                                      fontFamily: 'Comfortaa'))),
-                        ),
-                      ]),
-                ])),
-      ]),
-    ]),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
   );
 }
 
@@ -795,21 +824,22 @@ Widget lectureDetails(BuildContext context, dynamic data) {
           topRight: Radius.circular(15), topLeft: Radius.circular(15)),
     ),
     height: 300,
-    child: Column(children: <Widget>[
-      Container(
-        margin: EdgeInsets.symmetric(vertical: 5),
-        height: 40,
-        color: Colors.grey.shade300,
-        child: Center(
-          child: Text('Lecture details',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25,
-                  fontFamily: 'Lobster')),
+    child: Column(
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 5),
+          height: 40,
+          color: Colors.grey.shade300,
+          child: Center(
+            child: Text('Lecture details',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                    fontFamily: 'Lobster')),
+          ),
         ),
-      ),
-      Expanded(
-        child: ListView.builder(
+        Expanded(
+          child: ListView.builder(
             itemCount: 1,
             physics: ScrollPhysics(),
             shrinkWrap: true,
@@ -877,9 +907,11 @@ Widget lectureDetails(BuildContext context, dynamic data) {
                   ),
                 ),
               );
-            }),
-      )
-    ]),
+            },
+          ),
+        )
+      ],
+    ),
   );
 }
 
@@ -1731,7 +1763,7 @@ class PaddedRaisedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
-      child: RaisedButton(child: Text(buttonText), onPressed: onPressed),
+      child: OutlinedButton(child: Text(buttonText), onPressed: onPressed),
     );
   }
 }
@@ -1869,10 +1901,13 @@ class _PollCardState extends State<PollCard> {
                                 width:
                                     (MediaQuery.of(context).size.width - 100) *
                                         0.5,
-                                child: RaisedButton(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20)),
-                                  color: Colors.green,
+                                child: OutlinedButton(
+                                  style: OutlinedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    backgroundColor: Colors.green,
+                                  ),
                                   child: Padding(
                                     padding: EdgeInsets.all(0),
                                     child: Text(
@@ -1893,10 +1928,13 @@ class _PollCardState extends State<PollCard> {
                                 width:
                                     (MediaQuery.of(context).size.width - 100) *
                                         0.5,
-                                child: RaisedButton(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20)),
-                                  color: Colors.red,
+                                child: OutlinedButton(
+                                  style: OutlinedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    backgroundColor: Colors.red,
+                                  ),
                                   child: Padding(
                                     padding: EdgeInsets.all(0),
                                     child: Text(
@@ -2032,9 +2070,11 @@ Widget pollCardCR(BuildContext context, dynamic data) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(data['yesOption'],
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, color: Colors.black)),
+                    Text(
+                      data['yesOption'],
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600, color: Colors.black),
+                    ),
                     Padding(
                       padding: EdgeInsets.only(top: 5, bottom: 10),
                       child: Row(
@@ -2206,10 +2246,13 @@ Widget linkCard(BuildContext context, dynamic data) {
                             margin: EdgeInsets.symmetric(horizontal: 5),
                             width:
                                 (MediaQuery.of(context).size.width - 100) * 0.5,
-                            child: RaisedButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              color: Colors.pinkAccent,
+                            child: OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                backgroundColor: Colors.pinkAccent,
+                              ),
                               child: Padding(
                                 padding: EdgeInsets.all(0),
                                 child: Text(
@@ -2226,10 +2269,12 @@ Widget linkCard(BuildContext context, dynamic data) {
                             margin: EdgeInsets.symmetric(horizontal: 5),
                             width:
                                 (MediaQuery.of(context).size.width - 100) * 0.5,
-                            child: RaisedButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              color: Colors.blue,
+                            child: OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                backgroundColor: Colors.blue,
+                              ),
                               child: Padding(
                                 padding: EdgeInsets.all(0),
                                 child: Text(
@@ -2264,8 +2309,10 @@ Widget loginButtons(BuildContext context, String text, VoidCallback onPressed) {
         borderRadius: BorderRadius.all(Radius.circular(10)),
         color: Colors.pinkAccent),
     padding: EdgeInsets.symmetric(horizontal: 10),
-    child: FlatButton(
-      padding: EdgeInsets.all(0),
+    child: TextButton(
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.all(0),
+      ),
       child: Text(
         text,
         style:

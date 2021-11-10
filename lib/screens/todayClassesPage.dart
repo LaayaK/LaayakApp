@@ -29,8 +29,13 @@ class _TodayClassesPageState extends State<TodayClassesPage> {
                   .get(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData)
-                  return Center(child: CircularProgressIndicator());
-                return _buildList(context, snapshot.data['lectures']);
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                return _buildList(
+                  context,
+                  snapshot.data['lectures'],
+                );
               },
             ),
           ),
@@ -41,11 +46,15 @@ class _TodayClassesPageState extends State<TodayClassesPage> {
 
   Widget _buildList(BuildContext context, List<dynamic> snapshot) {
     return ListView.builder(
-        itemCount: (snapshot != null) ? snapshot.length : 0,
-        physics: ScrollPhysics(),
-        shrinkWrap: true,
-        itemBuilder: (BuildContext context, int index) {
-          return lectureCard(context, snapshot[snapshot.length - index - 1]);
-        });
+      itemCount: (snapshot != null) ? snapshot.length : 0,
+      physics: ScrollPhysics(),
+      shrinkWrap: true,
+      itemBuilder: (BuildContext context, int index) {
+        return lectureCard(
+          context,
+          snapshot[snapshot.length - index - 1],
+        );
+      },
+    );
   }
 }

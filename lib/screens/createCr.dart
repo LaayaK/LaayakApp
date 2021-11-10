@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:timetable/screens/createClass.dart';
 import 'package:timetable/widgets/functions.dart';
@@ -39,38 +38,48 @@ class _CreateCrState extends State<CreateCr> {
             showInput('Roll No.', _rollNoController),
             showInput('Email', _emailController),
             showInput('Password', _passwordController),
-            loginButtons(context, 'Sign Up', () {
-              _name = _nameController.value.text;
-              _rollNo = _rollNoController.value.text;
-              _email = _emailController.value.text;
-              _password = _passwordController.value.text;
-              if (_name.isNotEmpty &&
-                  _rollNo.isNotEmpty &&
-                  _email.isNotEmpty &&
-                  _password.isNotEmpty) {
-                try {
-                  widget.auth
-                      .signUpWithDisplayName(_email, _password, 'cr')
-                      .whenComplete(() {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CreateClass(
-                          auth: widget.auth,
-                          loginCallback: widget.loginCallback,
-                          name: _name,
-                          rollNo: _rollNo,
-                          email: _email,
-                        )));
-                  });
-                } catch (err) {
-                  print(err);
-                  setState(() {
-                    _errorMessage = loginErrorCodes(err);
-                  });
+            loginButtons(
+              context,
+              'Sign Up',
+              () {
+                _name = _nameController.value.text;
+                _rollNo = _rollNoController.value.text;
+                _email = _emailController.value.text;
+                _password = _passwordController.value.text;
+                if (_name.isNotEmpty &&
+                    _rollNo.isNotEmpty &&
+                    _email.isNotEmpty &&
+                    _password.isNotEmpty) {
+                  try {
+                    widget.auth
+                        .signUpWithDisplayName(_email, _password, 'cr')
+                        .whenComplete(
+                      () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CreateClass(
+                              auth: widget.auth,
+                              loginCallback: widget.loginCallback,
+                              name: _name,
+                              rollNo: _rollNo,
+                              email: _email,
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  } catch (err) {
+                    print(err);
+                    setState(
+                      () {
+                        _errorMessage = loginErrorCodes(err);
+                      },
+                    );
+                  }
                 }
-              }
-            }),
+              },
+            ),
           ],
         ),
       ),

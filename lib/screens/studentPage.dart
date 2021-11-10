@@ -7,12 +7,12 @@ import 'package:timetable/services/authentication.dart';
 class StudentPage extends StatefulWidget {
   StudentPage(
       {Key key,
-        this.email,
-        this.auth,
-        this.userId,
-        this.logoutCallback,
-        this.code,
-        this.data});
+      this.email,
+      this.auth,
+      this.userId,
+      this.logoutCallback,
+      this.code,
+      this.data});
 
   final BaseAuth auth;
   final VoidCallback logoutCallback;
@@ -44,17 +44,14 @@ class _StudentPageState extends State<StudentPage> {
           BottomNavigationBarItem(
             activeIcon: Icon(Icons.announcement, size: 27, color: Colors.blue),
             icon: Icon(Icons.announcement, size: 27, color: Colors.grey),
-            title: Container(),
           ),
           BottomNavigationBarItem(
             activeIcon: Icon(Icons.home, size: 27, color: Colors.blue),
             icon: Icon(Icons.home, size: 27, color: Colors.grey),
-            title: Container(),
           ),
           BottomNavigationBarItem(
             activeIcon: Icon(Icons.person, size: 27, color: Colors.blue),
             icon: Icon(Icons.person, size: 27, color: Colors.grey),
-            title: Container(),
           ),
         ],
       ),
@@ -62,15 +59,15 @@ class _StudentPageState extends State<StudentPage> {
         child: (_page == 0)
             ? AnnouncementsPage(code: widget.code, user: widget.userId)
             : (_page == 1)
-            ? TodayClassesPage(code: widget.code)
-            : DetailsPage(
-          code: widget.code,
-          user: widget.userId,
-          logoutCallback: widget.logoutCallback,
-          auth: widget.auth,
-          details: widget.data['details'],
-          subjects: widget.data['subjects'],
-        ),
+                ? TodayClassesPage(code: widget.code)
+                : DetailsPage(
+                    code: widget.code,
+                    user: widget.userId,
+                    logoutCallback: widget.logoutCallback,
+                    auth: widget.auth,
+                    details: widget.data['details'],
+                    subjects: widget.data['subjects'],
+                  ),
       ),
     );
   }
