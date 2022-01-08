@@ -3,7 +3,7 @@ description: A Flutter application for Time Table for students
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.1.0+7
+version: 2.8.1
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -13,14 +13,14 @@ dependencies:
     sdk: flutter
 
   # Services
-  url_launcher: ^5.5.0
-  shared_preferences: ^0.5.10
+  url_launcher: ^6.0.17
+  shared_preferences: ^2.0.11
 #  flutter_datetime_picker: ^1.4.0
 #  android_alarm_manager: ^0.4.5+11
 #  flutter_local_notifications: ^1.4.4+4
-  http: ^0.12.0+4
-  path_provider: ^1.6.1
-  rxdart: ^0.23.1
+  http: ^0.13.4
+  path_provider: ^2.0.8
+  rxdart: ^0.27.3
 
   # Firebase Services
   firebase_auth: ^0.16.1
