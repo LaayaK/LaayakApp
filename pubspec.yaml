@@ -23,9 +23,11 @@ dependencies:
   rxdart: ^0.27.3
 
   # Firebase Services
-  firebase_auth: ^0.16.1
-  cloud_firestore: ^0.13.7
-  firebase_messaging: ^6.0.16
+  firebase_auth: ^3.3.6
+  cloud_firestore: ^3.1.7
+  firebase_messaging: ^11.2.6
+  firebase_core: ^1.12.0
+
 
 
   cupertino_icons: ^1.0.4
