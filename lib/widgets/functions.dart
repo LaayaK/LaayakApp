@@ -27,19 +27,19 @@ void copyText(BuildContext context, String text) {
 }
 
 void addLectureLinkFirestore(String code, Map<String, dynamic> lecture) {
-  Firestore.instance
+  FirebaseFirestore.instance
       .collection('classes')
-      .document('$code/lectures/lecturesToday')
-      .updateData({
+      .doc('$code/lectures/lecturesToday')
+      .update({
     'lectures': FieldValue.arrayUnion([lecture])
   });
 }
 
 void addAnnouncementFirestore(String code, Map<String, dynamic> announcement) {
-  Firestore.instance
+  FirebaseFirestore.instance
       .collection('classes')
-      .document('$code/updates/announcements')
-      .updateData(
+      .doc('$code/updates/announcements')
+      .update(
     {
       'announcements': FieldValue.arrayUnion([announcement])
     },
@@ -47,28 +47,28 @@ void addAnnouncementFirestore(String code, Map<String, dynamic> announcement) {
 }
 
 void addLinkFirestore(String code, Map<String, dynamic> link) {
-  Firestore.instance
+  FirebaseFirestore.instance
       .collection('classes')
-      .document('$code/updates/announcements')
-      .updateData({
+      .doc('$code/updates/announcements')
+      .update({
     'announcements': FieldValue.arrayUnion([link])
   });
 }
 
 void addAssignFirestore(String code, Map<String, dynamic> assign) {
-  Firestore.instance
+  FirebaseFirestore.instance
       .collection('classes')
-      .document('$code/updates/announcements')
-      .updateData({
+      .doc('$code/updates/announcements')
+      .update({
     'assignments': FieldValue.arrayUnion([assign])
   });
 }
 
 void addPollFirestore(String code, Map<String, dynamic> poll) {
-  Firestore.instance
+  FirebaseFirestore.instance
       .collection('classes')
-      .document('$code/updates/announcements')
-      .updateData({
+      .doc('$code/updates/announcements')
+      .update({
     'announcements': FieldValue.arrayUnion([poll])
   });
 }
@@ -121,11 +121,11 @@ void pollTap(
     text = data['noOption'];
     data['noCount']++;
   }
-  var docData = await Firestore.instance
+  var docData = await FirebaseFirestore.instance
       .collection('classes')
-      .document('$code/updates/announcements')
+      .doc('$code/updates/announcements')
       .get();
-  List<dynamic> announcements = docData.data['announcements'];
+  List<dynamic> announcements = docData.data()['announcements'];
   print('announcements set up');
   for (int i = 0; i < announcements.length; i++) {
     print(announcements[i]['type']);
@@ -135,10 +135,10 @@ void pollTap(
       break;
     }
   }
-  Firestore.instance
+  FirebaseFirestore.instance
       .collection('classes')
-      .document('$code/updates/announcements')
-      .updateData({'announcements': announcements});
+      .doc('$code/updates/announcements')
+      .update({'announcements': announcements});
   final snackBar =
       SnackBar(content: Text('You have responded $text successfully'));
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -156,9 +156,9 @@ void storeFCMToken(String code) {
 //  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 //  _firebaseMessaging.getToken().then((deviceToken) {
 //    print('Device Token : $deviceToken');
-//    Firestore.instance
+//    FirebaseFirestore.instance
 //        .collection('classes/$code/fcmTokens')
-//        .document('fcmTokens')
+//        .doc('fcmTokens')
 //        .setData({
 //      'fcmTokens': FieldValue.arrayUnion([deviceToken])
 //    }, merge: true);
@@ -170,18 +170,18 @@ void deleteFCMToken(String code) {
 //  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 //  _firebaseMessaging.getToken().then((deviceToken) async {
 //    print('Device Token : $deviceToken');
-//    var data = await Firestore.instance
+//    var data = await FirebaseFirestore.instance
 //        .collection('classes/$code/fcmTokens')
-//        .document('fcmTokens')
+//        .doc('fcmTokens')
 //        .get();
 //    List<dynamic> newTokens = [], fcmTokens = data['fcmTokens'];
 //    for (int i = 0; i < fcmTokens.length; i++) {
 //      if (fcmTokens[i] != deviceToken) newTokens.add(fcmTokens[i]);
 //    }
-//    Firestore.instance
+//    FirebaseFirestore.instance
 //        .collection('classes/$code/fcmTokens')
-//        .document('fcmTokens')
-//        .updateData({'fcmTokens': newTokens});
+//        .doc('fcmTokens')
+//        .update({'fcmTokens': newTokens});
 //  });
 }
 

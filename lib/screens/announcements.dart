@@ -22,9 +22,9 @@ class _AnnouncementsPageState extends State<AnnouncementsPage> {
             height: MediaQuery.of(context).size.height - 200,
             width: MediaQuery.of(context).size.width,
             child: FutureBuilder<DocumentSnapshot>(
-              future: Firestore.instance
+              future: FirebaseFirestore.instance
                   .collection('classes')
-                  .document('${widget.code}/updates/announcements')
+                  .doc('${widget.code}/updates/announcements')
                   .get(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData)

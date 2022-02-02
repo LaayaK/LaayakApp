@@ -54,10 +54,10 @@ class _CreateTeacherState extends State<CreateTeacher> {
                         .signUpWithDisplayName(_email, _password, 'teacher')
                         .whenComplete(
                       () {
-                        Firestore.instance
+                        FirebaseFirestore.instance
                             .collection('teachers')
-                            .document(_email)
-                            .updateData({
+                            .doc(_email)
+                            .update({
                           'details': {
                             'college': _college,
                             'name': _name,

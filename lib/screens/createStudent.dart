@@ -59,10 +59,10 @@ class _CreateStudentState extends State<CreateStudent> {
                         .signUpWithDisplayName(_email, _password, 'student')
                         .whenComplete(
                       () {
-                        Firestore.instance
+                        FirebaseFirestore.instance
                             .collection('students')
-                            .document(_email)
-                            .setData(
+                            .doc(_email)
+                            .set(
                           {
                             'classCode': _classCode,
                             'email': _email,
@@ -72,10 +72,10 @@ class _CreateStudentState extends State<CreateStudent> {
                           },
                         ).whenComplete(
                           () {
-                            Firestore.instance
+                            FirebaseFirestore.instance
                                 .collection('classes/$_classCode/details')
-                                .document('stuList')
-                                .updateData(
+                                .doc('stuList')
+                                .update(
                               {
                                 'studentsList': FieldValue.arrayUnion(
                                   [

@@ -34,8 +34,12 @@ class _RootPageState extends State<RootPage> {
     loginCallback();
   }
 
-  void determineUserCode(FirebaseUser user) async {
-    await Firestore.instance.collection('classes').document(_code).get().then(
+  void determineUserCode(User user) async {
+    await FirebaseFirestore.instance
+        .collection('classes')
+        .doc(_code)
+        .get()
+        .then(
       (data) {
         if (data.exists) {
           setState(() {
@@ -65,9 +69,9 @@ class _RootPageState extends State<RootPage> {
           print('user is not null');
           if (user.displayName == 'cr') {
             print('user is cr');
-            await Firestore.instance
+            await FirebaseFirestore.instance
                 .collection('cr')
-                .document(user.email)
+                .doc(user.email)
                 .get()
                 .then((data) {
               _code = data['classId'];
@@ -76,9 +80,9 @@ class _RootPageState extends State<RootPage> {
             });
           } else if (user.displayName == 'student') {
             print('user is student');
-            await Firestore.instance
+            await FirebaseFirestore.instance
                 .collection('students')
-                .document(user.email)
+                .doc(user.email)
                 .get()
                 .then((data) {
               _code = data['classCode'];
