@@ -53,14 +53,14 @@ class _CreateClassState extends State<CreateClass> {
                     _course.isNotEmpty &&
                     _semester.isNotEmpty) {
                   try {
-                    String docId = Firestore.instance
+                    String docId = FirebaseFirestore.instance
                         .collection('classes')
-                        .document()
+                        .doc()
                         .documentID;
-                    Firestore.instance
+                    FirebaseFirestore.instance
                         .collection('classes')
-                        .document(docId)
-                        .setData({
+                        .doc(docId)
+                        .set({
                       'crDetails': {
                         'classId': docId,
                         'email': widget.email,
@@ -80,10 +80,10 @@ class _CreateClassState extends State<CreateClass> {
                       'timetable':
                           'https://www.softwaresuggest.com/blog/wp-content/uploads/2019/10/Advantages-of-Timetable-Management-System-in-Schools-1.png'
                     }).whenComplete(() {
-                      Firestore.instance
+                      FirebaseFirestore.instance
                           .collection('classes/$docId/details')
-                          .document('stuList')
-                          .setData(
+                          .doc('stuList')
+                          .set(
                         {
                           'studentsList': FieldValue.arrayUnion(
                             [
@@ -96,18 +96,18 @@ class _CreateClassState extends State<CreateClass> {
                           ),
                         },
                       );
-                      Firestore.instance
+                      FirebaseFirestore.instance
                           .collection('classes/$docId/lectures')
-                          .document('lecturesToday')
-                          .setData(
+                          .doc('lecturesToday')
+                          .set(
                         {
                           'lectures': [],
                         },
                       );
-                      Firestore.instance
+                      FirebaseFirestore.instance
                           .collection('classes/$docId/updates')
-                          .document('announcements')
-                          .setData(
+                          .doc('announcements')
+                          .set(
                         {
                           'announcements': [],
                           'assignments': [],

@@ -23,9 +23,9 @@ class _TodayClassesPageState extends State<TodayClassesPage> {
             height: MediaQuery.of(context).size.height - 200,
             width: MediaQuery.of(context).size.width,
             child: FutureBuilder<DocumentSnapshot>(
-              future: Firestore.instance
+              future: FirebaseFirestore.instance
                   .collection('classes')
-                  .document('${widget.code}/lectures/lecturesToday')
+                  .doc('${widget.code}/lectures/lecturesToday')
                   .get(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData)
